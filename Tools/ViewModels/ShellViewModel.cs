@@ -1,24 +1,24 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ShellViewModel.cs" company="Robert Logiewa">
-//   (C) All rights reserved
+//   (C) All rights reseved
 // </copyright>
 // <summary>
-//   Defines the ShellViewModel type.
+//   Defines the ShellViewModel.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace RpgTools.ViewModels
+namespace RpgTools.Main.ViewModels
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.ComponentModel.Composition;
-
+    using System.Linq;
 
     using PropertyChanged;
 
     using RpgTools.Core.Contracts;
 
+    /// <summary>Defines the ShellViewModel.</summary>
     [ImplementPropertyChanged]
     [Export(typeof(IShell))]
     public class ShellViewModel : IShell
@@ -30,11 +30,7 @@ namespace RpgTools.ViewModels
         {
         }
 
-        public IRpgModuleContract CurrentModule
-        {
-            get;
-            set;
-        }
+        public IRpgModuleContract CurrentModule { get; set; }
 
         public void SelectModule(string name)
         {

@@ -1,4 +1,4 @@
-﻿namespace RpgTools.ViewModels
+﻿namespace RpgTools.Main.ViewModels
 {
     using System.ComponentModel.Composition;
 

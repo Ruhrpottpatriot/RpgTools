@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace RpgTools
+namespace RpgTools.Main
 {
     using System;
     using System.Collections.Generic;

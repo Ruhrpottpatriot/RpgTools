@@ -50,7 +50,7 @@ namespace RpgTools.Locations
             : base("name=RpgTools")
         {
             // Set the initializer. ToDo: Needs to be changed for production enviroment.
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<LocationRepository, Migrations.Configuration>(true));
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<LocationRepository, Migrations.Configuration>(true));
 
             this.LocationsDbSet = this.Set<LocationDataContract>();
 
