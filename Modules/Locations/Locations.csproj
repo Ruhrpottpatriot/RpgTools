@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{80E4E7FE-E727-4946-AE56-0782A2AA1EF9}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RpgTools.Locations</RootNamespace>
+    <AssemblyName>Locations</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Converter\CityDataContractConverter.cs" />
+    <Compile Include="Converter\CityLocationConverter.cs" />
+    <Compile Include="Converter\LocationConverter.cs" />
+    <Compile Include="Converter\LocationDataContractConverter.cs" />
+    <Compile Include="Converter\PlanetDataContractConverter.cs" />
+    <Compile Include="Converter\PlanetLocationConverter.cs" />
+    <Compile Include="Converter\ResponseConverter.cs" />
+    <Compile Include="Converter\SectorDataContractConverter.cs" />
+    <Compile Include="Converter\SectorLocationConverter.cs" />
+    <Compile Include="Converter\StarSystemLocationConverter.cs" />
+    <Compile Include="Converter\SystemDataContractConverter.cs" />
+    <Compile Include="DataContracts\CityDetailsDataContract.cs" />
+    <Compile Include="DataContracts\LocationDataContract.cs" />
+    <Compile Include="DataContracts\LocationDetailsDataContract.cs" />
+    <Compile Include="DataContracts\PlanetDetailsDataContract.cs" />
+    <Compile Include="DataContracts\SectorDetailsDataContract.cs" />
+    <Compile Include="DataContracts\StarSystemDetailsDataContract.cs" />
+    <Compile Include="LocationRepository.cs" />
+    <Compile Include="LocationRepositoryFactory.cs" />
+    <Compile Include="Migrations\201503111633274_Initial.cs" />
+    <Compile Include="Migrations\201503111633274_Initial.Designer.cs">
+      <DependentUpon>201503111633274_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503111635149_Version1.cs" />
+    <Compile Include="Migrations\201503111635149_Version1.Designer.cs">
+      <DependentUpon>201503111635149_Version1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503111636395_Version2.cs" />
+    <Compile Include="Migrations\201503111636395_Version2.Designer.cs">
+      <DependentUpon>201503111636395_Version2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Core.csproj">
+      <Project>{8eca933f-6458-441c-9963-479c91ca664f}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201503111633274_Initial.resx">
+      <DependentUpon>201503111633274_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503111635149_Version1.resx">
+      <DependentUpon>201503111635149_Version1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503111636395_Version2.resx">
+      <DependentUpon>201503111636395_Version2.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
