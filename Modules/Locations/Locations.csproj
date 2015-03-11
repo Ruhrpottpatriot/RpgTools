@@ -49,9 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Converter\CityDataContractConverter.cs" />
     <Compile Include="Converter\CityLocationConverter.cs" />
     <Compile Include="Converter\LocationConverter.cs" />
