@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Locations", "Modules\Locati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Tools\Main.csproj", "{38EBE28F-F2F5-4BA8-9AA8-5B0D7D1806EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Characters", "Modules\Characters\Characters.csproj", "{0C841830-4CF5-4C8E-A557-A0A811C1A00F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,11 +37,16 @@ Global
 		{38EBE28F-F2F5-4BA8-9AA8-5B0D7D1806EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38EBE28F-F2F5-4BA8-9AA8-5B0D7D1806EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38EBE28F-F2F5-4BA8-9AA8-5B0D7D1806EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C841830-4CF5-4C8E-A557-A0A811C1A00F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C841830-4CF5-4C8E-A557-A0A811C1A00F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C841830-4CF5-4C8E-A557-A0A811C1A00F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C841830-4CF5-4C8E-A557-A0A811C1A00F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{80E4E7FE-E727-4946-AE56-0782A2AA1EF9} = {E65F4101-E58C-4234-9C95-8697F22C3789}
+		{0C841830-4CF5-4C8E-A557-A0A811C1A00F} = {E65F4101-E58C-4234-9C95-8697F22C3789}
 	EndGlobalSection
 EndGlobal

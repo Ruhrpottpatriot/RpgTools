@@ -16,7 +16,7 @@ namespace RpgTools.Locations.Converter
     /// <typeparam name="TValue">
     /// The type of the converted value.
     /// </typeparam>
-    internal sealed class ResponseConverter<TDataContract, TValue> : IConverter<IResponse<TDataContract>, TValue>
+    public sealed class ResponseConverter<TDataContract, TValue> : IConverter<IResponse<TDataContract>, TValue>
     {
         /// <summary>Infrastructure. Holds a reference to a type converter.</summary>
         private readonly IConverter<TDataContract, TValue> dataContractConverter;

@@ -44,20 +44,25 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DbBool.cs" />
     <Compile Include="Common\DictionaryRange.cs" />
     <Compile Include="Common\DictionaryRangeConverter.cs" />
     <Compile Include="Common\IChangeableRepository.cs" />
+    <Compile Include="Common\ICharacterRepository.cs" />
     <Compile Include="Common\IConverter.cs" />
     <Compile Include="Common\IDictionaryRange.cs" />
     <Compile Include="Common\IDiscoverable.cs" />
@@ -70,11 +75,18 @@
     <Compile Include="Common\ITimeSensitive.cs" />
     <Compile Include="Common\IWriteable.cs" />
     <Compile Include="Common\Response.cs" />
+    <Compile Include="Common\ResponseConverter.cs" />
     <Compile Include="Common\ServiceException.cs" />
     <Compile Include="Contracts\IRpgModuleContract.cs" />
     <Compile Include="Contracts\IRpgModuleMetadata.cs" />
     <Compile Include="Contracts\IShell.cs" />
     <Compile Include="Contracts\RpgModuleMetadataAttribute.cs" />
+    <Compile Include="Models\Characters\Character.cs" />
+    <Compile Include="Models\Characters\Character.Family.cs" />
+    <Compile Include="Models\Characters\Character.Metadata.cs" />
+    <Compile Include="Models\Characters\Character.PhysicalAppearance.cs" />
+    <Compile Include="Models\Characters\Character.PhysicalAppearance.Face.cs" />
+    <Compile Include="Models\Characters\Character.PhysicalAppearance.FemaleMeasurements.cs" />
     <Compile Include="Models\Locations\City.cs" />
     <Compile Include="Models\Locations\Location.cs" />
     <Compile Include="Models\Locations\Planet.cs" />

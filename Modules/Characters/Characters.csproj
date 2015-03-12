@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{80E4E7FE-E727-4946-AE56-0782A2AA1EF9}</ProjectGuid>
+    <ProjectGuid>{0C841830-4CF5-4C8E-A557-A0A811C1A00F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RpgTools.Locations</RootNamespace>
-    <AssemblyName>Locations</AssemblyName>
+    <RootNamespace>Characters</RootNamespace>
+    <AssemblyName>Characters</AssemblyName>
     <TargetFrameworkVersion>v4.5.3</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -30,15 +30,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -50,35 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converter\CityDataContractConverter.cs" />
-    <Compile Include="Converter\CityLocationConverter.cs" />
-    <Compile Include="Converter\LocationConverter.cs" />
-    <Compile Include="Converter\LocationDataContractConverter.cs" />
-    <Compile Include="Converter\PlanetDataContractConverter.cs" />
-    <Compile Include="Converter\PlanetLocationConverter.cs" />
-    <Compile Include="Converter\SectorDataContractConverter.cs" />
-    <Compile Include="Converter\SectorLocationConverter.cs" />
-    <Compile Include="Converter\StarSystemLocationConverter.cs" />
-    <Compile Include="Converter\SystemDataContractConverter.cs" />
-    <Compile Include="DataContracts\CityDetailsDataContract.cs" />
-    <Compile Include="DataContracts\LocationDataContract.cs" />
-    <Compile Include="DataContracts\LocationDetailsDataContract.cs" />
-    <Compile Include="DataContracts\PlanetDetailsDataContract.cs" />
-    <Compile Include="DataContracts\SectorDetailsDataContract.cs" />
-    <Compile Include="DataContracts\StarSystemDetailsDataContract.cs" />
-    <Compile Include="LocationRepository.cs" />
-    <Compile Include="LocationRepositoryFactory.cs" />
-    <Compile Include="Migrations\201503111633274_Initial.cs" />
-    <Compile Include="Migrations\201503111633274_Initial.Designer.cs">
-      <DependentUpon>201503111633274_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503111635149_Version1.cs" />
-    <Compile Include="Migrations\201503111635149_Version1.Designer.cs">
-      <DependentUpon>201503111635149_Version1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503111636395_Version2.cs" />
-    <Compile Include="Migrations\201503111636395_Version2.Designer.cs">
-      <DependentUpon>201503111636395_Version2.cs</DependentUpon>
+    <Compile Include="Converters\CharacterConverter.cs" />
+    <Compile Include="DataContracts\CharacterDataContract.cs" />
+    <Compile Include="Converters\CharacterDataContractConverter.cs" />
+    <Compile Include="CharactersRepository.cs" />
+    <Compile Include="DataContracts\PhysicalApperance.cs" />
+    <Compile Include="DataContracts\Relative.cs" />
+    <Compile Include="Migrations\201503121901154_Initial.cs" />
+    <Compile Include="Migrations\201503121901154_Initial.Designer.cs">
+      <DependentUpon>201503121901154_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,14 +71,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503111633274_Initial.resx">
-      <DependentUpon>201503111633274_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503111635149_Version1.resx">
-      <DependentUpon>201503111635149_Version1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503111636395_Version2.resx">
-      <DependentUpon>201503111636395_Version2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503121901154_Initial.resx">
+      <DependentUpon>201503121901154_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

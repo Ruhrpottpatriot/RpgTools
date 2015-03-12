@@ -29,6 +29,8 @@ namespace RpgTools.Main.ViewModels
             this.eventAggregator = eventAggregator;
             this.windowManager = windowManager;
             this.locationRepository = locationRepository;
+
+
         }
 
         public Location Location { get; set; }
