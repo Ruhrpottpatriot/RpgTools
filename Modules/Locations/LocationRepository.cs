@@ -75,19 +75,26 @@ namespace RpgTools.Locations
         /// <inheritdoc />
         Task<ICollection<Guid>> IDiscoverable<Guid>.DiscoverAsync()
         {
-            throw new NotSupportedException("Asynchronously discovering items is not supported in a database based repository.");
+            ILocationRepository self = this;
+            return self.DiscoverAsync(CancellationToken.None);
         }
 
         /// <inheritdoc />
         Task<ICollection<Guid>> IDiscoverable<Guid>.DiscoverAsync(CancellationToken cancellationToken)
         {
-            throw new NotSupportedException("Asynchronously discovering items is not supported in a database based repository.");
+            var task = new Task<ICollection<Guid>>(
+                () =>
+                {
+                    return this.LocationsDbSet.Select(loc => loc.Id).ToList();
+                }, cancellationToken);
+
+            return task;
         }
 
         /// <inheritdoc />
         Location IRepository<Guid, Location>.Find(Guid identifier)
         {
-            var location = this.LocationsDbSet.Single(l => l.Id == identifier);
+            var location = this.LocationsDbSet.SingleOrDefault(l => l.Id == identifier);
 
             this.GetLocationWithDetails(location);
 
@@ -161,7 +168,7 @@ namespace RpgTools.Locations
 
             this.SaveChangesAsync(cancellationToken);
         }
-        
+
         /// <summary>
         /// This method is called when the model for a derived context has been initialized, but
         /// before the model has been locked down and used to initialize the context.  The default
@@ -183,27 +190,27 @@ namespace RpgTools.Locations
 
             modelBuilder.Entity<CityDetailsDataContract>().Map(
                 m =>
-                    {
-                        m.MapInheritedProperties();
-                    });
+                {
+                    m.MapInheritedProperties();
+                });
 
             modelBuilder.Entity<PlanetDetailsDataContract>().Map(
                 m =>
-                    {
-                        m.MapInheritedProperties();
-                    });
+                {
+                    m.MapInheritedProperties();
+                });
 
             modelBuilder.Entity<StarSystemDetailsDataContract>().Map(
                 m =>
-                    {
-                        m.MapInheritedProperties();
-                    });
+                {
+                    m.MapInheritedProperties();
+                });
 
             modelBuilder.Entity<SectorDetailsDataContract>().Map(
                 m =>
-                    {
-                        m.MapInheritedProperties();
-                    });
+                {
+                    m.MapInheritedProperties();
+                });
         }
 
         /// <summary>

@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Locations", "Modules\Locations\Locations.csproj", "{80E4E7FE-E727-4946-AE56-0782A2AA1EF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools", "Tools\Tools.csproj", "{38EBE28F-F2F5-4BA8-9AA8-5B0D7D1806EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Tools\Main.csproj", "{38EBE28F-F2F5-4BA8-9AA8-5B0D7D1806EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
