@@ -52,7 +52,6 @@
     <Compile Include="Converters\CharacterDataContractConverter.cs" />
     <Compile Include="CharactersRepository.cs" />
     <Compile Include="DataContracts\PhysicalApperance.cs" />
-    <Compile Include="DataContracts\Relative.cs" />
     <Compile Include="Migrations\201503121901154_Initial.cs" />
     <Compile Include="Migrations\201503121901154_Initial.Designer.cs">
       <DependentUpon>201503121901154_Initial.cs</DependentUpon>
