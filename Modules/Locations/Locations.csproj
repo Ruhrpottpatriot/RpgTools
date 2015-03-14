@@ -50,6 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Requests\LocationCompleteDatabaseRequest.cs" />
+    <Compile Include="Requests\LocationBulkDatabaseRequest.cs" />
+    <Compile Include="Requests\LocationDetailsDatabaseRequest.cs" />
+    <Compile Include="Requests\LocationDiscoveryDatabaseRequest.cs" />
     <Compile Include="Converter\CityDataContractConverter.cs" />
     <Compile Include="Converter\CityLocationConverter.cs" />
     <Compile Include="Converter\LocationConverter.cs" />
@@ -66,6 +70,7 @@
     <Compile Include="DataContracts\PlanetDetailsDataContract.cs" />
     <Compile Include="DataContracts\SectorDetailsDataContract.cs" />
     <Compile Include="DataContracts\StarSystemDetailsDataContract.cs" />
+    <Compile Include="LocationContext.cs" />
     <Compile Include="LocationRepository.cs" />
     <Compile Include="LocationRepositoryFactory.cs" />
     <Compile Include="Migrations\201503111633274_Initial.cs" />
@@ -82,6 +87,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DatabaseServiceClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

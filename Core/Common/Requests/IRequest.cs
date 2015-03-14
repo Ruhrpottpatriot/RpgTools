@@ -4,9 +4,10 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace RpgTools.Core.Common
+namespace RpgTools.Core.Common.Requests
 {
-    public interface IRequest
+    public interface IRequest<out TData>
     {
+        TData Resource { get; }
     }
 }

@@ -72,7 +72,7 @@ namespace Tests
                                {
                                    Coordinates = ConvertLatLonToDbGeography(1, 5),
                                    Description = "Test",
-                                   Id = Guid.NewGuid(),
+                                   Id = new Guid("578e1b06-0a09-49d4-b050-4bbb8016df8d"),
                                    Population = 10023,
                                    IsCapital = false,
                                    Name = "Stromsang",
@@ -80,6 +80,16 @@ namespace Tests
                                };
 
             repository.Write(location);
+        }
+
+        [Test]
+        public void RemoveTest()
+        {
+            ILocationRepository repository = new LocationRepository();
+
+            var location = new Location() { Id = new Guid("578e1b06-0a09-49d4-b050-4bbb8016df8d") };
+
+            repository.Delete(location);
         }
 
         public static DbGeography ConvertLatLonToDbGeography(double longitude, double latitude)

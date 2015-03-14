@@ -14,6 +14,7 @@ namespace Characters
     using System.Data.Entity;
     using System.Globalization;
     using System.Linq;
+    using System.Runtime.CompilerServices;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -21,8 +22,8 @@ namespace Characters
     using Characters.DataContracts;
 
     using RpgTools.Core.Common;
+    using RpgTools.Core.Common.Converter;
     using RpgTools.Core.Models.Characters;
-    using RpgTools.Locations.Converter;
 
     /// <summary>The characters repository.</summary>
     public sealed class CharactersRepository : DbContext, ICharacterRepository

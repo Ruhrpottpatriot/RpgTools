@@ -27,5 +27,18 @@ namespace RpgTools.Core.Common
         /// <param name="data">The data to write.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         void WriteAsync(TData data, CancellationToken cancellationToken);
+
+        /// <summary>Deletes a specific item from the database.</summary>
+        /// <param name="data">The item to delete.</param>
+        void Delete(TData data);
+
+        /// <summary>Asynchronously deletes a specific item from the database.</summary>
+        /// <param name="data">The item to delete.</param>
+        void DeleteAsync(TData data);
+
+        /// <summary>Asynchronously deletes a specific item from the database.</summary>
+        /// <param name="data">The item to delete.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        void DeleteAsync(TData data, CancellationToken cancellationToken);
     }
 }

@@ -7,14 +7,14 @@ namespace RpgTools.Locations.Migrations
 
     using RpgTools.Locations.DataContracts;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<RpgTools.Locations.LocationRepository>
+    internal sealed class Configuration : DbMigrationsConfiguration<RpgTools.Locations.LocationContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(RpgTools.Locations.LocationRepository context)
+        protected override void Seed(RpgTools.Locations.LocationContext context)
         {
             // This method will be called after migrating to the latest version.
             // You can use the DbSet<T>.AddOrUpdate() helper extension method 
@@ -35,7 +35,7 @@ namespace RpgTools.Locations.Migrations
                           };
 
 
-            context.LocationsDbSet.AddOrUpdate(
+            context.Locations.AddOrUpdate(
                 l => l.Id,
                 new LocationDataContract
                 {

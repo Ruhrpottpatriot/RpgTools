@@ -25,7 +25,7 @@ namespace RpgTools.Core.Models.Characters
         }
 
         /// <summary>Gets or sets the image path.</summary>
-        public BitmapImage Portrait { get; set; }
+        public byte[] Portrait { get; set; }
 
         /// <summary>Gets or sets the characters age.</summary>
         public int Age { get; set; }

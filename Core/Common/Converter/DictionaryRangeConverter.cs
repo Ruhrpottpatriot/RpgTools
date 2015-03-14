@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace RpgTools.Core.Common
+namespace RpgTools.Core.Common.Converter
 {
     using System;
     using System.Collections.Generic;

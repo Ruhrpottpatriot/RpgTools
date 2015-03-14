@@ -25,7 +25,7 @@ namespace Characters.DataContracts
         public Guid Id { get; set; }
 
         /// <summary>Gets or sets the age.</summary>
-        public int? Age { get; set; }
+        public int Age { get; set; }
 
         /// <summary>Gets or sets the motto.</summary>
         public string Motto { get; set; }

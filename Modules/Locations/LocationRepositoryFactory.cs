@@ -51,7 +51,7 @@ namespace RpgTools.Locations
         /// <returns>A repository.</returns>
         public ILocationRepository ForDefaultCulture()
         {
-            return new LocationRepository();
+            return null; //new LocationRepository();
         }
 
         /// <summary>

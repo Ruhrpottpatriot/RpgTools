@@ -15,13 +15,18 @@ namespace RpgTools.Locations
     using System.Threading.Tasks;
 
     using RpgTools.Core.Common;
+    using RpgTools.Core.Common.Converter;
     using RpgTools.Core.Models.Locations;
     using RpgTools.Locations.Converter;
     using RpgTools.Locations.DataContracts;
+    using RpgTools.Locations.Requests;
 
     /// <summary>The location repository.</summary>
-    public sealed class LocationRepository : DbContext, ILocationRepository
+    public sealed class LocationRepository : ILocationRepository
     {
+        /// <summary>Infrastructure. Holds a reference to the identifiers converter.</summary>
+        private readonly IConverter<IResponse<ICollection<Guid>>, ICollection<Guid>> identifiersConverter;
+
         /// <summary>Infrastructure. Holds a reference to the response converter.</summary>
         private readonly IConverter<IResponse<LocationDataContract>, Location> responseConverter;
 
@@ -31,29 +36,25 @@ namespace RpgTools.Locations
         /// <summary>Infrastructure. Holds a reference to the bulk response converter.</summary>
         private readonly IConverter<IResponse<ICollection<LocationDataContract>>, IDictionaryRange<Guid, Location>> bulkResponseConverter;
 
+        /// <summary>Infrastructure. Holds a reference to the service client.</summary>
+        private readonly DatabaseServiceClient<LocationContext> databaseServiceClient;
+
         /// <summary>Initialises a new instance of the <see cref="LocationRepository"/> class.</summary>
         public LocationRepository()
-            : this(new LocationConverter(), new LocationDataContractConverter())
+            : this(new DatabaseServiceClient<LocationContext>(new LocationContext()), new LocationConverter(), new ConverterAdapter<ICollection<Guid>>(), new LocationDataContractConverter())
         {
         }
 
-        /// <summary>
-        /// Initialises a new instance of the <see cref="LocationRepository"/> class.
-        /// </summary>
-        /// <param name="locationConverter">
-        /// The location converter.
-        /// </param>
-        /// <param name="writeConverter">
-        /// The write Converter.
-        /// </param>
-        internal LocationRepository(IConverter<LocationDataContract, Location> locationConverter, IConverter<Location, LocationDataContract> writeConverter)
-            : base("name=RpgTools")
+        /// <summary>Initialises a new instance of the <see cref="LocationRepository"/> class.</summary>
+        /// <param name="databaseServiceClient">The service client.</param>
+        /// <param name="locationConverter">The location converter.</param>
+        /// <param name="collectionConverter">The collection Converter.</param>
+        /// <param name="writeConverter">The write Converter.</param>
+        internal LocationRepository(DatabaseServiceClient<LocationContext> databaseServiceClient, IConverter<LocationDataContract, Location> locationConverter, IConverter<ICollection<Guid>, ICollection<Guid>> collectionConverter, IConverter<Location, LocationDataContract> writeConverter)
         {
-            // Set the initializer. ToDo: Needs to be changed for production enviroment.
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<LocationRepository, Migrations.Configuration>(true));
+            this.databaseServiceClient = databaseServiceClient;
 
-            this.LocationsDbSet = this.Set<LocationDataContract>();
-
+            this.identifiersConverter = new ResponseConverter<ICollection<Guid>, ICollection<Guid>>(collectionConverter);
             this.responseConverter = new ResponseConverter<LocationDataContract, Location>(locationConverter);
             this.bulkResponseConverter = new DictionaryRangeConverter<LocationDataContract, Guid, Location>(locationConverter, location => location.Id);
 
@@ -63,13 +64,12 @@ namespace RpgTools.Locations
         /// <inheritdoc />
         CultureInfo ILocalizable.Culture { get; set; }
 
-        /// <summary>Gets or sets the locations data set.</summary>
-        internal DbSet<LocationDataContract> LocationsDbSet { get; set; }
-
         /// <inheritdoc />
         ICollection<Guid> IDiscoverable<Guid>.Discover()
         {
-            return this.LocationsDbSet.Select(loc => loc.Id).ToList();
+            var request = new LocationDiscoveryDatabaseRequest();
+            var response = this.databaseServiceClient.Query(request);
+            return this.identifiersConverter.Convert(response) ?? new List<Guid>(0);
         }
 
         /// <inheritdoc />
@@ -82,64 +82,46 @@ namespace RpgTools.Locations
         /// <inheritdoc />
         Task<ICollection<Guid>> IDiscoverable<Guid>.DiscoverAsync(CancellationToken cancellationToken)
         {
-            var task = new Task<ICollection<Guid>>(
-                () =>
-                {
-                    return this.LocationsDbSet.Select(loc => loc.Id).ToList();
-                }, cancellationToken);
-
-            return task;
+            var request = new LocationDiscoveryDatabaseRequest();
+            var responseTask = this.databaseServiceClient.QueryAsync(request, cancellationToken);
+            return responseTask.ContinueWith<ICollection<Guid>>(this.ConvertAsyncResponse, cancellationToken);
         }
 
         /// <inheritdoc />
         Location IRepository<Guid, Location>.Find(Guid identifier)
         {
-            var location = this.LocationsDbSet.SingleOrDefault(l => l.Id == identifier);
+            var request = new LocationDetailsDatabaseRequest()
+            {
+                Identifier = identifier
+            };
 
-            this.GetLocationWithDetails(location);
-
-            var response = this.CreateResponse(location, null, null);
-
+            var response = this.databaseServiceClient.Query(request);
             return this.responseConverter.Convert(response);
         }
 
         /// <inheritdoc />
         IDictionaryRange<Guid, Location> IRepository<Guid, Location>.FindAll(ICollection<Guid> identifiers)
         {
-            ICollection<LocationDataContract> locations = this.LocationsDbSet.Where(l => identifiers.Any(i => i == l.Id)).ToList();
+            var request = new LocationBulkDatabaseRequest { Identifiers = identifiers };
+            var response = this.databaseServiceClient.Query(request);
+            return this.bulkResponseConverter.Convert(response);
 
-            foreach (var location in locations)
-            {
-                this.GetLocationWithDetails(location);
-            }
-
-            var response = this.CreateResponse(locations, null, null);
-
-            IDictionaryRange<Guid, Location> result = this.bulkResponseConverter.Convert(response);
-
-            result.TotalCount = this.LocationsDbSet.Count();
-            result.SubtotalCount = result.Count;
-
-            return result;
+            // ToDo: Implement subtotal routine.
+            // result.TotalCount = this.LocationsDbSet.Count();
+            // result.SubtotalCount = result.Count;
         }
 
         /// <inheritdoc />
         IDictionaryRange<Guid, Location> IRepository<Guid, Location>.FindAll()
         {
-            ICollection<LocationDataContract> locations = this.LocationsDbSet.ToList();
+            var request = new LocationCompleteDatabaseRequest();
+            var response = this.databaseServiceClient.Query(request);
 
-            foreach (var location in locations)
-            {
-                this.GetLocationWithDetails(location);
-            }
-
-            var response = this.CreateResponse(locations, null, null);
-
-            var result = this.bulkResponseConverter.Convert(response);
-            result.SubtotalCount = result.Count;
-            result.TotalCount = result.Count;
-
-            return result;
+            return this.bulkResponseConverter.Convert(response);
+            
+            // ToDo: Implement subtotal routine.
+            // result.SubtotalCount = result.Count;
+            // result.TotalCount = result.Count;
         }
 
         /// <inheritdoc />
@@ -147,9 +129,9 @@ namespace RpgTools.Locations
         {
             var dataContractToWrite = this.writeConverter.Convert(data);
 
-            this.LocationsDbSet.AddOrUpdate(dataContractToWrite);
+            this.databaseServiceClient.Send(c => c.Locations.AddOrUpdate(dataContractToWrite));
 
-            this.SaveChanges();
+            this.databaseServiceClient.Send(c => c.SaveChanges());
         }
 
         /// <inheritdoc />
@@ -162,91 +144,35 @@ namespace RpgTools.Locations
         /// <inheritdoc />
         void IWriteable<Location>.WriteAsync(Location data, CancellationToken cancellationToken)
         {
-            var dataContractToWrite = this.writeConverter.Convert(data);
-
-            this.LocationsDbSet.AddOrUpdate(dataContractToWrite);
-
-            this.SaveChangesAsync(cancellationToken);
+            // var dataContractToWrite = this.writeConverter.Convert(data);
+            // this.LocationsDbSet.AddOrUpdate(dataContractToWrite);
+            // this.SaveChangesAsync(cancellationToken);
+            throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// This method is called when the model for a derived context has been initialized, but
-        /// before the model has been locked down and used to initialize the context.  The default
-        /// implementation of this method does nothing, but it can be overridden in a derived class
-        /// such that the model can be further configured before it is locked down.
-        /// </summary>
-        /// <remarks>
-        /// Typically, this method is called only once when the first instance of a derived context
-        /// is created.  The model for that context is then cached and is for all further instances of
-        /// the context in the app domain.  This caching can be disabled by setting the ModelCaching
-        /// property on the given ModelBuilder, but note that this can seriously degrade performance.
-        /// More control over caching is provided through use of the DbModelBuilder and DbContextFactory
-        /// classes directly.
-        /// </remarks>
-        /// <param name="modelBuilder">The builder that defines the model for the context being created. </param>
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        void IWriteable<Location>.Delete(Location data)
         {
-            modelBuilder.HasDefaultSchema("Locations");
+            var contract = this.writeConverter.Convert(data);
 
-            modelBuilder.Entity<CityDetailsDataContract>().Map(
-                m =>
-                {
-                    m.MapInheritedProperties();
-                });
-
-            modelBuilder.Entity<PlanetDetailsDataContract>().Map(
-                m =>
-                {
-                    m.MapInheritedProperties();
-                });
-
-            modelBuilder.Entity<StarSystemDetailsDataContract>().Map(
-                m =>
-                {
-                    m.MapInheritedProperties();
-                });
-
-            modelBuilder.Entity<SectorDetailsDataContract>().Map(
-                m =>
-                {
-                    m.MapInheritedProperties();
-                });
+            this.databaseServiceClient.Send(c => c.Locations.Remove(contract));
+            this.databaseServiceClient.Send(c => c.SaveChanges());
         }
 
-        /// <summary>
-        /// Gets the details of a <see cref="LocationDataContract"/>.
-        /// </summary>
-        /// <param name="location">
-        /// The location to get the details for.
-        /// </param>
-        private void GetLocationWithDetails(LocationDataContract location)
+        void IWriteable<Location>.DeleteAsync(Location data)
         {
-            switch (location.Type)
-            {
-                case "City":
-                    location.Details = this.Set<CityDetailsDataContract>().Single(d => d.Id == location.Id);
-                    break;
-                case "Planet":
-                    location.Details = this.Set<PlanetDetailsDataContract>().Single(d => d.Id == location.Id);
-                    break;
-                case "System":
-                    location.Details = this.Set<StarSystemDetailsDataContract>().Single(d => d.Id == location.Id);
-                    break;
-                case "Sector":
-                    location.Details = this.Set<SectorDetailsDataContract>().Single(d => d.Id == location.Id);
-                    break;
-            }
+            throw new NotImplementedException();
         }
 
-        /// <summary>Placeholder. Creates a response for a converter.</summary>
-        /// <param name="content">The content of the response.</param>
-        /// <param name="cultureInfo">The culture info.</param>
-        /// <param name="date">The date the query originated.</param>
-        /// <typeparam name="TData">The type of the response data.</typeparam>
-        /// <returns>A <see cref="IResponse{T}"/> with <see cref="TData"/> as content type.</returns>
-        private IResponse<TData> CreateResponse<TData>(TData content, CultureInfo cultureInfo, DateTimeOffset? date)
+        void IWriteable<Location>.DeleteAsync(Location data, CancellationToken cancellationToken)
         {
-            return new Response<TData> { Content = content, Date = date, Culture = cultureInfo };
+            throw new NotImplementedException();
+        }
+
+        private ICollection<Guid> ConvertAsyncResponse(Task<IResponse<ICollection<Guid>>> task)
+        {
+            var ids = this.identifiersConverter.Convert(task.Result);
+
+            return ids ?? new List<Guid>(0);
         }
     }
 }

@@ -58,9 +58,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\DbBool.cs" />
+    <Compile Include="Common\Converter\ConverterAdapter.cs" />
     <Compile Include="Common\DictionaryRange.cs" />
-    <Compile Include="Common\DictionaryRangeConverter.cs" />
+    <Compile Include="Common\Converter\DictionaryRangeConverter.cs" />
     <Compile Include="Common\IChangeableRepository.cs" />
     <Compile Include="Common\ICharacterRepository.cs" />
     <Compile Include="Common\IConverter.cs" />
@@ -69,13 +69,22 @@
     <Compile Include="Common\ILocalizable.cs" />
     <Compile Include="Common\ILocationRepository.cs" />
     <Compile Include="Common\IRepository.cs" />
-    <Compile Include="Common\IRequest.cs" />
     <Compile Include="Common\IResponse.cs" />
     <Compile Include="Common\ISubsetContext.cs" />
     <Compile Include="Common\ITimeSensitive.cs" />
     <Compile Include="Common\IWriteable.cs" />
+    <Compile Include="Common\Requests\BulkDatabaseRequest.cs" />
+    <Compile Include="Common\Requests\CompleteDatabaseRequest.cs" />
+    <Compile Include="Common\Requests\DetailsDatabaseRequest.cs" />
+    <Compile Include="Common\Requests\DiscoveryDatabaseRequest.cs" />
+    <Compile Include="Common\Requests\IBulkDatabaseRequest.cs" />
+    <Compile Include="Common\Requests\ICompleteDatabaseRequest.cs" />
+    <Compile Include="Common\Requests\IDatabaseRequest.cs" />
+    <Compile Include="Common\Requests\IDetailsDatabaseRequest.cs" />
+    <Compile Include="Common\Requests\IDiscoveryDatabaseRequest.cs" />
+    <Compile Include="Common\Requests\IRequest.cs" />
     <Compile Include="Common\Response.cs" />
-    <Compile Include="Common\ResponseConverter.cs" />
+    <Compile Include="Common\Converter\ResponseConverter.cs" />
     <Compile Include="Common\ServiceException.cs" />
     <Compile Include="Contracts\IRpgModuleContract.cs" />
     <Compile Include="Contracts\IRpgModuleMetadata.cs" />

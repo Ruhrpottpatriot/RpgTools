@@ -3,7 +3,7 @@
 //   (C) All rights reseved
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace RpgTools.Locations.Converter
+namespace RpgTools.Core.Common.Converter
 {
     using RpgTools.Core.Common;
 
