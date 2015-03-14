@@ -1,17 +1,17 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IDiscoveryRequest.cs" company="Robert Logiewa">
+// <copyright file="ICompleteRequest.cs" company="Robert Logiewa">
 //   (C) All rights reseved
 // </copyright>
 // <summary>
-//   Provides the base interface for all discovery requests against a database.
+//   Provides the interface for a complete database context query.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace RpgTools.Core.Common.Requests
 {
-    /// <summary>Provides the base interface for all discovery requests.</summary>
+    /// <summary>Provides the interface for a complete query.</summary>
     /// <typeparam name="TData">The type of data to return.</typeparam>
-    public interface IDiscoveryRequest<out TData> : IRequest<TData>
+    public interface ICompleteRequest<out TData> : IRequest<TData>
     {
     }
 }

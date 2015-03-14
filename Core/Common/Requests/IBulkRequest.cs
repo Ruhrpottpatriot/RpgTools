@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IBulkDatabaseRequest.cs" company="Robert Logiewa">
+// <copyright file="IBulkRequest.cs" company="Robert Logiewa">
 //   (C) All rights reseved
 // </copyright>
 // <summary>
@@ -11,11 +11,10 @@ namespace RpgTools.Core.Common.Requests
 {
     using System.Collections.Generic;
 
-    /// <summary>Provides the interface for bulk requests against a database.</summary>
-    /// <typeparam name="TContext">The database context to query.</typeparam>
-    /// <typeparam name="TData">The type of data to return.</typeparam>
+    /// <summary>Provides the interface for bulk requests.</summary>
+    /// <typeparam name="TData">The resource type.</typeparam>
     /// <typeparam name="TIdentifier">The identifier type.</typeparam>
-    public interface IBulkDatabaseRequest<in TContext, out TData, TIdentifier> : IDatabaseRequest<TContext, TData>
+    public interface IBulkRequest<out TData, TIdentifier> : IRequest<TData>
     {
         /// <summary>Gets the identifiers.</summary>
         ICollection<TIdentifier> Identifiers { get; }
