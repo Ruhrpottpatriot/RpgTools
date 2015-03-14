@@ -38,8 +38,9 @@ namespace RpgTools.Locations
         private readonly DatabaseServiceClient<LocationContext> serviceClient;
 
         /// <summary>Initialises a new instance of the <see cref="LocationRepository"/> class.</summary>
-        public LocationRepository()
-            : this(new DatabaseServiceClient<LocationContext>(new LocationContext()), new LocationConverter(), new ConverterAdapter<ICollection<Guid>>(), new LocationDataContractConverter())
+        /// <param name="serviceClient">The service to use.</param>
+        public LocationRepository(DatabaseServiceClient<LocationContext> serviceClient)
+            : this(serviceClient, new LocationConverter(), new ConverterAdapter<ICollection<Guid>>(), new LocationDataContractConverter())
         {
         }
 
@@ -88,7 +89,7 @@ namespace RpgTools.Locations
         /// <inheritdoc />
         Location IRepository<Guid, Location>.Find(Guid identifier)
         {
-            var request = new LocationDetailsRequest()
+            var request = new LocationDatabaseDetailsRequest
             {
                 Identifier = identifier
             };
@@ -116,7 +117,7 @@ namespace RpgTools.Locations
             var response = this.serviceClient.Query(request);
 
             return this.dictionaryRangeResponseConverter.Convert(response);
-            
+
             // ToDo: Implement subtotal routine.
             // result.SubtotalCount = result.Count;
             // result.TotalCount = result.Count;

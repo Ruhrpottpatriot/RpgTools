@@ -14,7 +14,7 @@ namespace RpgTools.Locations
     using RpgTools.Locations.DataContracts;
 
     /// <summary>Describes the location context.</summary>
-    internal sealed class LocationContext : DbContext
+    public sealed class LocationContext : DbContext
     {
         /// <summary>Initialises a new instance of the <see cref="LocationContext"/> class.</summary>
         public LocationContext()

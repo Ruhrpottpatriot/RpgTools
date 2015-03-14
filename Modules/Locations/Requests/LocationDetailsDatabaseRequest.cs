@@ -8,7 +8,7 @@ namespace RpgTools.Locations.Requests
     using RpgTools.Locations.DataContracts;
 
     /// <summary>Provides methods and properties to query location details from a database.</summary>
-    internal sealed class LocationDetailsRequest : DetailsRequest<LocationContext, LocationDataContract, Guid>
+    internal sealed class LocationDatabaseDetailsRequest : DatabaseDetailsRequest<LocationContext, LocationDataContract, Guid>
     {
         /// <inheritdoc />
         public override Func<LocationContext, LocationDataContract> Resource

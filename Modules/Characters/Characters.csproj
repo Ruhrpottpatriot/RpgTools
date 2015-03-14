@@ -50,6 +50,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CharacterRepositoryFactory.cs" />
+    <Compile Include="Requests\CharacterBulkRequest.cs" />
+    <Compile Include="Requests\CharacterCompleteRequest.cs" />
+    <Compile Include="CharacterContext.cs" />
+    <Compile Include="Requests\CharacterDetailsRequest.cs" />
+    <Compile Include="Requests\CharacterDiscoveryRequest.cs" />
     <Compile Include="Converters\CharacterConverter.cs" />
     <Compile Include="DataContracts\CharacterDataContract.cs" />
     <Compile Include="Converters\CharacterDataContractConverter.cs" />

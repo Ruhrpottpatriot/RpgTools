@@ -16,7 +16,7 @@ namespace Characters.Migrations
     /// <summary>
     /// The configuration.
     /// </summary>
-    internal sealed class Configuration : DbMigrationsConfiguration<CharactersRepository>
+    internal sealed class Configuration : DbMigrationsConfiguration<CharacterContext>
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="Configuration"/> class.
@@ -27,7 +27,7 @@ namespace Characters.Migrations
         }
 
         /// <inheritdoc />
-        protected override void Seed(CharactersRepository context)
+        protected override void Seed(CharacterContext context)
         {
             // This method will be called after migrating to the latest version.
 
@@ -47,7 +47,7 @@ namespace Characters.Migrations
                               new Guid("f28eaf77-076b-4425-a511-bdb349f897ae")
                           };
 
-            context.CharactersDbSet.AddOrUpdate(c => c.Id,
+            context.Characters.AddOrUpdate(c => c.Id,
                 new CharacterDataContract
                 {
                     Age = 21,

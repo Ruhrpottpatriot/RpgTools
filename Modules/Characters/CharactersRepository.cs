@@ -11,23 +11,28 @@ namespace Characters
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
     using System.Globalization;
-    using System.Linq;
-    using System.Runtime.CompilerServices;
     using System.Threading;
     using System.Threading.Tasks;
 
     using Characters.Converters;
     using Characters.DataContracts;
+    using Characters.Requests;
 
     using RpgTools.Core.Common;
     using RpgTools.Core.Common.Converter;
     using RpgTools.Core.Models.Characters;
 
     /// <summary>The characters repository.</summary>
-    public sealed class CharactersRepository : DbContext, ICharacterRepository
+    public sealed class CharactersRepository : ICharacterRepository
     {
+        /// <summary>Infrastructure. Holds a reference to the service client.</summary>
+        private readonly DatabaseServiceClient<CharacterContext> serviceClient;
+
+        /// <summary>Infrastructure. Holds a reference to the identifiers converter.</summary>
+        private readonly IConverter<IResponse<ICollection<Guid>>, ICollection<Guid>> identifiersConverter;
+
         /// <summary>Infrastructure. Holds a reference to the response converter.</summary>
         private readonly IConverter<IResponse<CharacterDataContract>, Character> responseConverter;
 
@@ -38,22 +43,22 @@ namespace Characters
         private readonly IConverter<IResponse<ICollection<CharacterDataContract>>, IDictionaryRange<Guid, Character>> bulkResponseConverter;
 
         /// <summary>Initialises a new instance of the <see cref="CharactersRepository"/> class.</summary>
-        public CharactersRepository()
-            : this(new CharacterConverter(), new CharacterDataContractConverter())
+        /// <param name="serviceClient">The service client to use.</param>
+        public CharactersRepository(DatabaseServiceClient<CharacterContext> serviceClient)
+            : this(serviceClient, new ConverterAdapter<ICollection<Guid>>(), new CharacterConverter(), new CharacterDataContractConverter())
         {
         }
 
         /// <summary>Initialises a new instance of the <see cref="CharactersRepository"/> class.</summary>
-        /// <param name="characterResponseConverter">The character response converter.</param>
+        /// <param name="serviceClient">The service client to use.</param>
+        /// <param name="identifiersConverter">The identifiers Converter.</param>
+        /// <param name="characterResponseConverter">The character response converter. </param>
         /// <param name="writeConverter">The write converter.</param>
-        internal CharactersRepository(IConverter<CharacterDataContract, Character> characterResponseConverter, IConverter<Character, CharacterDataContract> writeConverter)
-            : base("name=RpgTools")
+        internal CharactersRepository(DatabaseServiceClient<CharacterContext> serviceClient, IConverter<ICollection<Guid>, ICollection<Guid>> identifiersConverter, IConverter<CharacterDataContract, Character> characterResponseConverter, IConverter<Character, CharacterDataContract> writeConverter)
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<CharactersRepository, Migrations.Configuration>(true));
+            this.serviceClient = serviceClient;
 
-            this.CharactersDbSet = this.Set<CharacterDataContract>();
-
-            this.Count = this.CharactersDbSet.Count();
+            this.identifiersConverter = new ResponseConverter<ICollection<Guid>, ICollection<Guid>>(identifiersConverter);
 
             this.responseConverter = new ResponseConverter<CharacterDataContract, Character>(characterResponseConverter);
             this.bulkResponseConverter = new DictionaryRangeConverter<CharacterDataContract, Guid, Character>(characterResponseConverter, c => c.Metadata.Id);
@@ -64,16 +69,12 @@ namespace Characters
         /// <inheritdoc />
         CultureInfo ILocalizable.Culture { get; set; }
 
-        /// <summary>Gets or sets the characters db set.</summary>
-        internal DbSet<CharacterDataContract> CharactersDbSet { get; set; }
-
-        /// <summary>Gets or sets the number of items in the DbSet.</summary>
-        internal int Count { get; set; }
-
         /// <inheritdoc />
         ICollection<Guid> IDiscoverable<Guid>.Discover()
         {
-            return this.CharactersDbSet.Select(i => i.Id).ToList();
+            var request = new CharacterDiscoveryRequest();
+            var response = this.serviceClient.Query(request);
+            return this.identifiersConverter.Convert(response);
         }
 
         /// <inheritdoc />
@@ -86,62 +87,41 @@ namespace Characters
         /// <inheritdoc />
         Task<ICollection<Guid>> IDiscoverable<Guid>.DiscoverAsync(CancellationToken cancellationToken)
         {
-            throw new NotSupportedException("This operation is currently not supported.");
+            var request = new CharacterDiscoveryRequest();
+            var response = this.serviceClient.QueryAsync(request, cancellationToken);
+            return response.ContinueWith<ICollection<Guid>>(this.ConvertAsyncResponse, cancellationToken);
         }
 
         /// <inheritdoc />
         Character IRepository<Guid, Character>.Find(Guid identifier)
         {
-            var character = this.CharactersDbSet.SingleOrDefault(c => c.Id == identifier);
-
-            if (character == null)
-            {
-                return null;
-            }
-
-            this.GetCharacterDetails(character);
-
-            var response = this.CreateResponse(character);
-
+            var request = new CharacterDetailsRequest { Identifier = identifier };
+            var response = this.serviceClient.Query(request);
             return this.responseConverter.Convert(response);
         }
 
         /// <inheritdoc />
         IDictionaryRange<Guid, Character> IRepository<Guid, Character>.FindAll(ICollection<Guid> identifiers)
         {
-            ICollection<CharacterDataContract> characters = this.CharactersDbSet.Where(c => identifiers.Any(i => i == c.Id)).ToList();
+            var request = new CharacterBulkRequest { Identifiers = identifiers };
+            var response = this.serviceClient.Query(request);
 
-            foreach (var character in characters)
-            {
-                this.GetCharacterDetails(character);
-            }
-
-            var response = this.CreateResponse(characters);
-
-            var result = this.bulkResponseConverter.Convert(response);
-
-            result.TotalCount = this.Count;
-            result.SubtotalCount = result.Count;
-
-            return result;
+            // ToDo: Implement subtotal routine.
+            // result.TotalCount = this.Count;
+            // result.SubtotalCount = result.Count;
+            return this.bulkResponseConverter.Convert(response);
         }
 
         /// <inheritdoc />
         IDictionaryRange<Guid, Character> IRepository<Guid, Character>.FindAll()
         {
-            ICollection<CharacterDataContract> characters = this.CharactersDbSet.ToList();
+            var request = new CharacterCompleteRequest();
+            var response = this.serviceClient.Query(request);
 
-            foreach (var character in characters)
-            {
-                this.GetCharacterDetails(character);
-            }
-
-            var response = this.CreateResponse(characters);
-            var result = this.bulkResponseConverter.Convert(response);
-            result.TotalCount = this.Count;
-            result.SubtotalCount = result.Count;
-
-            return result;
+            // ToDo: Implement subtotal routine.
+            // result.TotalCount = this.Count;
+            // result.SubtotalCount = result.Count;
+            return this.bulkResponseConverter.Convert(response);
         }
 
         /// <inheritdoc />
@@ -149,8 +129,8 @@ namespace Characters
         {
             var writeData = this.writeConverter.Convert(data);
 
-            this.CharactersDbSet.Add(writeData);
-            this.SaveChanges();
+            this.serviceClient.Send(c => c.Characters.AddOrUpdate(writeData));
+            this.serviceClient.Send(c => c.SaveChanges());
         }
 
         /// <inheritdoc />
@@ -163,34 +143,38 @@ namespace Characters
         /// <inheritdoc />
         void IWriteable<Character>.WriteAsync(Character data, CancellationToken cancellationToken)
         {
-            var writeData = this.writeConverter.Convert(data);
-
-            this.CharactersDbSet.Add(writeData);
-            this.SaveChangesAsync(cancellationToken);
+            // var writeData = this.writeConverter.Convert(data);
+            // this.CharactersDbSet.Add(writeData);
+            // this.SaveChangesAsync(cancellationToken);
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc />
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        void IWriteable<Character>.Delete(Character data)
         {
-            modelBuilder.HasDefaultSchema("Characters");
+            throw new NotImplementedException();
         }
 
-        /// <summary>Creates a response.</summary>
-        /// <param name="content">The content.</param>
-        /// <param name="cultureInfo">The culture info.</param>
-        /// <param name="dateTimeOffset">The date time offset.</param>
-        /// <typeparam name="TData">The type of the data.</typeparam>
-        /// <returns>The <see cref="IResponse{TData}"/>.</returns>
-        private IResponse<TData> CreateResponse<TData>(TData content, CultureInfo cultureInfo = null, DateTimeOffset? dateTimeOffset = null)
+        /// <inheritdoc />
+        void IWriteable<Character>.DeleteAsync(Character data)
         {
-            return new Response<TData> { Content = content, Culture = cultureInfo, Date = dateTimeOffset };
+            throw new NotImplementedException();
         }
 
-        /// <summary>Gets the details of a character.</summary>
-        /// <param name="character">The character.s</param>
-        private void GetCharacterDetails(CharacterDataContract character)
+        /// <inheritdoc />
+        void IWriteable<Character>.DeleteAsync(Character data, CancellationToken cancellationToken)
         {
-            character.Appearance = this.Set<PhysicalApperance>().Single(a => a.CharacterId == character.Id);
+            throw new NotImplementedException();
+        }
+
+        /// <summary>Converts an async response.</summary>
+        /// <param name="task">The task to convert.</param>
+        /// <returns>The <see cref="ICollection{T}"/>.</returns>
+        private ICollection<Guid> ConvertAsyncResponse(Task<IResponse<ICollection<Guid>>> task)
+        {
+            var ids = this.identifiersConverter.Convert(task.Result);
+
+            return ids ?? new List<Guid>(0);
         }
     }
 }

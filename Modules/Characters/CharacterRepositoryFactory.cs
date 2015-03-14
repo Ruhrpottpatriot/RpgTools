@@ -1,24 +1,28 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LocationRepositoryFactory.cs" company="Robert Logiewa">
+// <copyright file="CharacterRepositoryFactory.cs" company="Robert Logiewa">
 //   (C) All rights reseved
 // </copyright>
+// <summary>
+//   Provides methods for creating the repository object in specified cultures.
+// </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace RpgTools.Locations
+
+namespace Characters
 {
     using System;
     using System.Globalization;
 
     using RpgTools.Core.Common;
 
-    /// <summary>Provides methods for creating repository object in specified cultures.</summary>
-    public sealed class LocationRepositoryFactory
+    /// <summary>Provides methods for creating the repository object in specified cultures.</summary>
+    public sealed class CharacterRepositoryFactory
     {
         /// <summary>Infrastructure. Holds a reference to the service client.</summary>
-        private readonly DatabaseServiceClient<LocationContext> serviceClient;
+        private readonly DatabaseServiceClient<CharacterContext> serviceClient;
 
-        /// <summary>Initialises a new instance of the <see cref="LocationRepositoryFactory"/> class.</summary>
+        /// <summary>Initialises a new instance of the <see cref="CharacterRepositoryFactory"/> class.</summary>
         /// <param name="serviceClient">The service client to use.</param>
-        public LocationRepositoryFactory(DatabaseServiceClient<LocationContext> serviceClient)
+        public CharacterRepositoryFactory(DatabaseServiceClient<CharacterContext> serviceClient)
         {
             this.serviceClient = serviceClient;
         }
@@ -26,7 +30,7 @@ namespace RpgTools.Locations
         /// <summary>Creates an instance for the given language.</summary>
         /// <param name="language">The two-letter language code.</param>
         /// <returns>A repository.</returns>
-        public ILocationRepository this[string language]
+        public ICharacterRepository this[string language]
         {
             get
             {
@@ -37,7 +41,7 @@ namespace RpgTools.Locations
         /// <summary>Creates an instance for the given language.</summary>
         /// <param name="culture">The culture.</param>
         /// <returns>A repository.</returns>
-        public ILocationRepository this[CultureInfo culture]
+        public ICharacterRepository this[CultureInfo culture]
         {
             get
             {
@@ -47,32 +51,31 @@ namespace RpgTools.Locations
 
         /// <summary>Creates an instance for the default language.</summary>
         /// <returns>A repository.</returns>
-        public ILocationRepository ForDefaultCulture()
+        public ICharacterRepository ForDefaultCulture()
         {
-            return new LocationRepository(this.serviceClient);
+            return new CharactersRepository(this.serviceClient);
         }
 
-        /// <summary>Creates an instance for the given language.</summary>
+        /// <summary>
+        /// Creates an instance for the given language.
+        /// </summary>
         /// <param name="culture">The culture.</param>
         /// <returns>A repository.</returns>
-        public ILocationRepository ForCulture(CultureInfo culture)
+        public ICharacterRepository ForCulture(CultureInfo culture)
         {
-            // ILocationRepository repository = new LocationRepository(this.serviceClient);
-            // repository.Culture = culture;
-            // return repository;
             throw new NotImplementedException("Multi Language Support has not yet been implemented. Use the \"ForDefaultCulture\" method instead.");
         }
 
         /// <summary>Creates an instance for the current system language.</summary>
         /// <returns>A repository.</returns>
-        public ILocationRepository ForCurrentCulture()
+        public ICharacterRepository ForCurrentCulture()
         {
             return this.ForCulture(CultureInfo.CurrentCulture);
         }
 
         /// <summary>Creates an instance for the current UI language.</summary>
         /// <returns>A repository.</returns>
-        public ILocationRepository ForCurrentUiCulture()
+        public ICharacterRepository ForCurrentUiCulture()
         {
             return this.ForCulture(CultureInfo.CurrentUICulture);
         }
