@@ -78,7 +78,7 @@
     <Compile Include="Common\Requests\IDatabaseBulkRequest.cs" />
     <Compile Include="Common\Requests\CompleteDatabaseRequest.cs" />
     <Compile Include="Common\Requests\IDatabaseCompleteRequest.cs" />
-    <Compile Include="Common\Requests\DetailsDatabaseRequest.cs" />
+    <Compile Include="Common\Requests\DatabaseDetailsRequest.cs" />
     <Compile Include="Common\Requests\IDatabaseDetailsRequest.cs" />
     <Compile Include="Common\Requests\DatabaseDiscoveryRequest.cs" />
     <Compile Include="Common\Requests\IBulkRequest.cs" />
