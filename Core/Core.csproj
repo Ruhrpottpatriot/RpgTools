@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Converter\ConverterAdapter.cs" />
+    <Compile Include="Common\DatabaseServiceClient.cs" />
     <Compile Include="Common\DictionaryRange.cs" />
     <Compile Include="Common\Converter\DictionaryRangeConverter.cs" />
     <Compile Include="Common\IChangeableRepository.cs" />
