@@ -7,10 +7,8 @@ namespace RpgTools.Locations
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Globalization;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -34,10 +32,10 @@ namespace RpgTools.Locations
         private readonly IConverter<Location, LocationDataContract> writeConverter;
 
         /// <summary>Infrastructure. Holds a reference to the bulk response converter.</summary>
-        private readonly IConverter<IResponse<ICollection<LocationDataContract>>, IDictionaryRange<Guid, Location>> bulkResponseConverter;
+        private readonly IConverter<IResponse<ICollection<LocationDataContract>>, IDictionaryRange<Guid, Location>> dictionaryRangeResponseConverter;
 
         /// <summary>Infrastructure. Holds a reference to the service client.</summary>
-        private readonly DatabaseServiceClient<LocationContext> databaseServiceClient;
+        private readonly DatabaseServiceClient<LocationContext> serviceClient;
 
         /// <summary>Initialises a new instance of the <see cref="LocationRepository"/> class.</summary>
         public LocationRepository()
@@ -46,17 +44,17 @@ namespace RpgTools.Locations
         }
 
         /// <summary>Initialises a new instance of the <see cref="LocationRepository"/> class.</summary>
-        /// <param name="databaseServiceClient">The service client.</param>
+        /// <param name="serviceClient">The service client.</param>
         /// <param name="locationConverter">The location converter.</param>
         /// <param name="collectionConverter">The collection Converter.</param>
         /// <param name="writeConverter">The write Converter.</param>
-        internal LocationRepository(DatabaseServiceClient<LocationContext> databaseServiceClient, IConverter<LocationDataContract, Location> locationConverter, IConverter<ICollection<Guid>, ICollection<Guid>> collectionConverter, IConverter<Location, LocationDataContract> writeConverter)
+        internal LocationRepository(DatabaseServiceClient<LocationContext> serviceClient, IConverter<LocationDataContract, Location> locationConverter, IConverter<ICollection<Guid>, ICollection<Guid>> collectionConverter, IConverter<Location, LocationDataContract> writeConverter)
         {
-            this.databaseServiceClient = databaseServiceClient;
+            this.serviceClient = serviceClient;
 
             this.identifiersConverter = new ResponseConverter<ICollection<Guid>, ICollection<Guid>>(collectionConverter);
             this.responseConverter = new ResponseConverter<LocationDataContract, Location>(locationConverter);
-            this.bulkResponseConverter = new DictionaryRangeConverter<LocationDataContract, Guid, Location>(locationConverter, location => location.Id);
+            this.dictionaryRangeResponseConverter = new DictionaryRangeConverter<LocationDataContract, Guid, Location>(locationConverter, location => location.Id);
 
             this.writeConverter = writeConverter;
         }
@@ -67,8 +65,8 @@ namespace RpgTools.Locations
         /// <inheritdoc />
         ICollection<Guid> IDiscoverable<Guid>.Discover()
         {
-            var request = new LocationDiscoveryDatabaseRequest();
-            var response = this.databaseServiceClient.Query(request);
+            var request = new LocationDatabaseDiscoveryRequest();
+            var response = this.serviceClient.Query(request);
             return this.identifiersConverter.Convert(response) ?? new List<Guid>(0);
         }
 
@@ -82,20 +80,20 @@ namespace RpgTools.Locations
         /// <inheritdoc />
         Task<ICollection<Guid>> IDiscoverable<Guid>.DiscoverAsync(CancellationToken cancellationToken)
         {
-            var request = new LocationDiscoveryDatabaseRequest();
-            var responseTask = this.databaseServiceClient.QueryAsync(request, cancellationToken);
+            var request = new LocationDatabaseDiscoveryRequest();
+            var responseTask = this.serviceClient.QueryAsync(request, cancellationToken);
             return responseTask.ContinueWith<ICollection<Guid>>(this.ConvertAsyncResponse, cancellationToken);
         }
 
         /// <inheritdoc />
         Location IRepository<Guid, Location>.Find(Guid identifier)
         {
-            var request = new LocationDetailsDatabaseRequest()
+            var request = new LocationDetailsRequest()
             {
                 Identifier = identifier
             };
 
-            var response = this.databaseServiceClient.Query(request);
+            var response = this.serviceClient.Query(request);
             return this.responseConverter.Convert(response);
         }
 
@@ -103,8 +101,8 @@ namespace RpgTools.Locations
         IDictionaryRange<Guid, Location> IRepository<Guid, Location>.FindAll(ICollection<Guid> identifiers)
         {
             var request = new LocationBulkDatabaseRequest { Identifiers = identifiers };
-            var response = this.databaseServiceClient.Query(request);
-            return this.bulkResponseConverter.Convert(response);
+            var response = this.serviceClient.Query(request);
+            return this.dictionaryRangeResponseConverter.Convert(response);
 
             // ToDo: Implement subtotal routine.
             // result.TotalCount = this.LocationsDbSet.Count();
@@ -115,9 +113,9 @@ namespace RpgTools.Locations
         IDictionaryRange<Guid, Location> IRepository<Guid, Location>.FindAll()
         {
             var request = new LocationCompleteDatabaseRequest();
-            var response = this.databaseServiceClient.Query(request);
+            var response = this.serviceClient.Query(request);
 
-            return this.bulkResponseConverter.Convert(response);
+            return this.dictionaryRangeResponseConverter.Convert(response);
             
             // ToDo: Implement subtotal routine.
             // result.SubtotalCount = result.Count;
@@ -129,9 +127,9 @@ namespace RpgTools.Locations
         {
             var dataContractToWrite = this.writeConverter.Convert(data);
 
-            this.databaseServiceClient.Send(c => c.Locations.AddOrUpdate(dataContractToWrite));
+            this.serviceClient.Send(c => c.Locations.AddOrUpdate(dataContractToWrite));
 
-            this.databaseServiceClient.Send(c => c.SaveChanges());
+            this.serviceClient.Send(c => c.SaveChanges());
         }
 
         /// <inheritdoc />
@@ -150,19 +148,22 @@ namespace RpgTools.Locations
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc />
         void IWriteable<Location>.Delete(Location data)
         {
             var contract = this.writeConverter.Convert(data);
 
-            this.databaseServiceClient.Send(c => c.Locations.Remove(contract));
-            this.databaseServiceClient.Send(c => c.SaveChanges());
+            this.serviceClient.Send(c => c.Locations.Remove(contract));
+            this.serviceClient.Send(c => c.SaveChanges());
         }
 
+        /// <inheritdoc />
         void IWriteable<Location>.DeleteAsync(Location data)
         {
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc />
         void IWriteable<Location>.DeleteAsync(Location data, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();

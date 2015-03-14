@@ -15,7 +15,7 @@ namespace RpgTools.Core.Common.Requests
     /// <typeparam name="TContext">The database context to query.</typeparam>
     /// <typeparam name="TReturn">The type of data to return.</typeparam>
     /// <typeparam name="TIdentifier">The identifier to identify the data.</typeparam>
-    public abstract class DetailsRequest<TContext, TReturn, TIdentifier> : IDetailsRequest<,>
+    public abstract class DetailsRequest<TContext, TReturn, TIdentifier> : IDetailsRequest<Func<TContext, TReturn>, TIdentifier>
     {
         public abstract Func<TContext, TReturn> Resource { get; }
 
