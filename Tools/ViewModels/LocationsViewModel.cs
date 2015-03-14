@@ -28,7 +28,7 @@ namespace RpgTools.Main.ViewModels
     [Export(typeof(IRpgModuleContract))]
     public class LocationsViewModel : Conductor<Screen>.Collection.OneActive, IRpgModuleContract
     {
-        private ILocationRepository locationRepository;
+        private readonly ILocationRepository locationRepository;
 
         private IWindowManager windowManager;
 
@@ -47,6 +47,8 @@ namespace RpgTools.Main.ViewModels
             }
 
             this.locationRepository = new LocationRepository();
+            this.eventAggregator = eventAggregator;
+            this.windowManager = windowManager;
         }
 
         public void LoadIds()
