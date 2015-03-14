@@ -76,12 +76,12 @@
     <Compile Include="Common\Requests\BulkDatabaseRequest.cs" />
     <Compile Include="Common\Requests\CompleteDatabaseRequest.cs" />
     <Compile Include="Common\Requests\DetailsDatabaseRequest.cs" />
-    <Compile Include="Common\Requests\DiscoveryDatabaseRequest.cs" />
+    <Compile Include="Common\Requests\DatabaseDiscoveryRequest.cs" />
     <Compile Include="Common\Requests\IBulkDatabaseRequest.cs" />
     <Compile Include="Common\Requests\ICompleteDatabaseRequest.cs" />
-    <Compile Include="Common\Requests\IDatabaseRequest.cs" />
+    <Compile Include="Common\Requests\IDatabaseDiscoveryRequest.cs" />
     <Compile Include="Common\Requests\IDetailsDatabaseRequest.cs" />
-    <Compile Include="Common\Requests\IDiscoveryDatabaseRequest.cs" />
+    <Compile Include="Common\Requests\IDiscoveryRequest.cs" />
     <Compile Include="Common\Requests\IRequest.cs" />
     <Compile Include="Common\Response.cs" />
     <Compile Include="Common\Converter\ResponseConverter.cs" />

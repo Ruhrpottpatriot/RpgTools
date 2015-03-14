@@ -17,7 +17,7 @@ namespace RpgTools.Locations.Requests
     using RpgTools.Locations;
 
     /// <summary>Provides methods and properties to query identifiers from the location database.</summary>
-    internal sealed class LocationDiscoveryDatabaseRequest : DiscoveryDatabaseRequest<LocationContext, ICollection<Guid>>
+    internal sealed class LocationDatabaseDiscoveryRequest : DatabaseDiscoveryRequest<LocationContext, ICollection<Guid>>
     {
         /// <inheritdoc />
         public override Func<LocationContext, ICollection<Guid>> Resource
