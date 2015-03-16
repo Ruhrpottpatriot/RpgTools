@@ -50,12 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Requests\LocationCompleteDatabaseRequest.cs" />
-    <Compile Include="Requests\LocationBulkDatabaseRequest.cs" />
-    <Compile Include="Requests\LocationDetailsDatabaseRequest.cs" />
-    <Compile Include="Requests\LocationDiscoveryDatabaseRequest.cs" />
-    <Compile Include="Converter\CityDataContractConverter.cs" />
-    <Compile Include="Converter\CityLocationConverter.cs" />
+    <Compile Include="Converter\CityDataContractConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Converter\CityLocationConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Converter\LocationConverter.cs" />
     <Compile Include="Converter\LocationDataContractConverter.cs" />
     <Compile Include="Converter\PlanetDataContractConverter.cs" />
@@ -64,6 +64,10 @@
     <Compile Include="Converter\SectorLocationConverter.cs" />
     <Compile Include="Converter\StarSystemLocationConverter.cs" />
     <Compile Include="Converter\SystemDataContractConverter.cs" />
+    <Compile Include="Requests\LocationCompleteDatabaseRequest.cs" />
+    <Compile Include="Requests\LocationBulkDatabaseRequest.cs" />
+    <Compile Include="Requests\LocationDetailsDatabaseRequest.cs" />
+    <Compile Include="Requests\LocationDiscoveryDatabaseRequest.cs" />
     <Compile Include="DataContracts\CityDetailsDataContract.cs" />
     <Compile Include="DataContracts\LocationDataContract.cs" />
     <Compile Include="DataContracts\LocationDetailsDataContract.cs" />

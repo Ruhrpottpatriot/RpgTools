@@ -38,9 +38,8 @@ namespace RpgTools.Locations
         private readonly DatabaseServiceClient<LocationContext> serviceClient;
 
         /// <summary>Initialises a new instance of the <see cref="LocationRepository"/> class.</summary>
-        /// <param name="serviceClient">The service to use.</param>
-        public LocationRepository(DatabaseServiceClient<LocationContext> serviceClient)
-            : this(serviceClient, new LocationConverter(), new ConverterAdapter<ICollection<Guid>>(), new LocationDataContractConverter())
+        public LocationRepository()
+            : this(new DatabaseServiceClient<LocationContext>(new LocationContext()), new LocationConverter(), new ConverterAdapter<ICollection<Guid>>(), new LocationDataContractConverter())
         {
         }
 

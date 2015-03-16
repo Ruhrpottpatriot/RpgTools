@@ -13,16 +13,6 @@ namespace RpgTools.Locations
     /// <summary>Provides methods for creating repository object in specified cultures.</summary>
     public sealed class LocationRepositoryFactory
     {
-        /// <summary>Infrastructure. Holds a reference to the service client.</summary>
-        private readonly DatabaseServiceClient<LocationContext> serviceClient;
-
-        /// <summary>Initialises a new instance of the <see cref="LocationRepositoryFactory"/> class.</summary>
-        /// <param name="serviceClient">The service client to use.</param>
-        public LocationRepositoryFactory(DatabaseServiceClient<LocationContext> serviceClient)
-        {
-            this.serviceClient = serviceClient;
-        }
-
         /// <summary>Creates an instance for the given language.</summary>
         /// <param name="language">The two-letter language code.</param>
         /// <returns>A repository.</returns>
@@ -49,7 +39,7 @@ namespace RpgTools.Locations
         /// <returns>A repository.</returns>
         public ILocationRepository ForDefaultCulture()
         {
-            return new LocationRepository(this.serviceClient);
+            return new LocationRepository();
         }
 
         /// <summary>Creates an instance for the given language.</summary>
