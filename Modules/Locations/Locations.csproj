@@ -50,8 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Requests\BulkDatabaseRequest.cs" />
-    <Compile Include="Requests\CompleteDatabaseRequest.cs" />
     <Compile Include="Converter\CityDataContractConverter.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -66,13 +64,10 @@
     <Compile Include="Converter\SectorLocationConverter.cs" />
     <Compile Include="Converter\StarSystemLocationConverter.cs" />
     <Compile Include="Converter\SystemDataContractConverter.cs" />
-    <Compile Include="Requests\DeleteDatabaseRequest.cs" />
     <Compile Include="Requests\LocationBulkRequest.cs" />
     <Compile Include="Requests\LocationCompleteRequest.cs" />
     <Compile Include="Requests\LocationDeleteRequest.cs" />
     <Compile Include="Requests\LocationWriteRequest.cs" />
-    <Compile Include="Requests\DetailsDatabaseRequest.cs" />
-    <Compile Include="Requests\IDatabaseRequest.cs" />
     <Compile Include="DatabaseSeviceClient.cs" />
     <Compile Include="DataContracts\CityDetailsDataContract.cs" />
     <Compile Include="DataContracts\LocalisationDataContract.cs" />
