@@ -11,6 +11,7 @@ namespace RpgTools.Core.Common
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using RpgTools.Core.Common.Requests;
 
     /// <summary>Provides the interface for a create-read-update service client.</summary>
     public interface IWriteableServiceClient : IServiceClient

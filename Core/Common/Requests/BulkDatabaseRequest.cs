@@ -1,4 +1,4 @@
-namespace RpgTools.Locations
+namespace RpgTools.Core.Common.Requests
 {
     using System;
     using System.Collections.Generic;

@@ -13,7 +13,7 @@ namespace RpgTools.Locations
     using System.Data.Entity;
     using System.Linq;
     using System.Linq.Expressions;
-
+    using RpgTools.Core.Common.Requests;
     using RpgTools.Locations.DataContracts;
 
     /// <summary>Represents a location detail request against a database.</summary>

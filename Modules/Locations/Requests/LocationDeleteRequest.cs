@@ -12,6 +12,7 @@ namespace RpgTools.Locations
     using System;
     using System.Data.Entity;
     using System.Linq.Expressions;
+    using RpgTools.Core.Common.Requests;
     using RpgTools.Locations.DataContracts;
 
     /// <summary>Represents a request to delete data from the database.</summary>

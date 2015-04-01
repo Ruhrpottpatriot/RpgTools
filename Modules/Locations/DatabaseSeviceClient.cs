@@ -15,6 +15,7 @@ namespace RpgTools.Locations
     using System.Threading.Tasks;
 
     using RpgTools.Core.Common;
+    using RpgTools.Core.Common.Requests;
 
     /// <summary>A Service client that queries a database provided by the request.</summary>
     public class DatabaseSeviceClient : IAuthorizedServiceClient

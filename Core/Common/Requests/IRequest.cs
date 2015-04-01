@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace RpgTools.Core.Common
+namespace RpgTools.Core.Common.Requests
 {
     /// <summary>Interface for requests against an arbitrary data source.</summary>
     /// <remarks>This interface does actually nothing. However the <see cref="IServiceClient"/> interface and its implementations expect an IRequest.

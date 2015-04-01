@@ -7,12 +7,10 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace RpgTools.Locations
+namespace RpgTools.Core.Common.Requests
 {
     using System.Data.Entity;
     using System.Linq.Expressions;
-
-    using RpgTools.Core.Common;
 
     /// <summary>Provides properties and methods for all requests against a database.</summary>
     /// <typeparam name="TExpressionType">The type of data to return.</typeparam>

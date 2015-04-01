@@ -13,6 +13,7 @@ namespace RpgTools.Locations.Requests
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq.Expressions;
+    using RpgTools.Core.Common.Requests;
     using RpgTools.Locations.DataContracts;
 
     /// <summary>Represents a request to write data into the database.</summary>

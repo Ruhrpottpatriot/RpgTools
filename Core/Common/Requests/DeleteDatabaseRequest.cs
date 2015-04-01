@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace RpgTools.Locations
+namespace RpgTools.Core.Common.Requests
 {
     using System;
     using System.Data.Entity;
@@ -15,7 +15,7 @@ namespace RpgTools.Locations
 
     /// <summary>Abstract base class to delete a record from the database.</summary>
     /// <typeparam name="TDeleteData">The type of data to delete.</typeparam>
-    internal abstract class DeleteDatabaseRequest<TDeleteData> : IDatabaseRequest<Action<DbContext>>
+    public abstract class DeleteDatabaseRequest<TDeleteData> : IDatabaseRequest<Action<DbContext>>
     {
         /// <summary>Gets the resource to query.</summary>
         public abstract Expression<Action<DbContext>> Resource { get; }

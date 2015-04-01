@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace RpgTools.Locations
+namespace RpgTools.Core.Common.Requests
 {
     using System;
     using System.Data.Entity;
@@ -15,7 +15,7 @@ namespace RpgTools.Locations
 
     /// <summary>Represents a request against a database that returns all records.</summary>
     /// <typeparam name="TData">The type of data to return from the request.</typeparam>
-    internal abstract class CompleteDatabaseRequest<TData> : IDatabaseRequest<Func<DbContext, TData>>
+    public abstract class CompleteDatabaseRequest<TData> : IDatabaseRequest<Func<DbContext, TData>>
     {
         /// <summary>Gets the resource to query.</summary>
         public abstract Expression<Func<DbContext, TData>> Resource { get; }
