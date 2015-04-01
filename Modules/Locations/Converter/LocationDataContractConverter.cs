@@ -6,6 +6,7 @@
 namespace RpgTools.Locations.Converter
 {
     using System.Collections.Generic;
+    using System.Data.Entity.ModelConfiguration.Conventions;
 
     using RpgTools.Core.Common;
     using RpgTools.Core.Models.Locations;
@@ -28,15 +29,18 @@ namespace RpgTools.Locations.Converter
         /// <inheritdoc />
         public LocationDataContract Convert(Location value)
         {
-           LocationDataContract locationData = new LocationDataContract();
+            LocationDataContract locationData = new LocationDataContract();
 
             IConverter<Location, LocationDetailsDataContract> converter;
-            if (this.typeConverter.TryGetValue(value.GetType().Name, out converter))
+
+            string typeName = value.GetType().Name;
+
+            if (this.typeConverter.TryGetValue(typeName, out converter))
             {
                 locationData.Details = converter.Convert(value);
+                locationData.Details.Location = locationData;
             }
-
-            locationData.Details.Location = locationData;
+            
             locationData.Coordinates = value.Coordinates;
             locationData.Description = value.Description;
             locationData.Id = value.Id;
@@ -52,28 +56,10 @@ namespace RpgTools.Locations.Converter
         {
             return new Dictionary<string, IConverter<Location, LocationDetailsDataContract>>
                        {
-                           {
-                               "City", 
-                               new CityDataContractConverter
-                               ()
-                           }, 
-                           {
-                               "Planet", 
-                               new PlanetDataContractConverter
-                               ()
-                           }, 
-                           {
-                               "System", 
-                               new SystemDataContractConverter
-                               ()
-                           }, 
-                           {
-                               "Sector", 
-                               new SectorDataContractConverter
-                               ()
-                           }
-
-                           // Planet = data.Planet == null ? string.Empty : data.Planet.Name,
+                           { "City", new CityDataContractConverter() }, 
+                           { "Planet", new PlanetDataContractConverter() },
+                           { "StarSystem", new SystemDataContractConverter() },
+                           { "Sector", new SectorDataContractConverter() }
                        };
         }
     }

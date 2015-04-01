@@ -18,11 +18,11 @@ namespace Characters
     public sealed class CharacterRepositoryFactory
     {
         /// <summary>Infrastructure. Holds a reference to the service client.</summary>
-        private readonly DatabaseServiceClient<CharacterContext> serviceClient;
+        private readonly IServiceClient serviceClient;
 
         /// <summary>Initialises a new instance of the <see cref="CharacterRepositoryFactory"/> class.</summary>
         /// <param name="serviceClient">The service client to use.</param>
-        public CharacterRepositoryFactory(DatabaseServiceClient<CharacterContext> serviceClient)
+        public CharacterRepositoryFactory(IServiceClient serviceClient)
         {
             this.serviceClient = serviceClient;
         }

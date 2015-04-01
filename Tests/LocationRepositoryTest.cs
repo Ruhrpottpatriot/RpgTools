@@ -27,7 +27,7 @@ namespace Tests
         [SetUp]
         public void SetUp()
         {
-            this.locationRepository = new LocationRepository();
+            this.locationRepository = new LocationRepositoryFactory(new DatabaseSeviceClient()).ForDefaultCulture();
         }
 
         [Test]
@@ -37,65 +37,27 @@ namespace Tests
 
             Debug.Write(string.Format("Id Count: {0}", ids.Count));
         }
-
-        [Test]
-        public void DiscoverAsync()
-        {
-        }
-
-        [Test]
-        public void DiscoverAsyncWithCancellationTokenTest()
-        {
-        }
-
+        
         [Test]
         public void FindTest()
         {
-        }
+            var loc = this.locationRepository.Find(new Guid("df922009-3611-4faf-85b4-3e78f55113f6"));
 
-        [Test]
-        public void FindCollectionTest()
-        {
-        }
-
-        [Test]
-        public void FindAllTest()
-        {
+            Debug.WriteLine(loc.Name);
         }
 
         [Test]
         public void WriteTest()
         {
-            ILocationRepository repository = new LocationRepository();
+            var location = new Location
+                           {
+                               Coordinates = null,
+                               Description = "Arbitrary Description",
+                               Id = Guid.NewGuid(),
+                               Name = "Some location"
+                           };
 
-            var location = new City
-                               {
-                                   Coordinates = ConvertLatLonToDbGeography(1, 5),
-                                   Description = "Test",
-                                   Id = new Guid("578e1b06-0a09-49d4-b050-4bbb8016df8d"),
-                                   Population = 10023,
-                                   IsCapital = false,
-                                   Name = "Stromsang",
-                                   Planet = null
-                               };
-
-            repository.Write(location);
-        }
-
-        [Test]
-        public void RemoveTest()
-        {
-            ILocationRepository repository = new LocationRepository();
-
-            var location = new Location() { Id = new Guid("578e1b06-0a09-49d4-b050-4bbb8016df8d") };
-
-            repository.Delete(location);
-        }
-
-        public static DbGeography ConvertLatLonToDbGeography(double longitude, double latitude)
-        {
-            var point = string.Format("POINT({1} {0})", latitude, longitude);
-            return DbGeography.FromText(point);
+            this.locationRepository.Write(location);
         }
     }
 }

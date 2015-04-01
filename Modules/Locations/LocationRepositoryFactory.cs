@@ -5,7 +5,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace RpgTools.Locations
 {
-    using System;
     using System.Globalization;
 
     using RpgTools.Core.Common;
@@ -13,6 +12,16 @@ namespace RpgTools.Locations
     /// <summary>Provides methods for creating repository object in specified cultures.</summary>
     public sealed class LocationRepositoryFactory
     {
+        /// <summary>Infrastructure. Holds a reference to the service client.</summary>
+        private readonly IAuthorizedServiceClient serviceClient;
+
+        /// <summary> Initialises a new instance of the <see cref="LocationRepositoryFactory"/> class.</summary>
+        /// <param name="serviceClient">The service client.</param>
+        public LocationRepositoryFactory(IAuthorizedServiceClient serviceClient)
+        {
+            this.serviceClient = serviceClient;
+        }
+
         /// <summary>Creates an instance for the given language.</summary>
         /// <param name="language">The two-letter language code.</param>
         /// <returns>A repository.</returns>
@@ -39,7 +48,7 @@ namespace RpgTools.Locations
         /// <returns>A repository.</returns>
         public ILocationRepository ForDefaultCulture()
         {
-            return new LocationRepository();
+            return new LocationRepository(this.serviceClient);
         }
 
         /// <summary>Creates an instance for the given language.</summary>
@@ -47,10 +56,9 @@ namespace RpgTools.Locations
         /// <returns>A repository.</returns>
         public ILocationRepository ForCulture(CultureInfo culture)
         {
-            // ILocationRepository repository = new LocationRepository(this.serviceClient);
-            // repository.Culture = culture;
-            // return repository;
-            throw new NotImplementedException("Multi Language Support has not yet been implemented. Use the \"ForDefaultCulture\" method instead.");
+            ILocationRepository repository = new LocationRepository(this.serviceClient);
+            repository.Culture = culture;
+            return repository;
         }
 
         /// <summary>Creates an instance for the current system language.</summary>

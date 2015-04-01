@@ -28,7 +28,7 @@ namespace Characters
         /// <summary>
         /// Gets or sets the characters.
         /// </summary>
-        public DbSet<CharacterDataContract> Characters { get; set; }
+        internal DbSet<CharacterDataContract> Characters { get; set; }
 
         /// <inheritdoc />
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

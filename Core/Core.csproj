@@ -59,9 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Converter\ConverterAdapter.cs" />
-    <Compile Include="Common\DatabaseServiceClient.cs" />
     <Compile Include="Common\DictionaryRange.cs" />
     <Compile Include="Common\Converter\DictionaryRangeConverter.cs" />
+    <Compile Include="Common\IAuthorizedServiceClient.cs" />
     <Compile Include="Common\IChangeableRepository.cs" />
     <Compile Include="Common\ICharacterRepository.cs" />
     <Compile Include="Common\IConverter.cs" />
@@ -70,23 +70,18 @@
     <Compile Include="Common\ILocalizable.cs" />
     <Compile Include="Common\ILocationRepository.cs" />
     <Compile Include="Common\IRepository.cs" />
+    <Compile Include="Common\Requests\BulkDatabaseRequest.cs" />
+    <Compile Include="Common\Requests\CompleteDatabaseRequest.cs" />
+    <Compile Include="Common\Requests\DeleteDatabaseRequest.cs" />
+    <Compile Include="Common\Requests\DetailsDatabaseRequest.cs" />
+    <Compile Include="Common\Requests\IDatabaseRequest.cs" />
+    <Compile Include="Common\Requests\IRequest.cs" />
     <Compile Include="Common\IResponse.cs" />
+    <Compile Include="Common\IServiceClient.cs" />
     <Compile Include="Common\ISubsetContext.cs" />
     <Compile Include="Common\ITimeSensitive.cs" />
     <Compile Include="Common\IWriteable.cs" />
-    <Compile Include="Common\Requests\BulkDatabaseRequest.cs" />
-    <Compile Include="Common\Requests\IDatabaseBulkRequest.cs" />
-    <Compile Include="Common\Requests\CompleteDatabaseRequest.cs" />
-    <Compile Include="Common\Requests\IDatabaseCompleteRequest.cs" />
-    <Compile Include="Common\Requests\DatabaseDetailsRequest.cs" />
-    <Compile Include="Common\Requests\IDatabaseDetailsRequest.cs" />
-    <Compile Include="Common\Requests\DatabaseDiscoveryRequest.cs" />
-    <Compile Include="Common\Requests\IBulkRequest.cs" />
-    <Compile Include="Common\Requests\ICompleteRequest.cs" />
-    <Compile Include="Common\Requests\IDatabaseDiscoveryRequest.cs" />
-    <Compile Include="Common\Requests\IDetailsRequest.cs" />
-    <Compile Include="Common\Requests\IDiscoveryRequest.cs" />
-    <Compile Include="Common\Requests\IRequest.cs" />
+    <Compile Include="Common\IWriteableServiceClient.cs" />
     <Compile Include="Common\Response.cs" />
     <Compile Include="Common\Converter\ResponseConverter.cs" />
     <Compile Include="Common\ServiceException.cs" />
@@ -94,6 +89,7 @@
     <Compile Include="Contracts\IRpgModuleMetadata.cs" />
     <Compile Include="Contracts\IShell.cs" />
     <Compile Include="Contracts\RpgModuleMetadataAttribute.cs" />
+    <Compile Include="MarkupExtensions\EnumList.cs" />
     <Compile Include="Models\Characters\Character.cs" />
     <Compile Include="Models\Characters\Character.Family.cs" />
     <Compile Include="Models\Characters\Character.Metadata.cs" />

@@ -1,9 +1,9 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="CompleteDatabaseRequest.cs" company="Robert Logiewa">
+// <copyright file="DetailsDatabaseRequest.cs" company="Robert Logiewa">
 //   (C) All rights reseved
 // </copyright>
 // <summary>
-//   Represents a request against a database that returns all records.
+//   Defines the DetailsDatabaseRequest type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -13,12 +13,15 @@ namespace RpgTools.Locations
     using System.Data.Entity;
     using System.Linq.Expressions;
 
-    /// <summary>Represents a request against a database that returns all records.</summary>
-    /// <typeparam name="TData">The type of data to return from the request.</typeparam>
-    internal abstract class CompleteDatabaseRequest<TData> : IDatabaseRequest<Func<DbContext, TData>>
+    /// <summary>Base class for all detail request against a database.</summary>
+    /// <typeparam name="TReturn">The type of data to return.</typeparam>
+    public abstract class DetailsDatabaseRequest<TReturn> : IDatabaseRequest<Func<DbContext, TReturn>>
     {
         /// <summary>Gets the resource to query.</summary>
-        public abstract Expression<Func<DbContext, TData>> Resource { get; }
+        public abstract Expression<Func<DbContext, TReturn>> Resource { get; }
+
+        /// <summary>Gets or sets the identifier.</summary>
+        public Guid Identifier { get; set; }
 
         /// <summary>Gets or sets the database context.</summary>
         public DbContext Context { get; set; }

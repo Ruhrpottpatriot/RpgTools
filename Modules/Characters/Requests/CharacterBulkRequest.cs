@@ -15,18 +15,20 @@ namespace Characters
 
     using Characters.DataContracts;
 
-    using RpgTools.Core.Common.Requests;
+    using RpgTools.Core.Common;
 
     /// <summary>Provides methods and properties for a character bulk request against the database.</summary>
-    internal sealed class CharacterBulkRequest : BulkDatabaseRequest<CharacterContext, ICollection<CharacterDataContract>, Guid>
+    internal sealed class CharacterBulkRequest : IRequest
     {
         /// <inheritdoc />
-        public override Func<CharacterContext, ICollection<CharacterDataContract>> Resource
+        public Func<CharacterContext, ICollection<CharacterDataContract>> Resource
         {
             get
             {
                 return c => c.Characters.Where(ch => this.Identifiers.Any(i => i == ch.Id)).ToList();
             }
         }
+
+        public ICollection<Guid> Identifiers { get; set; }
     }
 }

@@ -9,12 +9,15 @@
 
 namespace RpgTools.Locations
 {
+    using System.Collections.Generic;
     using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
 
     using RpgTools.Locations.DataContracts;
 
     /// <summary>Describes the location context.</summary>
-    public sealed class LocationContext : DbContext
+    internal sealed class LocationContext : DbContext
     {
         /// <summary>Initialises a new instance of the <see cref="LocationContext"/> class.</summary>
         public LocationContext()
@@ -48,29 +51,34 @@ namespace RpgTools.Locations
         {
             modelBuilder.HasDefaultSchema("Locations");
 
+            modelBuilder.Entity<LocationDataContract>()
+                .HasOptional(d => d.Details)
+                .WithOptionalDependent()
+                .WillCascadeOnDelete(true);
+
             modelBuilder.Entity<CityDetailsDataContract>().Map(
                 m =>
-                    {
-                        m.MapInheritedProperties();
-                    });
+                {
+                    m.MapInheritedProperties();
+                });
 
             modelBuilder.Entity<PlanetDetailsDataContract>().Map(
                 m =>
-                    {
-                        m.MapInheritedProperties();
-                    });
+                {
+                    m.MapInheritedProperties();
+                });
 
             modelBuilder.Entity<StarSystemDetailsDataContract>().Map(
                 m =>
-                    {
-                        m.MapInheritedProperties();
-                    });
+                {
+                    m.MapInheritedProperties();
+                });
 
             modelBuilder.Entity<SectorDetailsDataContract>().Map(
                 m =>
-                    {
-                        m.MapInheritedProperties();
-                    });
+                {
+                    m.MapInheritedProperties();
+                });
         }
     }
 }
