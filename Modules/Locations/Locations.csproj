@@ -64,6 +64,10 @@
     <Compile Include="Converter\SectorLocationConverter.cs" />
     <Compile Include="Converter\StarSystemLocationConverter.cs" />
     <Compile Include="Converter\SystemDataContractConverter.cs" />
+    <Compile Include="Migrations\201504011458437_Version4.cs" />
+    <Compile Include="Migrations\201504011458437_Version4.Designer.cs">
+      <DependentUpon>201504011458437_Version4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Requests\LocationBulkRequest.cs" />
     <Compile Include="Requests\LocationCompleteRequest.cs" />
     <Compile Include="Requests\LocationDeleteRequest.cs" />
@@ -129,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503242226460_Version31.resx">
       <DependentUpon>201503242226460_Version31.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504011458437_Version4.resx">
+      <DependentUpon>201504011458437_Version4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

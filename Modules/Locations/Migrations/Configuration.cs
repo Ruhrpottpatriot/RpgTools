@@ -69,11 +69,6 @@ namespace RpgTools.Locations.Migrations
                 new LocationDataContract
                 {
                     Id = ids[0],
-                    Localisation = new LocalisationDataContract
-                    {
-                        Culture = "en",
-                        EntryId = ids[0]
-                    },
                     Name = "Stromsang",
                     Type = "City",
                     Details = new CityDetailsDataContract
@@ -86,11 +81,6 @@ namespace RpgTools.Locations.Migrations
                 new LocationDataContract
                 {
                     Id = ids[1],
-                    Localisation = new LocalisationDataContract
-                    {
-                        Culture = "en",
-                        EntryId = ids[1]
-                    },
                     Name = "Noctus",
                     Type = "Planet",
                     Details = new PlanetDetailsDataContract
@@ -102,11 +92,6 @@ namespace RpgTools.Locations.Migrations
                 new LocationDataContract
                 {
                     Id = ids[2],
-                    Localisation = new LocalisationDataContract
-                    {
-                        Culture = "en",
-                        EntryId = ids[2]
-                    },
                     Name = "Wakatsu Made",
                     Type = "System",
                     Details = new StarSystemDetailsDataContract
@@ -118,11 +103,6 @@ namespace RpgTools.Locations.Migrations
                 new LocationDataContract
                 {
                     Id = ids[3],
-                    Localisation = new LocalisationDataContract
-                    {
-                        Culture = "en",
-                        EntryId = ids[3]
-                    },
                     Name = "Eastern Fringe",
                     Type = "Sector",
                     Details = new SectorDetailsDataContract
