@@ -28,5 +28,8 @@ namespace RpgTools.Core.Models.Locations
 
         /// <summary>Gets or sets the cities on the planet.</summary>
         public virtual ICollection<City> Cities { get; set; }
+
+        /// <summary>Gets or sets the citiy ids.</summary>
+        public virtual ICollection<Guid> CityIds { get; set; }
     }
 }
