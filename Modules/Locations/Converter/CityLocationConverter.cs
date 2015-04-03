@@ -15,14 +15,19 @@ namespace RpgTools.Locations.Converter
         /// <inheritdoc />
         public City Convert(LocationDetailsDataContract value)
         {
+            if (value == null)
+            {
+                return new City();
+            }
+
             var details = (CityDetailsDataContract)value;
 
             return new City
-                       {
-                           Population = details.Population, 
-                           IsCapital = details.IsCapital, 
-                           PlanetId = details.Planet
-                       };
+                   {
+                       Population = details.Population,
+                       IsCapital = details.IsCapital,
+                       PlanetId = details.Planet
+                   };
         }
     }
 }

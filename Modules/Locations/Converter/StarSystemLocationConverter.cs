@@ -15,6 +15,11 @@ namespace RpgTools.Locations.Converter
         /// <inheritdoc />
         public StarSystem Convert(LocationDetailsDataContract value)
         {
+            if (value == null)
+            {
+                return new StarSystem();
+            }
+
             var data = (StarSystemDetailsDataContract)value;
 
             return new StarSystem

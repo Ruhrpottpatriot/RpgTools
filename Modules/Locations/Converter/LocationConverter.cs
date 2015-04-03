@@ -26,16 +26,8 @@ namespace RpgTools.Locations.Converter
         /// <inheritdoc />
         public Location Convert(LocationDataContract value)
         {
-            Location location;
             IConverter<LocationDetailsDataContract, Location> locationConverter;
-            if (this.typeConverters.TryGetValue(value.Type, out locationConverter))
-            {
-                location = locationConverter.Convert(value.Details);
-            }
-            else
-            {
-                location = new Location();
-            }
+            var location = this.typeConverters.TryGetValue(value.Type, out locationConverter) ? locationConverter.Convert(value.Details) : new Location();
 
             location.Coordinates = value.Coordinates;
             location.Description = value.Description;

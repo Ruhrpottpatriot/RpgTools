@@ -15,9 +15,14 @@ namespace RpgTools.Locations.Converter
         /// <inheritdoc />
         public Sector Convert(LocationDetailsDataContract value)
         {
+            if (value == null)
+            {
+                return new Sector();
+            }
+
             var details = (SectorDetailsDataContract)value;
 
-            return new Sector { Inhabitants = details.Population };
+            return new Sector { Population = details.Population };
         }
     }
 }

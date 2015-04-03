@@ -15,6 +15,11 @@ namespace RpgTools.Locations.Converter
         /// <inheritdoc />
         public Planet Convert(LocationDetailsDataContract value)
         {
+            if (value == null)
+            {
+                return new Planet();
+            }
+
             var data = (PlanetDetailsDataContract)value;
 
             return new Planet

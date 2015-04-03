@@ -22,7 +22,7 @@ namespace RpgTools.Locations.Converter
             return new SectorDetailsDataContract
                        {
                            Id = data.Id, 
-                           Population = data.Inhabitants
+                           Population = data.Population
                        };
         }
     }
