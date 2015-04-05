@@ -1,0 +1,118 @@
+﻿<UserControl x:Class="RpgTools.LocationPresenter.Views.LocationDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:locationPresenter="clr-namespace:RpgTools.LocationPresenter"
+             xmlns:viewModels="clr-namespace:RpgTools.LocationPresenter.ViewModels"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=viewModels:LocationDetailViewModel, IsDesignTimeCreatable=True}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/LocationDataTemplates.xaml" />
+                <ResourceDictionary>
+                    <locationPresenter:LocationTemplateSelector x:Key="TemplateSelector"
+                                                 LocationTemplate="{StaticResource LocationDataTemplate}"
+                                                 StarSystemTemplate="{StaticResource StarSystemDataTemplate}"
+                                                 SectorTemplate="{StaticResource SectorDataTemplate}"
+                                                 PlanetTemplate="{StaticResource PlanetDataTemplate}"
+                                                 CityTemplate="{StaticResource CityDataTemplate}" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto"
+                              MinWidth="200" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0"
+                   Text="Id:"
+                   TextAlignment="Right"
+                   Margin="0,0,3,3" />
+        <TextBox Text="{Binding Path=Location.Id}"
+                 Grid.Row="0"
+                 Grid.Column="1"
+                 IsReadOnly="True"
+                 Margin="3,0,0,3" />
+
+        <TextBlock Text="Type:"
+                   Grid.Row="1"
+                   Grid.Column="0"
+                   TextAlignment="Right"
+                   Margin="0,3,3,3" />
+        <TextBox Text="{Binding Path=Type, Mode=OneWay}"
+                 IsReadOnly="True"
+                 IsReadOnlyCaretVisible="False"
+                 Grid.Row="1"
+                 Grid.Column="1"
+                 Margin="3,3,0,3" />
+
+        <TextBlock Grid.Row="2"
+                   Grid.Column="0"
+                   Text="Name:"
+                   TextAlignment="Right"
+                   Margin="0,3,3,3" />
+        <TextBox Text="{Binding Path=Location.Name}"
+                 Grid.Row="2"
+                 Grid.Column="1"
+                 Margin="3,3,0,3" />
+
+        <TextBlock Text="Coordinates"
+                   Grid.Row="3"
+                   Grid.Column="0"
+                   TextAlignment="Right"
+                   Margin="0,3,3,3" />
+        <TextBox Text="{Binding Path=Location.Coordinates}" 
+                 Grid.Row="3"
+                 Grid.Column="1"
+                 Margin="3,3,0,3" />
+        <!--, Converter={StaticResource DbGeographyToStringConverter}-->
+
+        <TextBlock Grid.Row="4"
+                   Grid.Column="0"
+                   Text="Description:"
+                   TextAlignment="Right"
+                   Margin="0,3,3,0" />
+        <TextBox Text="{Binding Path=Location.Description}"
+                 Grid.Row="4"
+                 Grid.Column="1"
+                 Margin="3,3,0,0" />
+
+        <Border Grid.Row="5"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="5,5,5,5"
+                Height="2"
+                VerticalAlignment="Top"
+                BorderBrush="Gray"
+                BorderThickness="2" />
+
+        <TextBlock Grid.Row="6"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Text="Location specific details below." />
+
+        <ContentControl  Grid.Row="7"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="2"
+                         Content="{Binding Path=Location}"
+                         ContentTemplateSelector="{StaticResource TemplateSelector}"
+                         Margin="0,3,0,3" />
+    </Grid>
+</UserControl>

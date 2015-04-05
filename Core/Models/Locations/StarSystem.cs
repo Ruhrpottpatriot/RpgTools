@@ -4,9 +4,10 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace RpgTools.Core.Models.Locations
+namespace RpgTools.Core.Models
 {
     using System;
+    using RpgTools.Core.Models.Locations;
 
     /// <summary>
     /// The star system.

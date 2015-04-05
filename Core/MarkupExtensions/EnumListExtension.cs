@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="EnumListExtension.cs" company="Robert Logiewa">
-//   (c)2013-2014 All Rights Reserved.
+//   (C) All rights reseved
 // </copyright>
 // <summary>
 //   Markup extension that provides a list of the members of a given enum.
@@ -24,12 +24,12 @@ namespace RpgTools.Core.MarkupExtensions
         /// <summary>The as string.</summary>
         private bool asString;
 
-        /// <summary>Initializes a new instance of the <see cref="EnumListExtension"/> class.</summary>
+        /// <summary>Initialises a new instance of the <see cref="EnumListExtension"/> class.</summary>
         public EnumListExtension()
         {
         }
 
-        /// <summary>Initializes a new instance of the <see cref="EnumListExtension"/> class. </summary>
+        /// <summary>Initialises a new instance of the <see cref="EnumListExtension"/> class. </summary>
         /// <param name="enumType">The type of enum whose members are to be returned.</param>
         public EnumListExtension(Type enumType)
         {

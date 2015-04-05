@@ -6,7 +6,7 @@
 namespace RpgTools.Locations.Converter
 {
     using RpgTools.Core.Common;
-    using RpgTools.Core.Models.Locations;
+    using RpgTools.Core.Models;
     using RpgTools.Locations.DataContracts;
 
     /// <summary>Converts the <see cref="LocationDetailsDataContract"/> into an object of type <see cref="City"/>.</summary>

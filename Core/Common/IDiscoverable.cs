@@ -19,7 +19,6 @@ namespace RpgTools.Core.Common
     public interface IDiscoverable<TKey>
     {
         /// <summary>Discovers identifiers of objects in the data source.</summary>
-        /// <exception cref="NotSupportedException">The data source does not support the discovery of object identifiers.</exception>
         /// <exception cref="ServiceException">An error occurred while retrieving data from the data source.</exception>
         /// <returns>A collection of object identifiers.</returns>
         ICollection<TKey> Discover();

@@ -32,12 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -45,6 +43,7 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -59,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Converter\ConverterAdapter.cs" />
+    <Compile Include="Common\DatabaseSeviceClient.cs" />
     <Compile Include="Common\DictionaryRange.cs" />
     <Compile Include="Common\Converter\DictionaryRangeConverter.cs" />
     <Compile Include="Common\IAuthorizedServiceClient.cs" />
@@ -89,7 +89,8 @@
     <Compile Include="Contracts\IRpgModuleMetadata.cs" />
     <Compile Include="Contracts\IShell.cs" />
     <Compile Include="Contracts\RpgModuleMetadataAttribute.cs" />
-    <Compile Include="MarkupExtensions\EnumList.cs" />
+    <Compile Include="Converter\DbGeographyToStringConverter.cs" />
+    <Compile Include="MarkupExtensions\EnumListExtension.cs" />
     <Compile Include="Models\Characters\Character.cs" />
     <Compile Include="Models\Characters\Character.Family.cs" />
     <Compile Include="Models\Characters\Character.Metadata.cs" />
@@ -106,6 +107,16 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Resources\Converter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\NoChromeButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

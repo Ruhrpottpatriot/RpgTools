@@ -6,18 +6,68 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:cal="http://www.caliburnproject.org"
              xmlns:viewModels="clr-namespace:RpgTools.Main.ViewModels"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              d:DataContext="{d:DesignInstance Type=viewModels:ShellViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d"
              d:DesignHeight="150"
              d:DesignWidth="500">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <Grid.Resources>
+            <Style x:Key="ModuleSelector"
+                   TargetType="{x:Type ItemsControl}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=IsModuleSelected}"
+                                 Value="True">
+                        <Setter Property="Visibility"
+                                Value="Collapsed" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=IsModuleSelected}"
+                                 Value="False">
+                        <Setter Property="Visibility"
+                                Value="Visible" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        <Style x:Key="BackToMainButton"
+               TargetType="{x:Type Button}"
+               BasedOn="{StaticResource {x:Type Button}}">
+                <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=IsModuleSelected}"
+                             Value="False">
+                    <Setter Property="Visibility"
+                            Value="Collapsed" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=IsModuleSelected}"
+                             Value="True">
+                    <Setter Property="Visibility"
+                            Value="Visible" />
+                </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        
+        </Grid.Resources>
+        
+        <Button Style="{StaticResource BackToMainButton}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Back To Main"></TextBlock>
+            </StackPanel>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <cal:ActionMessage MethodName="BackToMain" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+        
+
         <ItemsControl x:Name="RpgModules"
-                      Grid.Row="0">
+                      Grid.Row="1"
+                      Style="{DynamicResource ModuleSelector}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid />
@@ -26,10 +76,8 @@
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button x:Name="Test"
-                            Content="{Binding Metadata.Name}"
-                            Margin="3"
-                            Style="{DynamicResource FlatButton}">
+                    <controls:Tile Title="{Binding Metadata.Name}"
+                                   TiltFactor="2">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <cal:ActionMessage cal:MethodName="SelectModule">
@@ -37,12 +85,12 @@
                                 </cal:ActionMessage>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                    </Button>
+                    </controls:Tile>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <ContentControl Grid.Row="1"
+        <ContentControl Grid.Row="2"
                         x:Name="CurrentModule" />
     </Grid>
 </UserControl>

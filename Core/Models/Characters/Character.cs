@@ -3,10 +3,9 @@
 //   (C) All rights reseved
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace RpgTools.Core.Models.Characters
+namespace RpgTools.Core.Models
 {
     using System;
-    using System.Windows.Media.Imaging;
 
     /// <summary>Represent a Character.</summary>
     public partial class Character : IEquatable<Character>

@@ -13,7 +13,7 @@ namespace RpgTools.Main.ViewModels
     using System.Collections.Generic;
     using System.ComponentModel.Composition;
     using System.Linq;
-
+    using Caliburn.Micro;
     using PropertyChanged;
 
     using RpgTools.Core.Contracts;
@@ -28,13 +28,25 @@ namespace RpgTools.Main.ViewModels
 
         public ShellViewModel()
         {
+            if (Execute.InDesignMode)
+            {
+            }
         }
+
+        public bool IsModuleSelected { get; set; }
 
         public IRpgModuleContract CurrentModule { get; set; }
 
         public void SelectModule(string name)
         {
             this.CurrentModule = this.RpgModules.Single(m => m.Metadata.Name == name).Value;
+            this.IsModuleSelected = true;
+        }
+
+        public void BackToMain()
+        {
+            this.CurrentModule = null;
+            this.IsModuleSelected = false;
         }
     }
 }

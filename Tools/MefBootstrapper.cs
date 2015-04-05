@@ -17,6 +17,7 @@ namespace RpgTools.Main
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Windows;
 
     using Caliburn.Micro;
@@ -27,14 +28,16 @@ namespace RpgTools.Main
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
     public class MefBootstrapper : BootstrapperBase
     {
+        /// <summary>Represents the path to the module directory relative to the executing assembly.</summary>
+        private const string ModuleDirectory = "";
+
         /// <summary>The composition container.</summary>
         private CompositionContainer compositionContainer;
 
         /// <summary>Initialises a new instance of the <see cref="MefBootstrapper"/> class.</summary>
         public MefBootstrapper()
         {
-            this.CheckModuleDirectory();
-
+            // this.CheckModuleDirectory();
             this.Initialize();
         }
 
@@ -42,13 +45,15 @@ namespace RpgTools.Main
         protected override void Configure()
         {
             // Get the modules from the module directory
-            DirectoryCatalog dirCatalog = new DirectoryCatalog(@".\Modules");
+            // ToDo: Implement dynamic loading from modules directory.
+            var assemblies = this.GetAssemblies().Select(fi => Assembly.LoadFrom(fi.FullName));
 
-            // Create a combinable catalog
-            // ReSharper disable once RedundantEnumerableCastCall
-            AggregateCatalog catalog = new AggregateCatalog(AssemblySource.Instance.Select(s => new AssemblyCatalog(s)).OfType<ComposablePartCatalog>());
-            catalog.Catalogs.Add(dirCatalog);
+            // Add the assembliues to the assembly source.
+            AssemblySource.Instance.AddRange(assemblies);
 
+            // Add the assembly source to the catalog.
+            var catalog = new AggregateCatalog(AssemblySource.Instance.Select(i => new AssemblyCatalog(i)).OfType<ComposablePartCatalog>());
+            
             // Create a new composition container.
             // ReSharper disable once RedundantEnumerableCastCall
             this.compositionContainer = new CompositionContainer();
@@ -115,12 +120,26 @@ namespace RpgTools.Main
         }
 
         /// <summary>Checks if the modules directory exists and if not create it.</summary>
-        private void CheckModuleDirectory()
+        /// <param name="path">The path to check.</param>
+        private void CheckDirectory(string path)
         {
-            if (!Directory.Exists(@".\Modules"))
+            if (!Directory.Exists(path))
             {
-                Directory.CreateDirectory(@".\Modules");
+                Directory.CreateDirectory(path);
             }
+        }
+
+        /// <summary>Gets the names and paths of all assemblies in the specified directory.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="FileInfo[]"/> containing the assemblies.</returns>
+        private FileInfo[] GetAssemblies()
+        {
+            string pluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ModuleDirectory);
+           
+            this.CheckDirectory(pluginPath);
+
+            return new DirectoryInfo(pluginPath).GetFiles("*.dll",SearchOption.AllDirectories);
         }
     }
 }

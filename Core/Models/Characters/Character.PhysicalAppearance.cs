@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace RpgTools.Core.Models.Characters
+namespace RpgTools.Core.Models
 {
     /// <summary>Describes a character.</summary>
     public partial class Character

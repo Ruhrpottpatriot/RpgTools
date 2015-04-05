@@ -1,7 +1,9 @@
 <StyleCopSettings Version="105">
   <GlobalSettings>
     <CollectionProperty Name="RecognizedWords">
+      <Value>enum</Value>
       <Value>iridum</Value>
+      <Value>markup</Value>
     </CollectionProperty>
   </GlobalSettings>
 </StyleCopSettings>

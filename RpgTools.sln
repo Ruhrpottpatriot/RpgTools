@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Tools\Main.csproj",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Characters", "Modules\Characters\Characters.csproj", "{0C841830-4CF5-4C8E-A557-A0A811C1A00F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocationPresenter", "Modules\LocationPresenter\LocationPresenter.csproj", "{8DB91165-A4E4-4B6C-A03F-0EDC33F902BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{0C841830-4CF5-4C8E-A557-A0A811C1A00F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C841830-4CF5-4C8E-A557-A0A811C1A00F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C841830-4CF5-4C8E-A557-A0A811C1A00F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DB91165-A4E4-4B6C-A03F-0EDC33F902BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DB91165-A4E4-4B6C-A03F-0EDC33F902BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DB91165-A4E4-4B6C-A03F-0EDC33F902BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DB91165-A4E4-4B6C-A03F-0EDC33F902BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,5 +54,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{80E4E7FE-E727-4946-AE56-0782A2AA1EF9} = {E65F4101-E58C-4234-9C95-8697F22C3789}
 		{0C841830-4CF5-4C8E-A557-A0A811C1A00F} = {E65F4101-E58C-4234-9C95-8697F22C3789}
+		{8DB91165-A4E4-4B6C-A03F-0EDC33F902BC} = {E65F4101-E58C-4234-9C95-8697F22C3789}
 	EndGlobalSection
 EndGlobal

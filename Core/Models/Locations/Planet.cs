@@ -7,10 +7,11 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace RpgTools.Core.Models.Locations
+namespace RpgTools.Core.Models
 {
     using System;
     using System.Collections.Generic;
+    using RpgTools.Core.Models.Locations;
 
     /// <summary>Represents a planet.</summary>
     public class Planet : Location

@@ -10,7 +10,6 @@
 namespace RpgTools.Core.Common
 {
     using System;
-
     using RpgTools.Core.Models.Locations;
 
     /// <summary>Provides the interface for a location repository.</summary>
