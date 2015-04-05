@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IShell.cs" company="Robert Logiewa">
-//   (C) All rights reseved
+//   (C) All rights reserved
 // </copyright>
 // <summary>
 //   Defines the IShell type.

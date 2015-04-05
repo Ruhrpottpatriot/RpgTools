@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IRpgModuleMetadata.cs" company="Robert Logiewa">
-//   (C) All rights reseved
+//   (C) All rights reserved
 // </copyright>
 // <summary>
 //   Defines methods an properties for the rpg module metadata attribute.

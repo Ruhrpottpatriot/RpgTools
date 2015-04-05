@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="DictionaryRange.cs" company="Robert Logiewa">
-//   (C) All rights reseved
+//   (C) All rights reserved
 // </copyright>
 // <summary>
 //   Represents a subset of keys and values.

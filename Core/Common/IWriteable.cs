@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IWriteable.cs" company="Robert Logiewa">
-//   (C) All rights reseved
+//   (C) All rights reserved
 // </copyright>
 // <summary>
 //   provides the interface for a writeable repository.

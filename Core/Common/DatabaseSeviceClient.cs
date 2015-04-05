@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="DatabaseSeviceClient.cs" company="Robert Logiewa">
-//   (C) All rights reseved
+//   (C) All rights reserved
 // </copyright>
 // <summary>
 //   A service client used to query a database.

@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="CityDataContractConverter.cs" company="Robert Logiewa">
-//   (C) All rights reseved
+//   (C) All rights reserved
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 namespace RpgTools.Locations.Converter

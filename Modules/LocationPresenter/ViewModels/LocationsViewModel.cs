@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="LocationsViewModel.cs" company="Robert Logiewa">
-//   (C) All rights reseved
+//   (C) All rights reserved
 // </copyright>
 // <summary>
 //   Defines the LocationsViewModel type.
@@ -18,6 +18,7 @@ namespace RpgTools.LocationPresenter.ViewModels
     using PropertyChanged;
     using RpgTools.Core.Common;
     using RpgTools.Core.Contracts;
+    using RpgTools.Core.Models.Locations;
     using RpgTools.Locations;
 
     /// <summary>Represents the location view model.</summary>
@@ -28,7 +29,7 @@ namespace RpgTools.LocationPresenter.ViewModels
     {
         /// <summary>Infrastructure. Holds a reference to the  location repository.</summary>
         private readonly ILocationRepository locationRepository;
-        
+
         /// <summary>Infrastructure. Holds a reference to the  window manager.</summary>
         private readonly IWindowManager windowManager;
 

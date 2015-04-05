@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ResponseConverter.cs" company="Robert Logiewa">
-//   (C) All rights reseved
+//   (C) All rights reserved
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 namespace RpgTools.Core.Common.Converter
