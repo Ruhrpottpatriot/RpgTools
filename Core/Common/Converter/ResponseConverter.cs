@@ -39,7 +39,7 @@ namespace RpgTools.Core.Common.Converter
 
             // Check if the dataContract is empty and return the default value fot TValue
             // ReSharper disable once RedundantNameQualifier
-            if (Equals(dataContract, default(TDataContract)))
+            if (object.Equals(dataContract, default(TDataContract)))
             {
                 return default(TValue);
             }

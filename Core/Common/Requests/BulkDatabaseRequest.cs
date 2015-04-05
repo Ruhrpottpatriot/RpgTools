@@ -1,3 +1,12 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="BulkDatabaseRequest.cs" company="Robert Logiewa">
+//   (C) All rights reseved
+// </copyright>
+// <summary>
+//   Abstract base class for all bulk requests against a database.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace RpgTools.Core.Common.Requests
 {
     using System;

@@ -8,7 +8,7 @@ namespace RpgTools.Core.Common
 {
     using System.Collections.Generic;
 
-    /// <summary>Provides the interface for queries against a datasource.</summary>
+    /// <summary>Provides the interface for queries against a data source.</summary>
     /// <typeparam name="TKey">The type of the key values that uniquely identify the entities in the repository.</typeparam>
     /// <typeparam name="TValue">The type of the entities in the repository.</typeparam>
     public interface IRepository<TKey, TValue> : IDiscoverable<TKey>

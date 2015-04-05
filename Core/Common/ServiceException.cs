@@ -10,6 +10,7 @@
 namespace RpgTools.Core.Common
 {
     using System;
+    using RpgTools.Core.Common.Requests;
 
     /// <summary>The exception that is thrown when a request could not be fulfilled.</summary>
     public sealed class ServiceException : Exception
@@ -35,6 +36,6 @@ namespace RpgTools.Core.Common
         }
 
         /// <summary>Gets or sets the request that is the cause of this exception.</summary>
-        // public IRequest Request { get; set; }
+        public IRequest Request { get; set; }
     }
 }

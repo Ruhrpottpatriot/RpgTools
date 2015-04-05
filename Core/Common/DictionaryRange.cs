@@ -1,4 +1,13 @@
-﻿namespace RpgTools.Core.Common
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DictionaryRange.cs" company="Robert Logiewa">
+//   (C) All rights reseved
+// </copyright>
+// <summary>
+//   Represents a subset of keys and values.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace RpgTools.Core.Common
 {
     using System;
     using System.Collections.Generic;
@@ -8,13 +17,13 @@
     /// <typeparam name="TValue">The type of the values in the subset.</typeparam>
     public sealed class DictionaryRange<TKey, TValue> : Dictionary<TKey, TValue>, IDictionaryRange<TKey, TValue>
     {
-        /// <summary>Initializes a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class. 
-        /// Initializes a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class that is empty, has the default initial capacity, and uses the default equality comparer for the key type.</summary>
+        /// <summary>Initialises a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class. 
+        /// Initialises a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class that is empty, has the default initial capacity, and uses the default equality comparer for the key type.</summary>
         public DictionaryRange()
         {
         }
 
-        /// <summary>Initializes a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class. Initializes a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class that is empty, has the specified initial capacity, and uses the default equality comparer for the key type.</summary>
+        /// <summary>Initialises a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class. Initialises a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class that is empty, has the specified initial capacity, and uses the default equality comparer for the key type.</summary>
         /// <param name="capacity">The initial number of elements that the <see cref="DictionaryRange{TKey,TValue}"/> can contain.</param>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="capacity"/> is less than 0.</exception>
         public DictionaryRange(int capacity)
@@ -22,7 +31,7 @@
         {
         }
 
-        /// <summary>Initializes a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class. Initializes a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class that is empty, has the specified initial capacity, and uses the specified <see cref="IEqualityComparer{T}"/>.</summary>
+        /// <summary>Initialises a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class. Initialises a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class that is empty, has the specified initial capacity, and uses the specified <see cref="IEqualityComparer{T}"/>.</summary>
         /// <param name="capacity">The initial number of elements that the <see cref="DictionaryRange{TKey,TValue}"/> can contain.</param>
         /// <param name="comparer">The <see cref="IEqualityComparer{T}"/> implementation to use when comparing keys, or null to use the default <see cref="EqualityComparer{T}"/> for the type of the key.</param>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="capacity"/> is less than 0.</exception>
@@ -31,14 +40,14 @@
         {
         }
 
-        /// <summary>Initializes a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class. Initializes a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class that is empty, has the default initial capacity, and uses the specified <see cref="IEqualityComparer{T}"/>.</summary>
+        /// <summary>Initialises a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class. Initialises a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class that is empty, has the default initial capacity, and uses the specified <see cref="IEqualityComparer{T}"/>.</summary>
         /// <param name="comparer">The <see cref="IEqualityComparer{T}"/> implementation to use when comparing keys, or null to use the default <see cref="EqualityComparer{T}"/> for the type of the key.</param>
         public DictionaryRange(IEqualityComparer<TKey> comparer)
             : base(comparer)
         {
         }
 
-        /// <summary>Initializes a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class. Initializes a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class that contains elements copied from the specified <see cref="IDictionary{TKey, TValue}"/> and uses the default equality comparer for the key type.</summary>
+        /// <summary>Initialises a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class. Initialises a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class that contains elements copied from the specified <see cref="IDictionary{TKey, TValue}"/> and uses the default equality comparer for the key type.</summary>
         /// <param name="dictionary">The <see cref="IDictionary{TKey, TValue}"/> whose elements are copied to the new <see cref="DictionaryRange{TKey,TValue}"/>.</param>
         /// <exception cref="ArgumentNullException"><paramref name="dictionary"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="dictionary"/> contains one or more duplicate keys.</exception>
@@ -47,7 +56,7 @@
         {
         }
 
-        /// <summary>Initializes a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class. Initializes a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class that contains elements copied from the specified <see cref="IDictionary{TKey, TValue}"/> and uses the specified <see cref="IEqualityComparer{T}"/>.</summary>
+        /// <summary>Initialises a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class. Initialises a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class that contains elements copied from the specified <see cref="IDictionary{TKey, TValue}"/> and uses the specified <see cref="IEqualityComparer{T}"/>.</summary>
         /// <param name="dictionary">The <see cref="IDictionary{TKey, TValue}"/> whose elements are copied to the new <see cref="DictionaryRange{TKey,TValue}"/>.</param>
         /// <param name="comparer">The <see cref="IEqualityComparer{T}"/> implementation to use when comparing keys, or null to use the default <see cref="EqualityComparer{T}"/> for the type of the key.</param>
         /// <exception cref="ArgumentNullException"><paramref name="dictionary"/> is null.</exception>
