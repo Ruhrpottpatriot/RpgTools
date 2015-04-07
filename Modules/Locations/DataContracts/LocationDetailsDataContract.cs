@@ -1,8 +1,12 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LocationDetails.cs" company="Robert Logiewa">
+// <copyright file="LocationDetailsDataContract.cs" company="Robert Logiewa">
 //   (C) All rights reserved
 // </copyright>
+// <summary>
+//   
+// </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace RpgTools.Locations.DataContracts
 {
     using System;

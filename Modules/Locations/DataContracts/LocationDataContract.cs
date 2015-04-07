@@ -2,20 +2,19 @@
 // <copyright file="LocationDataContract.cs" company="Robert Logiewa">
 //   (C) All rights reserved
 // </copyright>
+// <summary>
+//   
+// </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace RpgTools.Locations.DataContracts
 {
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    using System.Globalization;
 
-    using RpgTools.Core.Common;
-
-    /// <summary>
-    /// The location data contract.
-    /// </summary>
+    /// <summary>The location data contract.</summary>
     [Table("Locations")]
     internal class LocationDataContract
     {
@@ -44,9 +43,6 @@ namespace RpgTools.Locations.DataContracts
         /// Gets or sets the type.
         /// </summary>
         public string Type { get; set; }
-
-        /// <summary>Gets or sets the localisation.</summary>
-        public LocalisationDataContract Localisation { get; set; }
 
         /// <summary>
         /// Gets or sets the details.

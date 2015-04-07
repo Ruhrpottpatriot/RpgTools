@@ -36,11 +36,11 @@
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -66,16 +66,11 @@
     <Compile Include="Converter\SectorLocationConverter.cs" />
     <Compile Include="Converter\StarSystemLocationConverter.cs" />
     <Compile Include="Converter\SystemDataContractConverter.cs" />
-    <Compile Include="Migrations\201504011458437_Version4.cs" />
-    <Compile Include="Migrations\201504011458437_Version4.Designer.cs">
-      <DependentUpon>201504011458437_Version4.cs</DependentUpon>
-    </Compile>
     <Compile Include="Requests\LocationBulkRequest.cs" />
     <Compile Include="Requests\LocationCompleteRequest.cs" />
     <Compile Include="Requests\LocationDeleteRequest.cs" />
     <Compile Include="Requests\LocationWriteRequest.cs" />
     <Compile Include="DataContracts\CityDetailsDataContract.cs" />
-    <Compile Include="DataContracts\LocalisationDataContract.cs" />
     <Compile Include="DataContracts\LocationDataContract.cs" />
     <Compile Include="DataContracts\LocationDetailsDataContract.cs" />
     <Compile Include="DataContracts\PlanetDetailsDataContract.cs" />
@@ -93,18 +88,6 @@
     <Compile Include="Migrations\201503111635149_Version1.cs" />
     <Compile Include="Migrations\201503111635149_Version1.Designer.cs">
       <DependentUpon>201503111635149_Version1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503111636395_Version2.cs" />
-    <Compile Include="Migrations\201503111636395_Version2.Designer.cs">
-      <DependentUpon>201503111636395_Version2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503242037056_Version3.cs" />
-    <Compile Include="Migrations\201503242037056_Version3.Designer.cs">
-      <DependentUpon>201503242037056_Version3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503242226460_Version31.cs" />
-    <Compile Include="Migrations\201503242226460_Version31.Designer.cs">
-      <DependentUpon>201503242226460_Version31.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -125,18 +108,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503111635149_Version1.resx">
       <DependentUpon>201503111635149_Version1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503111636395_Version2.resx">
-      <DependentUpon>201503111636395_Version2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503242037056_Version3.resx">
-      <DependentUpon>201503242037056_Version3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503242226460_Version31.resx">
-      <DependentUpon>201503242226460_Version31.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504011458437_Version4.resx">
-      <DependentUpon>201504011458437_Version4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
