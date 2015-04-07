@@ -107,7 +107,7 @@ namespace RpgTools.Core.MarkupExtensions
                 return tempArray;
             }
 
-            var items = new List<string>();
+            List<string> items = new List<string>();
 
             if (actualEnumType != this.enumType)
             {

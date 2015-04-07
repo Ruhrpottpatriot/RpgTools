@@ -14,20 +14,17 @@ namespace RpgTools.LocationPresenter.ViewModels
     using System.Data.Entity.Spatial;
     using Caliburn.Micro;
     using PropertyChanged;
-    using RpgTools.Core.Common;
     using RpgTools.Core.Models;
     using RpgTools.Core.Models.Locations;
 
     [ImplementPropertyChanged]
-    public class LocationDetailViewModel : Screen
+    public class LocationDetailsViewModel : Screen
     {
         private readonly IEventAggregator eventAggregator;
 
         private readonly IWindowManager windowManager;
-
-        private readonly ILocationRepository locationRepository;
         
-        public LocationDetailViewModel()
+        public LocationDetailsViewModel()
         {
             if (Execute.InDesignMode)
             {
@@ -45,13 +42,13 @@ namespace RpgTools.LocationPresenter.ViewModels
         }
 
         [ImportingConstructor]
-        public LocationDetailViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, ILocationRepository locationRepository)
+        public LocationDetailsViewModel(IEventAggregator eventAggregator, IWindowManager windowManager)
         {
             this.eventAggregator = eventAggregator;
             this.windowManager = windowManager;
-            this.locationRepository = locationRepository;
-        }
 
+        }
+       
         public Location Location { get; set; }
 
         public override string DisplayName
@@ -59,6 +56,16 @@ namespace RpgTools.LocationPresenter.ViewModels
             get
             {
                 return this.Location.Name;
+            }
+
+            set
+            {
+                if (this.Location.Name == value)
+                {
+                    return;
+                }
+
+                this.Location.Name = value;
             }
         }
 

@@ -53,7 +53,7 @@ namespace RpgTools.Main
 
             // Add the assembly source to the catalog.
             var catalog = new AggregateCatalog(AssemblySource.Instance.Select(i => new AssemblyCatalog(i)).OfType<ComposablePartCatalog>());
-            
+
             // Create a new composition container.
             // ReSharper disable once RedundantEnumerableCastCall
             this.compositionContainer = new CompositionContainer();
@@ -136,10 +136,10 @@ namespace RpgTools.Main
         private FileInfo[] GetAssemblies()
         {
             string pluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ModuleDirectory);
-           
+
             this.CheckDirectory(pluginPath);
 
-            return new DirectoryInfo(pluginPath).GetFiles("*.dll",SearchOption.AllDirectories);
+            return new DirectoryInfo(pluginPath).GetFiles("*.dll", SearchOption.AllDirectories);
         }
     }
 }
