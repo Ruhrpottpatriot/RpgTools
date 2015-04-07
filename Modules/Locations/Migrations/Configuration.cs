@@ -10,15 +10,11 @@
 namespace RpgTools.Locations.Migrations
 {
     using System;
-    using System.Collections.Generic;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Globalization;
-    using System.Linq;
 
     using RpgTools.Locations.DataContracts;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<RpgTools.Locations.LocationContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<LocationContext>
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="Configuration"/> class.
@@ -26,6 +22,7 @@ namespace RpgTools.Locations.Migrations
         public Configuration()
         {
             this.AutomaticMigrationsEnabled = false;
+            this.AutomaticMigrationDataLossAllowed = false;
         }
 
         /// <summary>
@@ -45,7 +42,7 @@ namespace RpgTools.Locations.Migrations
         /// called and the Seed method defined in the initializer should be used instead.
         /// </remarks>
         /// <param name="context">Context to be used for updating seed data. </param>
-        protected override void Seed(RpgTools.Locations.LocationContext context)
+        protected override void Seed(LocationContext context)
         {
             // This method will be called after migrating to the latest version.
             // You can use the DbSet<T>.AddOrUpdate() helper extension method 

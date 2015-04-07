@@ -6,7 +6,6 @@
 namespace RpgTools.Locations.Converter
 {
     using System.Collections.Generic;
-    using System.Data.Entity.ModelConfiguration.Conventions;
 
     using RpgTools.Core.Common;
     using RpgTools.Core.Models.Locations;

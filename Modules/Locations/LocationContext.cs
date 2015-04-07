@@ -9,10 +9,7 @@
 
 namespace RpgTools.Locations
 {
-    using System.Collections.Generic;
     using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
 
     using RpgTools.Locations.DataContracts;
 
@@ -25,7 +22,7 @@ namespace RpgTools.Locations
         {
             // Set the initializer. ToDo: Needs to be changed for production enviroment.
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<LocationContext, Migrations.Configuration>(true));
-
+           
             this.Locations = this.Set<LocationDataContract>();
         }
 
@@ -51,10 +48,10 @@ namespace RpgTools.Locations
         {
             modelBuilder.HasDefaultSchema("Locations");
 
-            modelBuilder.Entity<LocationDataContract>()
-                .HasOptional(d => d.Details)
-                .WithOptionalDependent()
-                .WillCascadeOnDelete(true);
+            //modelBuilder.Entity<LocationDataContract>()
+            //    .HasOptional(d => d.Details)
+            //    .WithOptionalDependent()
+            //    .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<CityDetailsDataContract>().Map(
                 m =>
