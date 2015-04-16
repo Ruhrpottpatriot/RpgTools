@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="LocationRepositoryTest.cs" company="Robert Logiewa">
-//   (C) All rights reserved
+//   (C) All rights reseved
 // </copyright>
 // <summary>
 //   Defines the LocationRepositoryTest type.
@@ -10,13 +10,12 @@
 namespace Tests
 {
     using System;
-    using System.Data.Entity.Spatial;
     using System.Diagnostics;
     
     using NUnit.Framework;
 
     using RpgTools.Core.Common;
-    using RpgTools.Core.Models.Locations;
+    using RpgTools.Core.Models;
     using RpgTools.Locations;
 
     [TestFixture]

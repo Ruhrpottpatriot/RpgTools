@@ -8,7 +8,7 @@ namespace RpgTools.Locations.Converter
     using System.Collections.Generic;
 
     using RpgTools.Core.Common;
-    using RpgTools.Core.Models.Locations;
+    using RpgTools.Core.Models;
     using RpgTools.Locations.DataContracts;
 
     /// <summary>Converts a <see cref="LocationDataContract"/> into the corresponding <see cref="Location"/>.</summary>

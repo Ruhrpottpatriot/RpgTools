@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LocationsViewModel.cs" company="Robert Logiewa">
+// <copyright file="LocationViewModel.cs" company="Robert Logiewa">
 //   (C) All rights reserved
 // </copyright>
 // <summary>
@@ -15,21 +15,19 @@ namespace RpgTools.LocationPresenter.ViewModels
     using System.ComponentModel.Composition;
     using System.Linq;
     using System.Windows;
-    using System.Windows.Documents;
     using Caliburn.Micro;
     using PropertyChanged;
     using RpgTools.Core;
     using RpgTools.Core.Common;
     using RpgTools.Core.Contracts;
     using RpgTools.Core.Models;
-    using RpgTools.Core.Models.Locations;
     using RpgTools.Locations;
 
     /// <summary>Represents the location view model.</summary>
     [ImplementPropertyChanged]
     [RpgModuleMetadata(Name = "Locations")]
     [Export(typeof(IRpgModuleContract))]
-    public class LocationViewModel : Conductor<Screen>.Collection.OneActive, IRpgModuleContract
+    public class LocationViewModel : Conductor<LocationDetailsViewModel>.Collection.OneActive, IRpgModuleContract
     {
         /// <summary>Infrastructure. Holds a reference to the  location repository.</summary>
         private readonly ILocationRepository locationRepository;
@@ -55,7 +53,6 @@ namespace RpgTools.LocationPresenter.ViewModels
                                           new CheckListItem("Location", false)
                                       };
                 var guids = new[] { Guid.NewGuid(), Guid.NewGuid() };
-
 
                 this.Locations = new DictionaryRange<Guid, Location>
                                  {
@@ -155,6 +152,27 @@ namespace RpgTools.LocationPresenter.ViewModels
             }
         }
 
+        /// <summary>Closes all location tabs.</summary>
+        /// <param name="locations">The locations to close.</param>
+        public void CloseTabs(ICollection<LocationDetailsViewModel> locations)
+        {
+            foreach (LocationDetailsViewModel viewModel in locations)
+            {
+                this.CloseTab(viewModel);
+            }
+        }
+
+        /// <summary>Closes a collection of tabs, except one.</summary>
+        /// <param name="locations">The locations to close.</param>
+        /// <param name="location">The location to except from closing.</param>
+        public void CloseTabsExcept(ICollection<LocationDetailsViewModel> locations, LocationDetailsViewModel location)
+        {
+            foreach (LocationDetailsViewModel viewModel in locations.Where(vm => vm.DisplayName != location.DisplayName))
+            {
+                this.CloseTab(viewModel);
+            }
+        }
+
         /// <summary>Loads the location ids from the location repository.</summary>
         public void LoadLocations()
         {
@@ -188,7 +206,7 @@ namespace RpgTools.LocationPresenter.ViewModels
 
             // Get the checked items.
             var checkedBoxes = this.CheckListItems.Where(i => (i.IsChecked != null && (bool)i.IsChecked));
-            
+
             this.Locations = new DictionaryRange<Guid, Location>(this.locationRepository.FindAll().Where(l => checkedBoxes.Any(b => b.Name == l.Value.GetType().Name)).ToDictionary(x => x.Key, x => x.Value));
         }
 
@@ -249,20 +267,65 @@ namespace RpgTools.LocationPresenter.ViewModels
             }
         }
 
-        public void SaveLocation()
+        /// <summary>Saves a location to the repository.</summary>
+        /// <param name="viewModel">The view model with the location to be saved.</param>
+        public void SaveLocation(LocationDetailsViewModel viewModel)
         {
-            // Get the currently active screen item.
-            LocationDetailsViewModel activeScreen= (LocationDetailsViewModel)this.ActiveItem;
-
             // Get the location to save
-            Location location = activeScreen.Location;
+            Location location = viewModel.Location;
 
             // Save the location to the repository
             this.locationRepository.Write(location);
 
             // Reload the screen.
-            this.CloseTab(activeScreen);
+            this.CloseTab(viewModel);
             this.OpenLocationTab(new KeyValuePair<Guid, Location>(location.Id, location));
+        }
+
+        /// <summary>Saves all currently opened locations to the repository.</summary>
+        /// <param name="locationDetails">The location detail view models.</param>
+        public void SaveAllLocations(ICollection<LocationDetailsViewModel> locationDetails)
+        {
+            foreach (LocationDetailsViewModel viewModel in locationDetails)
+            {
+                this.SaveLocation(viewModel);
+            }
+        }
+
+        /// <summary>Deletes a location from the repository.</summary>
+        /// <param name="viewModel">The location to be deleted.</param>
+        public void DeleteLocation(object viewModel)
+        {
+            // Get the location to save
+            Location location = ((LocationDetailsViewModel)viewModel).Location;
+
+            this.locationRepository.Delete(location);
+            this.Locations.Remove(location.Id);
+        }
+
+        /// <summary>Creates a new location from scratch.</summary>
+        public void CreateLocation()
+        {
+            NewLocationViewModel newLocation = new NewLocationViewModel { DisplayName = "Create Location" };
+
+            Dictionary<string, object> settingsDictionary = new Dictionary<string, object>
+            {
+                { "ResizeMode", ResizeMode.NoResize } 
+            };
+
+            bool? answer = this.windowManager.ShowDialog(newLocation, null, settingsDictionary);
+
+            if (answer.HasValue && answer.Value)
+            {
+                this.locationRepository.Write(newLocation.Location);
+            }
+
+            this.FilterLocations();
+        }
+
+        public void Close()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,112 +1,42 @@
 ﻿<UserControl x:Class="RpgTools.LocationPresenter.Views.LocationDetailsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:locationPresenter="clr-namespace:RpgTools.LocationPresenter"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:viewModels="clr-namespace:RpgTools.LocationPresenter.ViewModels"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=viewModels:LocationDetailsViewModel, IsDesignTimeCreatable=True}"
+             cal:Bind.AtDesignTime="True">
     <Grid>
-
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto"
-                              MinWidth="200" />
-        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <ResourceDictionary Source="../Resources/LocationDataTemplates.xaml" />
+        </Grid.Resources>
 
-        <TextBlock Grid.Row="0"
-                   Grid.Column="0"
-                   Text="Id:"
-                   TextAlignment="Right"
-                   Margin="0,0,3,3" />
-        <TextBox Text="{Binding Path=Location.Id}"
-                 Grid.Row="0"
-                 Grid.Column="1"
-                 IsReadOnly="True"
-                 Margin="3,0,0,3" />
+        <ContentControl Grid.Row="0"
+                        Margin="0,0,0,3"
+                        ContentTemplate="{DynamicResource LocationDataTemplate}"
+                        Content="{Binding Path=Location}">
+            <ContentControl.Resources>
+            </ContentControl.Resources>
+        </ContentControl>
 
-        <TextBlock Text="Type:"
-                   Grid.Row="1"
-                   Grid.Column="0"
-                   TextAlignment="Right"
-                   Margin="0,3,3,3" />
-        <TextBox Text="{Binding Path=Type, Mode=OneWay}"
-                 IsReadOnly="True"
-                 IsReadOnlyCaretVisible="False"
-                 Grid.Row="1"
-                 Grid.Column="1"
-                 Margin="3,3,0,3" />
-
-        <TextBlock Grid.Row="2"
-                   Grid.Column="0"
-                   Text="Name:"
-                   TextAlignment="Right"
-                   Margin="0,3,3,3" />
-        <TextBox Text="{Binding Path=Location.Name}"
-                 Grid.Row="2"
-                 Grid.Column="1"
-                 Margin="3,3,0,3" />
-
-        <TextBlock Text="Coordinates"
-                   Grid.Row="3"
-                   Grid.Column="0"
-                   TextAlignment="Right"
-                   Margin="0,3,3,3" />
-        <TextBox Text="{Binding Path=Location.Coordinates}"
-                 Grid.Row="3"
-                 Grid.Column="1"
-                 Margin="3,3,0,3" />
-        <!--, Converter={StaticResource DbGeographyToStringConverter}-->
-
-        <TextBlock Grid.Row="4"
-                   Grid.Column="0"
-                   Text="Description:"
-                   TextAlignment="Right"
-                   Margin="0,3,3,0" />
-        <TextBox Text="{Binding Path=Location.Description}"
-                 Grid.Row="4"
-                 Grid.Column="1"
-                 Margin="3,3,0,0" />
-
-        <Border Grid.Row="5"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Margin="5,5,5,5"
-                Height="2"
-                VerticalAlignment="Top"
-                BorderBrush="Gray"
-                BorderThickness="2" />
-
-        <TextBlock Grid.Row="6"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   Text="Location specific details below." />
-
-        <ContentControl  Grid.Row="7"
-                         Grid.Column="0"
-                         Grid.ColumnSpan="2"
+        <ContentControl  Grid.Row="1"
                          Content="{Binding Path=Location}"
                          ContentTemplateSelector="{DynamicResource TemplateSelector}"
                          Margin="0,3,0,3">
             <ContentControl.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="../Resources/LocationDataTemplates.xaml" />
                         <ResourceDictionary>
                             <locationPresenter:LocationTemplateSelector x:Key="TemplateSelector"
-                                                                        LocationTemplate="{StaticResource LocationDataTemplate}"
+                                                                        LocationTemplate="{StaticResource NoDetailDataTemplate}"
                                                                         StarSystemTemplate="{StaticResource StarSystemDataTemplate}"
                                                                         SectorTemplate="{StaticResource SectorDataTemplate}"
                                                                         PlanetTemplate="{StaticResource PlanetDataTemplate}"

@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="RpgTools.LocationPresenter.Views.NewLocationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:viewModels="clr-namespace:RpgTools.LocationPresenter.ViewModels"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=viewModels:NewLocationViewModel, IsDesignTimeCreatable=True}"
+             cal:Bind.AtDesignTime="True">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <ContentControl Margin="0,0,0,3"
+                        Grid.Row="0"
+                        ContentTemplate="{DynamicResource NewLocationDataTemplate}"
+                        Content="{Binding}">
+            <ContentControl.Resources>
+                <ResourceDictionary Source="../Resources/LocationDataTemplates.xaml" />
+            </ContentControl.Resources>
+        </ContentControl>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="Create"
+                    Content="Save"
+                    Margin="0,3,3,0"
+                    Grid.Column="0"
+                    cal:Message.Attach="Create()" />
+            <Button Content="Cancel"
+                    Grid.Column="1"
+                    Margin="3,3,0,0"
+                    cal:Message.Attach="Cancel()" />
+        </Grid>
+    </Grid>
+</UserControl>

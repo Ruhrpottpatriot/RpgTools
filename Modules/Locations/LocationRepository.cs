@@ -14,7 +14,7 @@ namespace RpgTools.Locations
 
     using RpgTools.Core.Common;
     using RpgTools.Core.Common.Converter;
-    using RpgTools.Core.Models.Locations;
+    using RpgTools.Core.Models;
     using RpgTools.Locations.Converter;
     using RpgTools.Locations.DataContracts;
     using RpgTools.Locations.Requests;
@@ -201,6 +201,9 @@ namespace RpgTools.Locations
             }
         }
 
+        /// <summary>Gets the result of the async response.</summary>
+        /// <param name="task">The task to get the result from.</param>
+        /// <returns>The <see cref="ICollection{T}"/>.</returns>
         private ICollection<Guid> ConvertAsyncResponse(Task<IResponse<ICollection<Guid>>> task)
         {
             var ids = this.identifiersConverter.Convert(task.Result);

@@ -5,19 +5,26 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 // ReSharper disable RedundantNameQualifier
-namespace RpgTools.Core.Models.Locations
+namespace RpgTools.Core.Models
 {
     using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Data.Entity.Spatial;
 
     /// <summary>Represents a location.</summary>
     public class Location : IEquatable<Location>
     {
         /// <summary>Gets or sets the locations id. This property is required.</summary>
+        [Required]
         public Guid Id { get; set; }
 
         /// <summary>Gets or sets the locations name. This property is required.</summary>
+        [Required]
         public string Name { get; set; }
+
+        /// <summary>Gets or sets the tags.</summary>
+        public ICollection<string> Tags { get; set; }
 
         /// <summary>Gets or sets the locations coordinates.</summary>
         /// <remarks>This property represents the position of a location on a map based on the geodetic (round earth) coordinate system.

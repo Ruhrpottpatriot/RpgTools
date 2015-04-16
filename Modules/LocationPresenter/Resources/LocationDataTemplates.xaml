@@ -1,7 +1,155 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converter="clr-namespace:RpgTools.Core.Converter;assembly=Core"
+                    xmlns:extensions="clr-namespace:RpgTools.Core.Extensions;assembly=Core"
+                    xmlns:viewModels="clr-namespace:RpgTools.LocationPresenter.ViewModels">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+            <converter:DbGeographyToStringConverter x:Key="DbGeographyToStringConverter" />
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+    <DataTemplate x:Key="NewLocationDataTemplate">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto"
+                                  MinWidth="200" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Text="Id:"
+                       TextAlignment="Right"
+                       Margin="0,0,3,3" />
+            <TextBox Text="{Binding Path=Id}"
+                     IsReadOnlyCaretVisible="False"
+                     Grid.Row="0"
+                     Grid.Column="1"
+                     IsReadOnly="True"
+                     Margin="3,0,0,3" />
+
+            <TextBlock Text="Type:"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       TextAlignment="Right"
+                       Margin="0,3,3,3" />
+            <ComboBox Grid.Row="1"
+                      Grid.Column="1"
+                      Margin="3,3,0,3"
+                      ItemsSource="{extensions:EnumList viewModels:LocationType}"
+                      SelectedItem="{Binding Type}"
+                      IsEditable="False" />
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="0"
+                       Text="Name:"
+                       TextAlignment="Right"
+                       Margin="0,3,3,3" />
+            <TextBox Text="{Binding Path=Name}"
+                     Grid.Row="2"
+                     Grid.Column="1"
+                     Margin="3,3,0,3" />
+
+            <TextBlock Grid.Row="4"
+                       Grid.Column="0"
+                       Text="Description:"
+                       TextAlignment="Right"
+                       Margin="0,3,3,0" />
+            <TextBox Text="{Binding Path=Description}"
+                     Grid.Row="4"
+                     Grid.Column="1"
+                     Margin="3,3,0,0" />
+
+        </Grid>
+    </DataTemplate>
 
     <DataTemplate x:Key="LocationDataTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto"
+                                  MinWidth="200" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Text="Id:"
+                       TextAlignment="Right"
+                       Margin="0,0,3,3" />
+            <TextBox Text="{Binding Path=Id}"
+                     Grid.Row="0"
+                     Grid.Column="1"
+                     IsReadOnly="True"
+                     Margin="3,0,0,3" />
+
+            <TextBlock Text="Type:"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       TextAlignment="Right"
+                       Margin="0,3,3,3" />
+            <TextBox Text="{Binding Path=Type, Mode=OneWay}"
+                     IsReadOnly="True"
+                     IsReadOnlyCaretVisible="False"
+                     Grid.Row="1"
+                     Grid.Column="1"
+                     Margin="3,3,0,3" />
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="0"
+                       Text="Name:"
+                       TextAlignment="Right"
+                       Margin="0,3,3,3" />
+            <TextBox Text="{Binding Path=Name}"
+                     Grid.Row="2"
+                     Grid.Column="1"
+                     Margin="3,3,0,3" />
+
+            <TextBlock Text="Coordinates"
+                       Grid.Row="3"
+                       Grid.Column="0"
+                       TextAlignment="Right"
+                       Margin="0,3,3,3" />
+            <TextBox Text="{Binding Path=Coordinates, Converter={StaticResource DbGeographyToStringConverter}}"
+                     Grid.Row="3"
+                     Grid.Column="1"
+                     Margin="3,3,0,3" />
+
+            <TextBlock Grid.Row="4"
+                       Grid.Column="0"
+                       Text="Description:"
+                       TextAlignment="Right"
+                       Margin="0,3,3,0" />
+            <TextBox Text="{Binding Path=Description}"
+                     Grid.Row="4"
+                     Grid.Column="1"
+                     Margin="3,3,0,0" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="NoDetailDataTemplate">
         <TextBlock Text="No Additional Details." />
     </DataTemplate>
     <DataTemplate x:Key="StarSystemDataTemplate">
@@ -31,7 +179,7 @@
                        Grid.Column="0"
                        Grid.Row="1"
                        Margin="0,3,3,3" />
-            <TextBox Text="{Binding Path=SectorId}"
+            <ComboBox Text="{Binding Path=SectorId}"
                      Grid.Column="1"
                      Grid.Row="1"
                      Margin="3,3,0,3" />

@@ -77,8 +77,13 @@
     <Compile Include="ViewModels\LocationDetailsViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModels\LocationType.cs" />
     <Compile Include="ViewModels\LocationViewModel.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewModels\NewLocationViewModel.cs" />
+    <Compile Include="Views\NewLocationView.xaml.cs">
+      <DependentUpon>NewLocationView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +96,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LocationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NewLocationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

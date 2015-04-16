@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Characters", "Modules\Chara
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocationPresenter", "Modules\LocationPresenter\LocationPresenter.csproj", "{8DB91165-A4E4-4B6C-A03F-0EDC33F902BC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{4EF0BFB0-B6B9-41A2-BFF5-CD5179AFF21C}"
+EndProject
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "RpgToolsModels", "RpgToolsModels\RpgToolsModels.modelproj", "{C6104A4C-DB73-491D-A774-4913D3818DFD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,10 @@ Global
 		{8DB91165-A4E4-4B6C-A03F-0EDC33F902BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DB91165-A4E4-4B6C-A03F-0EDC33F902BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DB91165-A4E4-4B6C-A03F-0EDC33F902BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6104A4C-DB73-491D-A774-4913D3818DFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6104A4C-DB73-491D-A774-4913D3818DFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6104A4C-DB73-491D-A774-4913D3818DFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6104A4C-DB73-491D-A774-4913D3818DFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,5 +63,6 @@ Global
 		{80E4E7FE-E727-4946-AE56-0782A2AA1EF9} = {E65F4101-E58C-4234-9C95-8697F22C3789}
 		{0C841830-4CF5-4C8E-A557-A0A811C1A00F} = {E65F4101-E58C-4234-9C95-8697F22C3789}
 		{8DB91165-A4E4-4B6C-A03F-0EDC33F902BC} = {E65F4101-E58C-4234-9C95-8697F22C3789}
+		{C6104A4C-DB73-491D-A774-4913D3818DFD} = {4EF0BFB0-B6B9-41A2-BFF5-CD5179AFF21C}
 	EndGlobalSection
 EndGlobal

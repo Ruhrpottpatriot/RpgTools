@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LocationDetailViewModel.cs" company="Robert Logiewa">
+// <copyright file="LocationDetailsViewModel.cs" company="Robert Logiewa">
 //   (C) All rights reserved
 // </copyright>
 // <summary>
@@ -15,7 +15,6 @@ namespace RpgTools.LocationPresenter.ViewModels
     using Caliburn.Micro;
     using PropertyChanged;
     using RpgTools.Core.Models;
-    using RpgTools.Core.Models.Locations;
 
     [ImplementPropertyChanged]
     public class LocationDetailsViewModel : Screen
@@ -46,10 +45,14 @@ namespace RpgTools.LocationPresenter.ViewModels
         {
             this.eventAggregator = eventAggregator;
             this.windowManager = windowManager;
-
         }
        
         public Location Location { get; set; }
+
+        public void Close()
+        {
+            
+        }
 
         public override string DisplayName
         {
@@ -81,13 +84,5 @@ namespace RpgTools.LocationPresenter.ViewModels
                 return this.Location.GetType().Name;
             }
         }
-    }
-
-    public enum LocationType
-    {
-        City,
-        Planet,
-        StarSystem,
-        Sector
     }
 }

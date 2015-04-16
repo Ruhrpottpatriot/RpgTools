@@ -10,7 +10,6 @@
 namespace RpgTools.Core.Models
 {
     using System;
-    using RpgTools.Core.Models.Locations;
 
     /// <summary>Represents a city.</summary>
     public class City : Location
