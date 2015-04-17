@@ -13,39 +13,24 @@ namespace RpgTools.Core.Models
     public partial class Character
     {
         /// <summary>Describes the bodily appearance of the character.</summary>
-        public partial class PhysicalAppearance
+        public class PhysicalAppearance
         {
-            // --------------------------------------------------------------------------------------------------------------------
-            // Constructors & Destructors
-            // -------------------------------------------------------------------------------------------------------------------
-
-            /// <summary>
-            /// Initialises a new instance of the <see cref="PhysicalAppearance"/> class. Initializes a new instance of the <see cref="PhysicalAppearance"/> class.
-            /// </summary>
-            public PhysicalAppearance()
-            {
-                this.Measurements = new FemaleMeasurements();
-                this.Face = new CharacterFace();
-            }
-
             // --------------------------------------------------------------------------------------------------------------------
             // Enumerations
             // -------------------------------------------------------------------------------------------------------------------
 
-            /// <summary>
-            /// The gender of a SelectedCharacter.
-            /// </summary>
+            /// <summary>The gender of a character.</summary>
             public enum Genders
             {
                 /// <summary>
                 /// The male gender.
                 /// </summary>
-                Male, 
+                Male,
 
                 /// <summary>
                 /// The female gender.
                 /// </summary>
-                Female, 
+                Female,
 
                 /// <summary>
                 /// The neutral gender.
@@ -57,28 +42,49 @@ namespace RpgTools.Core.Models
             // Properties
             // -------------------------------------------------------------------------------------------------------------------
 
-            /// <summary>
-            /// Gets or sets the height.
-            /// </summary>
+            /// <summary>Gets or sets the height in centimetres.</summary>
             public int Height { get; set; }
 
-            /// <summary>Gets or sets the characters face.</summary>
-            public CharacterFace Face { get; set; }
+            /// <summary>Gets or sets the weight in kilograms.</summary>
+            public int Weight { get; set; }
 
-            /// <summary>
-            /// Gets or sets the measurements.
-            /// </summary>
-            public FemaleMeasurements Measurements { get; set; }
-
-            /// <summary>
-            /// Gets or sets the character gender.
-            /// </summary>
+            /// <summary>Gets or sets the characters gender.</summary>
             public Genders Gender { get; set; }
 
-            /// <summary>
-            /// Gets or sets the skin colour.
-            /// </summary>
+            /// <summary>Gets or sets the skin colour.</summary>
             public string SkinColour { get; set; }
+
+            /// <summary>Gets or sets the eye colour.</summary>
+            public string EyeColour { get; set; }
+
+            /// <summary>Gets or sets a value indicating whether a character has heterochromia iridum.</summary>
+            public bool HeterochromiaIridum { get; set; }
+
+            /// <summary>Gets or sets the hair colour.</summary>
+            public string HairColour { get; set; }
+
+            /// <summary>Gets or sets the lip colour.</summary>
+            public string LipColour { get; set; }
+
+            /// <summary>
+            /// Gets or sets the bust measurement.
+            /// </summary>
+            public short Bust { get; set; }
+
+            /// <summary>
+            /// Gets or sets the cup size.
+            /// </summary>
+            public string CupSize { get; set; }
+
+            /// <summary>
+            /// Gets or sets the hip measurement.
+            /// </summary>
+            public short Hip { get; set; }
+
+            /// <summary>
+            /// Gets or sets the waist measurement.
+            /// </summary>
+            public short Waist { get; set; }
         }
     }
 }

@@ -121,6 +121,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CharacterPresenter\CharacterPresenter.csproj">
+      <Project>{d5cd3f18-098a-4018-b5ea-8b5d34e220ca}</Project>
+      <Name>CharacterPresenter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{8ECA933F-6458-441C-9963-479C91CA664F}</Project>
       <Name>Core</Name>
