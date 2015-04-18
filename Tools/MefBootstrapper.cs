@@ -21,8 +21,9 @@ namespace RpgTools.Main
     using System.Windows;
 
     using Caliburn.Micro;
-
+    using RpgTools.Core.Common;
     using RpgTools.Core.Contracts;
+    using RpgTools.Tags;
 
     /// <summary>The MEF bootstrapper.</summary>
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
@@ -68,6 +69,9 @@ namespace RpgTools.Main
 
             // Add EventAggregator to composition batch.
             compositionBatch.AddExportedValue<IEventAggregator>(new EventAggregator());
+
+            // ToDo: Use Application settinggs to allow the user to change the culture of the repository.
+            compositionBatch.AddExportedValue<ITagsRepository>(new TagsRepositoryFactory().ForDefaultCulture());
 
             // Add the container itself.
             compositionBatch.AddExportedValue(this.compositionContainer);

@@ -6,6 +6,7 @@
       <Value>markup</Value>
       <Value>rpg</Value>
     </CollectionProperty>
+    <StringProperty Name="Culture">en-GB</StringProperty>
   </GlobalSettings>
   <Parsers>
     <Parser ParserId="StyleCop.CSharp.CsParser">

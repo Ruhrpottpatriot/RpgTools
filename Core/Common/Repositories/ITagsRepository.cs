@@ -11,10 +11,8 @@ namespace RpgTools.Core.Common
     using RpgTools.Core.Models;
 
     /// <summary>Provides the interface for tags repositories.</summary>
-    public interface ITagsRepository : ILocalizable
+    public interface ITagsRepository : IRepository<Guid, Tag>, ILocalizable, IWriteable<Tag>
     {
         IDictionaryRange<Guid, Tag> FindByType(string type);
-
-        IDictionaryRange<Guid, Tag> FindAll();
     }
 }
