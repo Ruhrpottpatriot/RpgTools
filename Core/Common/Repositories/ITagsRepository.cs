@@ -1,13 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ITagsRepository.cs" company="Robert Logiewa">
+//   (C) All rights reserved
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
 namespace RpgTools.Core.Common
 {
-    public interface ITagsRepository
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using RpgTools.Core.Models;
+
+    /// <summary>Provides the interface for tags repositories.</summary>
+    public interface ITagsRepository : ILocalizable
     {
-        IEnumerable<string> Find(Func<object, bool> selector);
+        IDictionaryRange<Guid, Tag> FindByType(string type);
+
+        IDictionaryRange<Guid, Tag> FindAll();
     }
 }

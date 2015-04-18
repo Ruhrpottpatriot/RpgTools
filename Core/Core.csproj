@@ -99,6 +99,7 @@
     <Compile Include="Converter\DbGeographyToStringConverter.cs" />
     <Compile Include="Extensions\EnumExtensionMethods.cs" />
     <Compile Include="Extensions\EnumListExtension.cs" />
+    <Compile Include="Models\Tag.cs" />
     <Compile Include="Resources\MarkupExtensions\EnumListExtension.cs" />
     <Compile Include="Models\Characters\Character.cs" />
     <Compile Include="Models\Characters\Family.cs" />
