@@ -141,6 +141,16 @@ namespace RpgTools.Locations
             return result;
         }
 
+        Task<IDictionaryRange<Guid, Location>> IRepository<Guid, Location>.FindAllAsync()
+        {
+            return ((ILocationRepository)this).FindAllAsync(CancellationToken.None);
+        }
+
+        Task<IDictionaryRange<Guid, Location>> IRepository<Guid, Location>.FindAllAsync(CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <inheritdoc />
         void IWriteable<Location>.Write(Location data)
         {

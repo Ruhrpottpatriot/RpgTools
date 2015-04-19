@@ -59,6 +59,7 @@
                     DockPanel.Dock="Top">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
+                        <cal:ActionMessage MethodName="LoadCharacters" />
                         <cal:ActionMessage MethodName="GenerateCheckListItems" />
                         <cal:ActionMessage MethodName="FilterCharacters" />
                     </i:EventTrigger>

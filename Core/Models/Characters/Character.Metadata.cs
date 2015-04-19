@@ -33,7 +33,7 @@ namespace RpgTools.Core.Models
             public bool IsAlive { get; set; }
 
             /// <summary>Gets or sets the character tags.</summary>
-            public IList<string> Tags { get; set; }
+            public IEnumerable<string> Tags { get; set; }
 
             /// <summary>Gets or sets the date for that the character is valid.</summary>
             public string ValidDate { get; set; }
@@ -42,7 +42,7 @@ namespace RpgTools.Core.Models
             public string VoiceActor { get; set; }
 
             /// <summary>Gets or sets the appearances.</summary>
-            public IList<Guid> Appearances { get; set; }
+            public IEnumerable<Guid> Appearances { get; set; }
         }
     }
 }

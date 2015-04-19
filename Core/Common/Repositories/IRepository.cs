@@ -7,6 +7,8 @@
 namespace RpgTools.Core.Common
 {
     using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     /// <summary>Provides the interface for queries against a data source.</summary>
     /// <typeparam name="TKey">The type of the key values that uniquely identify the entities in the repository.</typeparam>
@@ -26,5 +28,9 @@ namespace RpgTools.Core.Common
         /// <summary>Finds all objects.</summary>
         /// <returns>A <see cref="IDictionaryRange{TKey, TValue}"/> with the objects.</returns>
         IDictionaryRange<TKey, TValue> FindAll();
+
+        Task<IDictionaryRange<TKey, TValue>> FindAllAsync();
+
+        Task<IDictionaryRange<TKey, TValue>> FindAllAsync(CancellationToken cancellationToken);
     }
 }

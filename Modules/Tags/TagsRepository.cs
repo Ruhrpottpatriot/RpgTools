@@ -16,6 +16,7 @@ namespace RpgTools.Tags
     using System.Globalization;
     using System.Linq;
     using System.Threading;
+    using System.Threading.Tasks;
     using RpgTools.Characters;
     using RpgTools.Core.Common;
     using RpgTools.Core.Common.Converter;
@@ -94,6 +95,16 @@ namespace RpgTools.Tags
                            Culture = ((ILocalizable)this).Culture
                        };
             return this.bulkResponseConverter.Convert(data);
+        }
+
+        Task<IDictionaryRange<Guid, Tag>> IRepository<Guid, Tag>.FindAllAsync()
+        {
+            return ((ITagsRepository)this).FindAllAsync(CancellationToken.None);
+        }
+
+        Task<IDictionaryRange<Guid, Tag>> IRepository<Guid, Tag>.FindAllAsync(CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>Writes the data to the repository.</summary>

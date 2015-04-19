@@ -14,6 +14,7 @@ namespace CharacterPresenter.ViewModels
     using System.Collections.ObjectModel;
     using System.ComponentModel.Composition;
     using System.Linq;
+    using System.Threading.Tasks;
     using Caliburn.Micro;
     using PropertyChanged;
     using RpgTools.Characters;
@@ -86,6 +87,9 @@ namespace CharacterPresenter.ViewModels
             this.eventAggregator = eventAggregator;
             this.windowManager = windowManager;
             this.tagsRepository = tagsRepository;
+
+            // ToDo: Implement this proper.
+            this.characterRepository = new CharactersRepository();
 
             // Set the initial visibilities of controls.
             this.SelectorVisible = true;
@@ -162,7 +166,12 @@ namespace CharacterPresenter.ViewModels
                 this.SaveButtonVisible = false;
             }
         }
-        
+
+        public void LoadCharacters()
+        {
+            this.Characters = this.characterRepository.FindAll();
+        }
+
         /// <summary>Filters the characters based on the check list item selection.</summary>
         public void FilterCharacters()
         {
