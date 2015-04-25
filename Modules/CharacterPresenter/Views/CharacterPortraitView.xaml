@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="RpgTools.CharacterPresenter.Views.CharacterPortraitView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:vm="clr-namespace:RpgTools.CharacterPresenter.ViewModels"
+             mc:Ignorable="d"
+             cal:Bind.AtDesignTime="True"
+             d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type vm:CharacterPortraitViewModel}}">
+    <Grid>
+        <Button Margin="3,3,3,3"
+                Style="{DynamicResource NoChromeButton}"
+                MaxHeight="500">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <cal:ActionMessage MethodName="Close" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="{Binding Path=Portrait}"
+                   Stretch="Uniform" />
+        </Button>
+    </Grid>
+</UserControl>

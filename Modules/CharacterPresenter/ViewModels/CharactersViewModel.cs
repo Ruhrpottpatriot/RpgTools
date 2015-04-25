@@ -7,14 +7,13 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace CharacterPresenter.ViewModels
+namespace RpgTools.CharacterPresenter.ViewModels
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel.Composition;
     using System.Linq;
-    using System.Threading.Tasks;
     using Caliburn.Micro;
     using PropertyChanged;
     using RpgTools.Characters;
@@ -22,7 +21,6 @@ namespace CharacterPresenter.ViewModels
     using RpgTools.Core.Common;
     using RpgTools.Core.Contracts;
     using RpgTools.Core.Models;
-    using RpgTools.Tags;
 
     /// <summary>View model to display general character data and operations.</summary>
     [ImplementPropertyChanged]
@@ -81,6 +79,7 @@ namespace CharacterPresenter.ViewModels
         /// <summary>Initialises a new instance of the <see cref="CharactersViewModel"/> class.</summary>
         /// <param name="eventAggregator">The event aggregator instance.</param>
         /// <param name="windowManager">The window manager instance.</param>
+        /// <param name="tagsRepository">The tags Repository.</param>
         [ImportingConstructor]
         public CharactersViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, ITagsRepository tagsRepository)
         {
@@ -143,9 +142,9 @@ namespace CharacterPresenter.ViewModels
                 // Make the tab control viosible to the user.
                 this.TabControlVisible = true;
 
-                this.ActivateItem(new CharacterDetailsViewModel(this.eventAggregator, this.windowManager)
+                this.ActivateItem(new CharacterDetailsViewModel(this.windowManager)
                 {
-                    Chracter = character.Value
+                    Character = character.Value
                 });
 
                 this.SelectorVisible = false;
@@ -159,7 +158,7 @@ namespace CharacterPresenter.ViewModels
         {
             this.CloseItem(detailsViewModel);
 
-            if (this.Items.Any())
+            if (!this.Items.Any())
             {
                 this.TabControlVisible = false;
                 this.SelectorVisible = true;

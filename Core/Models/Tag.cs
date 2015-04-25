@@ -16,7 +16,7 @@ namespace RpgTools.Core.Models
     /// <summary>Describes a tag used by the tool.</summary>
     public class Tag : ILocalizable
     {
-        /// <summary>Gets ot sets the id.</summary>
+        /// <summary>Gets or sets the id.</summary>
         public Guid Id { get; set; }
         
         /// <summary>Gets or sets the value.</summary>

@@ -1,0 +1,267 @@
+﻿<UserControl x:Class="RpgTools.CharacterPresenter.Views.CharacterDetailsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:vm="clr-namespace:RpgTools.CharacterPresenter.ViewModels"
+             xmlns:converter="clr-namespace:RpgTools.Core.Converter;assembly=Core"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:markupExtensions="clr-namespace:RpgTools.Core.MarkupExtensions;assembly=Core"
+             xmlns:models="clr-namespace:RpgTools.Core.Models;assembly=Core"
+             mc:Ignorable="d"
+             cal:Bind.AtDesignTime="True"
+             d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type vm:CharacterDetailsViewModel}}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converter:TagListToStringConverter x:Key="TagListToStringConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <TabControl>
+        <TabItem Header="Metadata">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Column="0"
+                          Margin="0,0,4,3"
+                          Content="Is Alive?"
+                          IsChecked="{Binding Path=Character.Metadata.IsAlive}" />
+
+                <StackPanel Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="4,0,4,3">
+                    <TextBlock Text="Character Id" />
+                    <TextBox Text="{Binding Path=Character.Id, Mode=OneWay}"
+                             IsReadOnly="True" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="0"
+                            Grid.Column="2"
+                            Margin="4,0,4,3">
+                    <TextBlock Text="Voice Actor" />
+                    <TextBox Text="{Binding Path=Character.Metadata.VoiceActor}" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="0"
+                            Grid.Column="3"
+                            Margin="4,0,0,3">
+                    <TextBlock Text="Character is valid until" />
+                    <TextBox Text="{Binding Path=Character.Metadata.ValidDate}" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="1"
+                            Grid.ColumnSpan="4"
+                            Grid.Column="0"
+                            Margin="0,3,0,0">
+                    <Label Content="Tags"
+                           ToolTip="Valid Seperators are: Comma, Semi-Colon and Whitespace" />
+                    <TextBox Text="{Binding Path=Character.Metadata.Tags, Converter={StaticResource TagListToStringConverter}}" />
+                </StackPanel>
+            </Grid>
+        </TabItem>
+        <TabItem Header="General">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"
+                                      MinWidth="200" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Column="0"
+                            Grid.Row="0"
+                            Margin="0,0,3,3">
+                    <Label Content="Title" />
+                    <TextBox Text="{Binding Path=Character.Title}" />
+
+                    <Label Content="Name" />
+                    <TextBox Text="{Binding Path=Character.Name}" />
+
+                    <Label Content="Nickname" />
+                    <TextBox Text="{Binding Path=Character.Nickname}" />
+                </StackPanel>
+
+                <Button Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="3,0,0,3"
+                        Style="{DynamicResource NoChromeButton}"
+                        Width="150"
+                        Height="150">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <cal:ActionMessage MethodName="ZoomPortrait">
+                                <cal:Parameter Value="$source" />
+                            </cal:ActionMessage>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Image Source="{Binding Path=Character.Portrait}"
+                           Stretch="Uniform" />
+                    <Button.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Change Portrait">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <cal:ActionMessage MethodName="ChangePortrait" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </MenuItem>
+                            <MenuItem Header="Delete Portrait">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <cal:ActionMessage MethodName="DeletePortrait" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </MenuItem>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+
+                <StackPanel Grid.Column="0"
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2"
+                            Margin="0,3,0,0">
+                    <Label Content="Motto" />
+                    <TextBox Text="{Binding Path=Character.Motto}" />
+
+                    <Label Content="Description" />
+                    <TextBox Text="{Binding Path=Character.ShortDescription}"
+                             MinHeight="100" />
+                </StackPanel>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Appearance">
+            <StackPanel>
+                <GroupBox Header="Face">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Column="0"
+                                    Grid.Row="0"
+                                    Margin="0,0,2.5,2.5">
+                            <Label Content="Hair Colour" />
+                            <xctk:ColorPicker DisplayColorAndName="True"
+                                              ShowAvailableColors="False"
+                                              ShowAdvancedButton="True"
+                                              UsingAlphaChannel="False"
+                                              ShowRecentColors="True"
+                                              SelectedColor="{Binding Path=Character.Appearance.HairColour}" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="0"
+                                    Grid.Row="1"
+                                    Margin="0,2.5,2.5,0">
+                            <Label Content="Lip Colour" />
+                            <xctk:ColorPicker DisplayColorAndName="True"
+                                              ShowAvailableColors="False"
+                                              ShowAdvancedButton="True"
+                                              UsingAlphaChannel="False"
+                                              ShowRecentColors="True"
+                                              SelectedColor="{Binding Path=Character.Appearance.LipColour}" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1"
+                                    Grid.Row="0"
+                                    Grid.RowSpan="2"
+                                    Margin="2.5,0,0,0">
+                            <Label Content="Eye Colour" />
+                            <xctk:ColorPicker DisplayColorAndName="True"
+                                              ShowAvailableColors="False"
+                                              ShowAdvancedButton="True"
+                                              UsingAlphaChannel="False"
+                                              ShowRecentColors="True"
+                                              SelectedColor="{Binding Path=Character.Appearance.EyeColour}" />
+                            <CheckBox Margin="3,4,0,0"
+                                      Content="Heterochromia Iridum?"
+                                      IsChecked="{Binding Path=Character.Appearance.HeterochromiaIridum}" />
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="Body">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <Label Content="Height" />
+                            <xctk:IntegerUpDown Text="{Binding Path=Character.Appearance.Height}" />
+
+                            <Label Content="Weight" />
+                            <xctk:IntegerUpDown Text="{Binding Path=Character.Appearance.Weight}" />
+
+                            <Label Content="Skin Colour" />
+                            <xctk:ColorPicker SelectedColor="{Binding Path=Character.Appearance.SkinColour}"
+                                              DisplayColorAndName="True"
+                                              ShowAvailableColors="False"
+                                              ShowAdvancedButton="True"
+                                              UsingAlphaChannel="False"
+                                              ShowRecentColors="True" />
+
+                            <Label Content="Gender" />
+                            <ComboBox x:Name="ComboBox"
+                                      ItemsSource="{markupExtensions:EnumList models:Character+PhysicalAppearance+Genders }"
+                                      SelectedItem="{Binding Path=Character.Appearance.Gender}" />
+
+                            <Label Content="Age" />
+                            <xctk:IntegerUpDown Text="{Binding Path=Character.Age}" />
+                        </StackPanel>
+
+                        <GroupBox Header="Measurements"
+                                  Grid.Column="1"
+                                  Margin="3,0,0,0">
+                            <GroupBox.Style>
+                                <Style>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedItem, ElementName=ComboBox}"
+                                                     Value="Male">
+                                            <Setter Property="GroupBox.IsEnabled"
+                                                    Value="False" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding SelectedItem, ElementName=ComboBox}"
+                                                     Value="Neutral">
+                                            <Setter Property="GroupBox.IsEnabled"
+                                                    Value="False" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </GroupBox.Style>
+                            <StackPanel>
+                                <Label Content="Bust" />
+                                <xctk:IntegerUpDown Text="{Binding Path=Character.Appearance.Bust}" />
+                                <Label Content="Cup-Size" />
+                                <TextBox Text="{Binding Path=Character.Appearance.CupSize}"
+                                         TextAlignment="Right" />
+                                <Label Content="Hip" />
+                                <xctk:IntegerUpDown Text="{Binding Path=Character.Appearance.Hip}" />
+                                <Label Content="Waist" />
+                                <xctk:IntegerUpDown Text="{Binding Path=Character.Appearance.Waist}" />
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
+        </TabItem>
+    </TabControl>
+</UserControl>

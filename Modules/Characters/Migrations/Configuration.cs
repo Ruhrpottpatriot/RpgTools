@@ -76,8 +76,8 @@ namespace RpgTools.Characters.Migrations
                                 {
                                     IsAlive = true,
                                     CharacterId = ids[1],
-                                    Appearances =
-                                        "b1256f9f-8a35-416a-8f22-6be91ffb4041; 2e24283d-1ba0-4cc7-b49c-975937e8512c"
+                                    Tags = "Protagonist; Female; Noctus",
+                                    Appearances = "b1256f9f-8a35-416a-8f22-6be91ffb4041; 2e24283d-1ba0-4cc7-b49c-975937e8512c"
                                 }
                         };
 

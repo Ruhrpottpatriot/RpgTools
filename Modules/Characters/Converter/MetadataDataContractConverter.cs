@@ -1,3 +1,12 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="MetadataDataContractConverter.cs" company="Robert Logiewa">
+//   (C) All rights reserved
+// </copyright>
+// <summary>
+//   Defines the MetadataDataContractConverter type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace RpgTools.Characters
 {
     using System;

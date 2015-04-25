@@ -22,19 +22,13 @@ namespace RpgTools.Core.Models
             /// <summary>The gender of a character.</summary>
             public enum Genders
             {
-                /// <summary>
-                /// The male gender.
-                /// </summary>
+                /// <summary>The male gender.</summary>
                 Male,
 
-                /// <summary>
-                /// The female gender.
-                /// </summary>
+                /// <summary>The female gender.</summary>
                 Female,
 
-                /// <summary>
-                /// The neutral gender.
-                /// </summary>
+                /// <summary>The neutral gender.</summary>
                 Neutral
             }
 
@@ -66,24 +60,16 @@ namespace RpgTools.Core.Models
             /// <summary>Gets or sets the lip colour.</summary>
             public string LipColour { get; set; }
 
-            /// <summary>
-            /// Gets or sets the bust measurement.
-            /// </summary>
+            /// <summary>Gets or sets the bust measurement.</summary>
             public short Bust { get; set; }
 
-            /// <summary>
-            /// Gets or sets the cup size.
-            /// </summary>
+            /// <summary>Gets or sets the cup size.</summary>
             public string CupSize { get; set; }
 
-            /// <summary>
-            /// Gets or sets the hip measurement.
-            /// </summary>
+            /// <summary>Gets or sets the hip measurement.</summary>
             public short Hip { get; set; }
 
-            /// <summary>
-            /// Gets or sets the waist measurement.
-            /// </summary>
+            /// <summary>Gets or sets the waist measurement.</summary>
             public short Waist { get; set; }
         }
     }

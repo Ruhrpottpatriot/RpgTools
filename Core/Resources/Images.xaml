@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Path x:Key="FallbackImage"
+          Stroke="Black"
+          Stretch="UniformToFill"
+          Data="M0,0 L0,100 L100,100 L100,0 L0,0 L100,100 M100,0 L0,100"
+          StrokeThickness="3" />
+</ResourceDictionary>
