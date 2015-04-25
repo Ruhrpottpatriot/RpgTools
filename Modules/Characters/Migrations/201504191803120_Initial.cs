@@ -25,7 +25,7 @@ namespace RpgTools.Characters.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "Characters.Appearances",
+                "Characters.Occurrences",
                 c => new
                     {
                         CharacterId = c.Guid(nullable: false),
@@ -66,11 +66,11 @@ namespace RpgTools.Characters.Migrations
         public override void Down()
         {
             DropForeignKey("Characters.Metadata", "CharacterId", "Characters.Characters");
-            DropForeignKey("Characters.Appearances", "CharacterId", "Characters.Characters");
+            DropForeignKey("Characters.Occurrences", "CharacterId", "Characters.Characters");
             DropIndex("Characters.Metadata", new[] { "CharacterId" });
-            DropIndex("Characters.Appearances", new[] { "CharacterId" });
+            DropIndex("Characters.Occurrences", new[] { "CharacterId" });
             DropTable("Characters.Metadata");
-            DropTable("Characters.Appearances");
+            DropTable("Characters.Occurrences");
             DropTable("Characters.Characters");
         }
     }

@@ -22,7 +22,7 @@ namespace RpgTools.Core.Models
             public CharacterMetadata()
             {
                 this.Tags = new List<string>();
-                this.Appearances = new List<Guid>();
+                this.Occourrences = new List<Guid>();
             }
 
             // --------------------------------------------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ namespace RpgTools.Core.Models
             public string VoiceActor { get; set; }
 
             /// <summary>Gets or sets the appearances.</summary>
-            public IEnumerable<Guid> Appearances { get; set; }
+            public IEnumerable<Guid> Occourrences { get; set; }
         }
     }
 }

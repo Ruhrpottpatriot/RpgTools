@@ -53,7 +53,7 @@ namespace RpgTools.Characters.Migrations
                                 {
                                     IsAlive = true,
                                     CharacterId = ids[0],
-                                    Appearances =
+                                    Occurrences =
                                         "b1256f9f-8a35-416a-8f22-6be91ffb4041; 2e24283d-1ba0-4cc7-b49c-975937e8512c"
                                 }
                         };
@@ -77,7 +77,7 @@ namespace RpgTools.Characters.Migrations
                                     IsAlive = true,
                                     CharacterId = ids[1],
                                     Tags = "Protagonist; Female; Noctus",
-                                    Appearances = "b1256f9f-8a35-416a-8f22-6be91ffb4041; 2e24283d-1ba0-4cc7-b49c-975937e8512c"
+                                    Occurrences = "b1256f9f-8a35-416a-8f22-6be91ffb4041; 2e24283d-1ba0-4cc7-b49c-975937e8512c"
                                 }
                         };
 

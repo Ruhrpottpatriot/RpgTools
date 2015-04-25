@@ -14,6 +14,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
     using System.Collections.ObjectModel;
     using System.ComponentModel.Composition;
     using System.Linq;
+    using System.Windows;
     using Caliburn.Micro;
     using PropertyChanged;
     using RpgTools.Characters;
@@ -21,6 +22,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
     using RpgTools.Core.Common;
     using RpgTools.Core.Contracts;
     using RpgTools.Core.Models;
+    using RpgTools.Core.ViewModels;
 
     /// <summary>View model to display general character data and operations.</summary>
     [ImplementPropertyChanged]
@@ -261,17 +263,53 @@ namespace RpgTools.CharacterPresenter.ViewModels
 
         public void CreateCharacter()
         {
-            throw new NotImplementedException();
+            CharacterDetailsViewModel viewModel = new CharacterDetailsViewModel(this.windowManager)
+            {
+                Character = new Character(Guid.NewGuid())
+            };
+
+            Dictionary<string, object> settingsDictionary = new Dictionary<string, object>
+            {
+                { "ResizeMode", ResizeMode.NoResize } 
+            };
+
+            bool? answer = this.windowManager.ShowDialog(viewModel, null, settingsDictionary);
+
+            if (answer.HasValue && answer.Value)
+            {
+                this.characterRepository.Write(viewModel.Character);
+            }
+
+            this.FilterCharacters();
         }
 
         public void Save(CharacterDetailsViewModel viewModel)
         {
-            throw new NotImplementedException();
+            Character character = viewModel.Character;
+
+            this.characterRepository.Write(character);
+
+            this.CloseTab(viewModel);
+            this.OpenTab(new KeyValuePair<Guid, Character>(character.Id, character));
         }
 
         public void Delete(CharacterDetailsViewModel viewModel)
         {
-            throw new NotImplementedException();
+            Character character = viewModel.Character;
+            ConfirmationViewModel confirmationViewModel = new ConfirmationViewModel("Delete Character", string.Format("Do you want to delete {0} ({1})", character.Name, character.Id));
+
+            Dictionary<string, object> settingsDictionary = new Dictionary<string, object>
+            {
+                { "ResizeMode", ResizeMode.NoResize }
+            };
+
+            bool? answer = this.windowManager.ShowDialog(confirmationViewModel, null, settingsDictionary);
+
+            if (answer != null && answer == true)
+            {
+                this.Characters.Remove(character.Id);
+                this.characterRepository.Delete(character);
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ namespace RpgTools.Characters
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("Appearances")]
+    [Table("Occurrences")]
     internal class AppearanceDataContract
     {
         /// <summary>Gets or sets the character id. Foreign Key. </summary>

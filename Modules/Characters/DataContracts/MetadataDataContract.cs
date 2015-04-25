@@ -27,6 +27,6 @@ namespace RpgTools.Characters
         public string VoiceActor { get; set; }
 
         /// <summary>Gets or sets the appearances.</summary>
-        public string Appearances { get; set; }
+        public string Occurrences { get; set; }
     }
 }

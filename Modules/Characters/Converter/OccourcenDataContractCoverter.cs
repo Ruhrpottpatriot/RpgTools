@@ -1,12 +1,20 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="OccourcenDataContractCoverter.cs" company="Robert Logiewa">
+//   (C) All rights reserved
+// </copyright>
+// <summary>
+//   Defines the OccourcenDataContractCoverter type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace RpgTools.Characters
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using RpgTools.Core.Common;
 
-    internal class AppearancesCoverter : IConverter<string, IEnumerable<Guid>>
+    internal class OccourcenDataContractCoverter : IConverter<string, IEnumerable<Guid>>
     {
         /// <summary>Converts the given object of type <typeparamref name="TInput"/> to an object of type <typeparamref name="TOutput"/>.</summary>
         /// <param name="value">The value to convert.</param>

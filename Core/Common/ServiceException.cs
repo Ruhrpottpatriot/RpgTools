@@ -13,6 +13,7 @@ namespace RpgTools.Core.Common
     using RpgTools.Core.Common.Requests;
 
     /// <summary>The exception that is thrown when a request could not be fulfilled.</summary>
+    [Serializable]
     public sealed class ServiceException : Exception
     {
         /// <summary>Initialises a new instance of the <see cref="ServiceException"/> class.</summary>

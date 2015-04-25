@@ -1,7 +1,15 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CharacterDataContractConverter.cs" company="Robert Logiewa">
+//   (C) All rights reserved
+// </copyright>
+// <summary>
+//   Defines the CharacterDataContractConverter type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace RpgTools.Characters
 {
     using System.Diagnostics.Contracts;
-    using System.Net.NetworkInformation;
     using RpgTools.Core.Common;
     using RpgTools.Core.Models;
 
@@ -16,7 +24,7 @@ namespace RpgTools.Characters
         {
         }
 
-        public CharacterDataContractConverter(IConverter<AppearanceDataContract, Character.PhysicalAppearance> appearanceConverter, IConverter<MetadataDataContract, Character.CharacterMetadata> metadataConverter)
+        internal CharacterDataContractConverter(IConverter<AppearanceDataContract, Character.PhysicalAppearance> appearanceConverter, IConverter<MetadataDataContract, Character.CharacterMetadata> metadataConverter)
         {
             this.appearanceConverter = appearanceConverter;
             this.metadataConverter = metadataConverter;

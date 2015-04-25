@@ -54,7 +54,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
                                                   },
                                      Metadata = new Character.CharacterMetadata
                                                 {
-                                                    Appearances = null,
+                                                    Occourrences = null,
                                                     IsAlive = true,
                                                     Tags = new[] { "Protagonist", "Noctus" },
                                                     ValidDate = string.Empty,
@@ -76,11 +76,16 @@ namespace RpgTools.CharacterPresenter.ViewModels
         public Character Character { get; set; }
 
         /// <summary>Gets or Sets the Display Name</summary>
-        public override string DisplayName
+        public override sealed string DisplayName
         {
             get
             {
                 return this.Character.Name;
+            }
+
+            set
+            {
+                this.Character.Name = value;
             }
         }
 

@@ -1,25 +1,40 @@
-﻿namespace RpgTools.Characters
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CharactersRepository.cs" company="Robert Logiewa">
+//   (C) All rights reserved
+// </copyright>
+// <summary>
+//   Defines the CharactersRepository type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace RpgTools.Characters
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using System.Data.Entity;
+    using System.Data.Entity.Migrations;
     using System.Globalization;
+    using System.Linq;
     using System.Threading;
+    using System.Threading.Tasks;
     using RpgTools.Characters.Migrations;
     using RpgTools.Core.Common;
     using RpgTools.Core.Common.Converter;
     using RpgTools.Core.Models;
 
+    /// <summary>Repository for storing and retrieving characters in a database.</summary>
     public sealed class CharactersRepository : DbContext, ICharacterRepository
     {
-        private IConverter<IResponse<CharacterDataContract>, Character> responseConverter;
+        /// <summary>Infrastructure. Holds a reference to the response converter.</summary>
+        private readonly IConverter<IResponse<CharacterDataContract>, Character> responseConverter;
 
+        /// <summary>Infrastructure. Holds a reference to the bulk identifiers converter.</summary>
         private readonly IConverter<IResponse<ICollection<CharacterDataContract>>, IDictionaryRange<Guid, Character>> bulkResponseConverter;
 
+        /// <summary>Infrastructure. Holds a reference to the write converter.</summary>
         private readonly IConverter<Character, CharacterDataContract> writeConverter;
 
+        /// <summary>Initialises a new instance of the <see cref="CharactersRepository"/> class.</summary>
         public CharactersRepository()
             : this(new CharacterDataContractConverter(), new CharacterConverter())
         {
@@ -28,6 +43,9 @@
             this.Characters = this.Set<CharacterDataContract>();
         }
 
+        /// <summary>Initialises a new instance of the <see cref="CharactersRepository"/> class.</summary>
+        /// <param name="characterDataContractConverter">The character data contract converter.</param>
+        /// <param name="characterConverter">The character converter.</param>
         internal CharactersRepository(IConverter<CharacterDataContract, Character> characterDataContractConverter, IConverter<Character, CharacterDataContract> characterConverter)
             : base("name=RpgTools")
         {
@@ -39,11 +57,10 @@
         /// <summary>Gets or sets the locale.</summary>
         CultureInfo ILocalizable.Culture { get; set; }
 
+        /// <summary>Gets or sets the internal character list.</summary>
         internal DbSet<CharacterDataContract> Characters { get; set; }
 
-        /// <summary>Finds an object with the specified identifier.</summary>
-        /// <param name="identifier">The identifier.</param>
-        /// <returns>An object of type <see cref="Character"/>.</returns>
+        /// <inheritdoc />
         Character IRepository<Guid, Character>.Find(Guid identifier)
         {
             var data = new Response<CharacterDataContract>
@@ -54,9 +71,7 @@
             return this.responseConverter.Convert(data);
         }
 
-        /// <summary>Finds all objects with the given identifiers</summary>
-        /// <param name="identifiers">The identifiers to look for.</param>
-        /// <returns>A <see cref="IDictionaryRange{TKey, TValue}"/> with the objects.</returns>
+        /// <inheritdoc />
         IDictionaryRange<Guid, Character> IRepository<Guid, Character>.FindAll(ICollection<Guid> identifiers)
         {
             var data = new Response<ICollection<CharacterDataContract>>
@@ -67,8 +82,7 @@
             return this.bulkResponseConverter.Convert(data);
         }
 
-        /// <summary>Finds all objects.</summary>
-        /// <returns>A <see cref="IDictionaryRange{TKey, TValue}"/> with the objects.</returns>
+        /// <inheritdoc />
         IDictionaryRange<Guid, Character> IRepository<Guid, Character>.FindAll()
         {
             var data = new Response<ICollection<CharacterDataContract>>
@@ -79,51 +93,76 @@
             return this.bulkResponseConverter.Convert(data);
         }
 
+        /// <inheritdoc />
         Task<IDictionaryRange<Guid, Character>> IRepository<Guid, Character>.FindAllAsync()
         {
             return ((ICharacterRepository)this).FindAllAsync(CancellationToken.None);
         }
 
+        /// <inheritdoc />
         async Task<IDictionaryRange<Guid, Character>> IRepository<Guid, Character>.FindAllAsync(CancellationToken cancellationToken)
         {
             var data = new Response<ICollection<CharacterDataContract>>
                        {
                            Content = await this.Characters.Include(c => c.Appearance).Include(c => c.Metadata).ToListAsync(cancellationToken),
                            Culture = ((ILocalizable)this).Culture
-
                        };
+
             return this.bulkResponseConverter.Convert(data);
         }
 
-        /// <summary>
-        /// This method is called when the model for a derived context has been initialized, but
-        ///             before the model has been locked down and used to initialize the context.  The default
-        ///             implementation of this method does nothing, but it can be overridden in a derived class
-        ///             such that the model can be further configured before it is locked down.
-        /// </summary>
-        /// <remarks>
-        /// Typically, this method is called only once when the first instance of a derived context
-        ///             is created.  The model for that context is then cached and is for all further instances of
-        ///             the context in the app domain.  This caching can be disabled by setting the ModelCaching
-        ///             property on the given ModelBuidler, but note that this can seriously degrade performance.
-        ///             More control over caching is provided through use of the DbModelBuilder and DbContextFactory
-        ///             classes directly.
-        /// </remarks>
-        /// <param name="modelBuilder">The builder that defines the model for the context being created. </param>
+        /// <inheritdoc />
+        void IWriteable<Character>.Write(Character data)
+        {
+            CharacterDataContract dataContract = this.writeConverter.Convert(data);
+
+            this.Characters.AddOrUpdate(c => c.Id, dataContract);
+            this.SaveChanges();
+        }
+
+        /// <inheritdoc />
+        void IWriteable<Character>.WriteAsync(Character data)
+        {
+            ((ICharacterRepository)this).WriteAsync(data, CancellationToken.None);
+        }
+
+        /// <inheritdoc />
+        void IWriteable<Character>.WriteAsync(Character data, CancellationToken cancellationToken)
+        {
+            CharacterDataContract dataContract = this.writeConverter.Convert(data);
+
+            this.Characters.AddOrUpdate(c => c.Id, dataContract);
+            this.SaveChangesAsync(cancellationToken);
+        }
+
+        /// <inheritdoc />
+        void IWriteable<Character>.Delete(Character data)
+        {
+            CharacterDataContract dataContract = this.writeConverter.Convert(data);
+
+            this.Characters.Remove(dataContract);
+            this.SaveChanges();
+        }
+
+        /// <inheritdoc />
+        void IWriteable<Character>.DeleteAsync(Character data)
+        {
+            ((ICharacterRepository)this).DeleteAsync(data, CancellationToken.None);
+        }
+
+        /// <inheritdoc />
+        void IWriteable<Character>.DeleteAsync(Character data, CancellationToken cancellationToken)
+        {
+            CharacterDataContract dataContract = this.writeConverter.Convert(data);
+
+            this.Characters.Remove(dataContract);
+            this.SaveChangesAsync(cancellationToken);
+        }
+
+        /// <inheritdoc />
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("Characters");
-        }
-    }
-
-    internal sealed class CharacterConverter : IConverter<Character, CharacterDataContract>
-    {
-        /// <summary>Converts the given object of type <typeparamref name="TInput"/> to an object of type <typeparamref name="TOutput"/>.</summary>
-        /// <param name="value">The value to convert.</param>
-        /// <returns>The converted value.</returns>
-        public CharacterDataContract Convert(Character value)
-        {
-            throw new NotImplementedException();
         }
     }
 }

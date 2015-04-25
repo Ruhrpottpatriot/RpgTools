@@ -15,6 +15,7 @@ namespace RpgTools.Core.Common
     /// <summary>Represents a subset of keys and values.</summary>
     /// <typeparam name="TKey">The type of the keys in the subset.</typeparam>
     /// <typeparam name="TValue">The type of the values in the subset.</typeparam>
+    [Serializable]
     public sealed class DictionaryRange<TKey, TValue> : Dictionary<TKey, TValue>, IDictionaryRange<TKey, TValue>
     {
         /// <summary>Initialises a new instance of the <see cref="DictionaryRange{TKey,TValue}"/> class. 

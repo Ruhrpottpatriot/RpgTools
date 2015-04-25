@@ -14,19 +14,27 @@ namespace RpgTools.Characters
     using RpgTools.Core.Common;
     using RpgTools.Core.Models;
 
+    /// <summary>Converts a <see cref="MetadataDataContract"/> into its appropriate <see cref="Character.CharacterMetadata"/> representation.</summary>
     internal class MetadataDataContractConverter : IConverter<MetadataDataContract, Character.CharacterMetadata>
     {
+        /// <summary>Holds a reference to the tag converter.
+        /// </summary>
         private readonly IConverter<string, IEnumerable<string>> tagConverter;
 
+        /// <summary>Holds a reference to the appearances converter.
+        /// </summary>
         private readonly IConverter<string, IEnumerable<Guid>> appearancesConverter;
-        
 
+        /// <summary>Initialises a new instance of the <see cref="MetadataDataContractConverter"/> class.</summary>
         public MetadataDataContractConverter()
-            :this(new TagConverter(), new AppearancesCoverter())
+            : this(new TagConverter(), new OccourcenDataContractCoverter())
         {
         }
 
-        public MetadataDataContractConverter(IConverter<string, IEnumerable<string>> tagConverter, IConverter<string, IEnumerable<Guid>> appearancesConverter)
+        /// <summary>Initialises a new instance of the <see cref="MetadataDataContractConverter"/> class.</summary>
+        /// <param name="tagConverter">The tag converter.</param>
+        /// <param name="appearancesConverter">The appearances converter.</param>
+        internal MetadataDataContractConverter(IConverter<string, IEnumerable<string>> tagConverter, IConverter<string, IEnumerable<Guid>> appearancesConverter)
         {
             this.tagConverter = tagConverter;
             this.appearancesConverter = appearancesConverter;
@@ -48,10 +56,10 @@ namespace RpgTools.Characters
                 metadata.Tags = this.tagConverter.Convert(tags);
             }
 
-            var appearances = value.Appearances;
+            var appearances = value.Occurrences;
             if (!string.IsNullOrEmpty(appearances) && !string.IsNullOrWhiteSpace(appearances))
             {
-                metadata.Appearances = this.appearancesConverter.Convert(appearances);
+                metadata.Occourrences = this.appearancesConverter.Convert(appearances);
             }
 
             return metadata;
