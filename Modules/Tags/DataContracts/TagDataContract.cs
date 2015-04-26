@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace RpgTools.Characters
+namespace RpgTools.Tags
 {
     using System;
     using System.ComponentModel.DataAnnotations;

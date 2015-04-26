@@ -1,10 +1,19 @@
-﻿namespace RpgTools.Tags
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="TagsRepositoryFactory.cs" company="Robert Logiewa">
+//   (C) All rights reserved
+// </copyright>
+// <summary>
+//   Provides methods and properties to create <see cref="TagsRepository" /> objects.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace RpgTools.Tags
 {
     using System.Globalization;
-    using RpgTools.Characters;
     using RpgTools.Core.Common;
     using RpgTools.Locations;
 
+    /// <summary>Provides methods and properties to create <see cref="TagsRepository"/> objects.</summary>
     public sealed class TagsRepositoryFactory : RepositoryFactoryBase<ITagsRepository>
     {
         /// <summary>Creates an instance for the default language.</summary>

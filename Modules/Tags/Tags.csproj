@@ -59,7 +59,9 @@
       <DependentUpon>201504182127400_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="TagsRepositoryFactory.cs" />
     <Compile Include="TagsRepository.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>

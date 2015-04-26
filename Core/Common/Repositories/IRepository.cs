@@ -25,12 +25,17 @@ namespace RpgTools.Core.Common
         /// <returns>A <see cref="IDictionaryRange{TKey, TValue}"/> with the objects.</returns>
         IDictionaryRange<TKey, TValue> FindAll(ICollection<TKey> identifiers);
 
-        /// <summary>Finds all objects.</summary>
+        /// <summary>Retrieves all objects from the database.</summary>
         /// <returns>A <see cref="IDictionaryRange{TKey, TValue}"/> with the objects.</returns>
         IDictionaryRange<TKey, TValue> FindAll();
 
+        /// <summary>Asynchronously retrieves all objects from the database.</summary>
+        /// <returns>A <see cref="IDictionaryRange{TKey, TValue}"/> with the objects.</returns>
         Task<IDictionaryRange<TKey, TValue>> FindAllAsync();
 
+        /// <summary>Asynchronously retrieves all objects from the database.</summary>
+        /// <param name="cancellationToken">The cancellation Token.</param>
+        /// <returns>A <see cref="IDictionaryRange{TKey, TValue}"/> with the objects.</returns>
         Task<IDictionaryRange<TKey, TValue>> FindAllAsync(CancellationToken cancellationToken);
     }
 }

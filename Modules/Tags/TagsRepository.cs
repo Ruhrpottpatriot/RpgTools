@@ -17,20 +17,25 @@ namespace RpgTools.Tags
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using RpgTools.Characters;
     using RpgTools.Core.Common;
     using RpgTools.Core.Common.Converter;
     using RpgTools.Core.Models;
     using RpgTools.Tags.Migrations;
 
+    /// <summary>Provides methods and properties to read and store <see cref="Tag"/> objects from the database.</summary>
     public sealed class TagsRepository : DbContext, ITagsRepository
     {
+        /// <summary>Holds a reference to the response converter.
+        /// </summary>
         private readonly IConverter<IResponse<TagDataContract>, Tag> responseConverter;
 
+        /// <summary>Holds a reference to the response bulk response converter.</summary>
         private readonly IConverter<IResponse<ICollection<TagDataContract>>, IDictionaryRange<Guid, Tag>> bulkResponseConverter;
 
+        /// <summary>Holds a reference to the response write converter.</summary>
         private readonly IConverter<Tag, TagDataContract> writeConverter;
 
+        /// <summary>Initialises a new instance of the <see cref="TagsRepository"/> class.</summary>
         public TagsRepository()
             : this(new TagDataContractConverter(), new TagConverter())
         {
@@ -40,6 +45,9 @@ namespace RpgTools.Tags
             this.Tags = this.Set<TagDataContract>();
         }
 
+        /// <summary>Initialises a new instance of the <see cref="TagsRepository"/> class.</summary>
+        /// <param name="tagDataContractConverter">The converter that converts <see cref="TagDataContract"/> into <see cref="Tag">Tags</see>.</param>
+        /// <param name="tagConverter">The converter that converts <see cref="Tag">Tags</see> into <see cref="TagDataContract"/>.</param>
         internal TagsRepository(IConverter<TagDataContract, Tag> tagDataContractConverter, IConverter<Tag, TagDataContract> tagConverter)
             : base("name=RpgTools")
         {
@@ -51,6 +59,7 @@ namespace RpgTools.Tags
         /// <summary>Gets or sets the locale.</summary>
         CultureInfo ILocalizable.Culture { get; set; }
 
+        /// <summary>Gets or sets  internally stored tags.</summary>
         internal DbSet<TagDataContract> Tags { get; set; }
 
         /// <inheritdoc />
@@ -97,11 +106,13 @@ namespace RpgTools.Tags
             return this.bulkResponseConverter.Convert(data);
         }
 
+        /// <inheritdoc />
         Task<IDictionaryRange<Guid, Tag>> IRepository<Guid, Tag>.FindAllAsync()
         {
             return ((ITagsRepository)this).FindAllAsync(CancellationToken.None);
         }
 
+        /// <inheritdoc />
         Task<IDictionaryRange<Guid, Tag>> IRepository<Guid, Tag>.FindAllAsync(CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
