@@ -10,17 +10,22 @@
 namespace RpgTools.Characters
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>Represents a character object stored in the database.</summary>
-    [Table("Characters")]
+    //[Table("Characters")]
     internal class CharacterDataContract
     {
         /// <summary>Gets or sets the id.</summary>
         [Key]
+        [Column(Order = 0)]
         public Guid Id { get; set; }
+
+        /// <summary>Gets or sets the locale.</summary>
+        [Key]
+        [Column(Order = 1)]
+        public string Culture { get; set; }
 
         /// <summary>Gets or sets the name.</summary>
         public string Name { get; set; }
@@ -48,11 +53,17 @@ namespace RpgTools.Characters
 
         /// <summary>Gets or sets the family id.</summary>
         public Guid FamilyId { get; set; }
-        
+
+        public Guid ApprearanceId { get; set; }
+
+        public Guid MetadataId { get; set; }
+
         /// <summary>Gets or sets the appearance dependency property.</summary>
-        public virtual AppearanceDataContract Appearance { get; set; }
+        [ForeignKey("ApprearanceId")]
+        public AppearanceDataContract Appearance { get; set; }
 
         /// <summary>Gets or sets the metadata dependency property.</summary>
-        public virtual MetadataDataContract Metadata { get; set; }
+        [ForeignKey("MetadataId")]
+        public MetadataDataContract Metadata { get; set; }
     }
 }

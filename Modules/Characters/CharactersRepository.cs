@@ -26,71 +26,71 @@ namespace RpgTools.Characters
     public sealed class CharactersRepository : DbContext, ICharacterRepository
     {
         /// <summary>Infrastructure. Holds a reference to the response converter.</summary>
-        private readonly IConverter<IResponse<CharacterDataContract>, Character> responseConverter;
+        private readonly IConverter<IResponse<CharacterDatabaseItem>, Character> readConverter;
 
         /// <summary>Infrastructure. Holds a reference to the bulk identifiers converter.</summary>
-        private readonly IConverter<IResponse<ICollection<CharacterDataContract>>, IDictionaryRange<Guid, Character>> bulkResponseConverter;
+        private readonly IConverter<IResponse<ICollection<CharacterDatabaseItem>>, IDictionaryRange<Guid, Character>> bulkReadConverter;
 
         /// <summary>Infrastructure. Holds a reference to the write converter.</summary>
-        private readonly IConverter<Character, CharacterDataContract> writeConverter;
+        private readonly IConverter<Character, CharacterDatabaseItem> writeConverter;
 
         /// <summary>Initialises a new instance of the <see cref="CharactersRepository"/> class.</summary>
         public CharactersRepository()
-            : this(new CharacterDataContractConverter(), new CharacterConverter())
+            : this(new CharacterReadConverter(), new CharacterWriteConverter())
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<CharactersRepository, Configuration>(true));
 
-            this.Characters = this.Set<CharacterDataContract>();
+            this.Characters = this.Set<CharacterDatabaseItem>();
         }
 
         /// <summary>Initialises a new instance of the <see cref="CharactersRepository"/> class.</summary>
-        /// <param name="characterDataContractConverter">The character data contract converter.</param>
-        /// <param name="characterConverter">The character converter.</param>
-        internal CharactersRepository(IConverter<CharacterDataContract, Character> characterDataContractConverter, IConverter<Character, CharacterDataContract> characterConverter)
+        /// <param name="characterReadConverter">The character data contract converter.</param>
+        /// <param name="characterWriteConverter">The character Write Converter.</param>
+        internal CharactersRepository(IConverter<CharacterDatabaseItem, Character> characterReadConverter, IConverter<Character, CharacterDatabaseItem> characterWriteConverter)
             : base("name=RpgTools")
         {
-            this.responseConverter = new ResponseConverter<CharacterDataContract, Character>(characterDataContractConverter);
-            this.bulkResponseConverter = new DictionaryRangeConverter<CharacterDataContract, Guid, Character>(characterDataContractConverter, c => c.Id);
-            this.writeConverter = characterConverter;
+            this.readConverter = new ResponseConverter<CharacterDatabaseItem, Character>(characterReadConverter);
+            this.bulkReadConverter = new DictionaryRangeConverter<CharacterDatabaseItem, Guid, Character>(characterReadConverter, c => c.Id);
+            this.writeConverter = characterWriteConverter;
         }
 
         /// <summary>Gets or sets the locale.</summary>
         CultureInfo ILocalizable.Culture { get; set; }
 
         /// <summary>Gets or sets the internal character list.</summary>
-        internal DbSet<CharacterDataContract> Characters { get; set; }
+        internal DbSet<CharacterDatabaseItem> Characters { get; set; }
 
         /// <inheritdoc />
         Character IRepository<Guid, Character>.Find(Guid identifier)
         {
-            var data = new Response<CharacterDataContract>
+            var data = new Response<CharacterDatabaseItem>
             {
-                Content = this.Characters.Include(c => c.Appearance).Include(c => c.Metadata).Single(c => c.Id == identifier),
+                Content = this.Characters.Include(c => c.AppearanceDatabaseItem).Include(c => c.MetadataDatabaseItem).Single(c => c.Id == identifier),
                 Culture = ((ILocalizable)this).Culture
             };
-            return this.responseConverter.Convert(data);
+            return this.readConverter.Convert(data);
         }
 
         /// <inheritdoc />
         IDictionaryRange<Guid, Character> IRepository<Guid, Character>.FindAll(ICollection<Guid> identifiers)
         {
-            var data = new Response<ICollection<CharacterDataContract>>
+            var data = new Response<ICollection<CharacterDatabaseItem>>
                        {
-                           Content = this.Characters.Include(c => c.Appearance).Include(c => c.Metadata).Where(c => identifiers.Any(i => i == c.Id)).ToList(),
+                           Content = this.Characters.Include(c => c.AppearanceDatabaseItem).Include(c => c.MetadataDatabaseItem).Where(c => identifiers.Any(i => i == c.Id)).ToList(),
                            Culture = ((ILocalizable)this).Culture
                        };
-            return this.bulkResponseConverter.Convert(data);
+            return this.bulkReadConverter.Convert(data);
         }
 
         /// <inheritdoc />
         IDictionaryRange<Guid, Character> IRepository<Guid, Character>.FindAll()
         {
-            var data = new Response<ICollection<CharacterDataContract>>
+            var data = new Response<ICollection<CharacterDatabaseItem>>
             {
-                Content = this.Characters.Include(c => c.Appearance).Include(c => c.Metadata).ToList(),
+                Content = this.Characters.Include(c => c.AppearanceDatabaseItem).Include(c => c.MetadataDatabaseItem).ToList(),
                 Culture = ((ILocalizable)this).Culture
             };
-            return this.bulkResponseConverter.Convert(data);
+            return this.bulkReadConverter.Convert(data);
         }
 
         /// <inheritdoc />
@@ -99,64 +99,68 @@ namespace RpgTools.Characters
             return ((ICharacterRepository)this).FindAllAsync(CancellationToken.None);
         }
 
+        /// <summary>Writes the data to the repository.</summary>
+        /// <param name="data">The data to write.</param>
+        void IWriteable<Character>.Write(Character data)
+        {
+            var writeData = this.writeConverter.Convert(data);
+            this.Characters.AddOrUpdate(c => c.Id, writeData);
+            this.SaveChanges();
+        }
+
+        /// <summary>Writes the data to the repository asynchronously.</summary>
+        /// <param name="data">The data to write.</param>
+        void IWriteable<Character>.WriteAsync(Character data)
+        {
+            ((IWriteable<Character>)this).WriteAsync(data, CancellationToken.None);
+        }
+
+        /// <summary>Writes the data to the repository asynchronously.</summary>
+        /// <param name="data">The data to write.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        void IWriteable<Character>.WriteAsync(Character data, CancellationToken cancellationToken)
+        {
+            var writeData = this.writeConverter.Convert(data);
+            this.Characters.AddOrUpdate(c => c.Id, writeData);
+            this.SaveChangesAsync(cancellationToken);
+        }
+
+        /// <summary>Deletes a specific item from the database.</summary>
+        /// <param name="data">The item to delete.</param>
+        void IWriteable<Character>.Delete(Character data)
+        {
+            var writeData = this.writeConverter.Convert(data);
+            this.Characters.Remove(writeData);
+            this.SaveChanges();
+        }
+
+        /// <summary>Asynchronously deletes a specific item from the database.</summary>
+        /// <param name="data">The item to delete.</param>
+        void IWriteable<Character>.DeleteAsync(Character data)
+        {
+            ((IWriteable<Character>)this).DeleteAsync(data, CancellationToken.None);
+        }
+
+        /// <summary>Asynchronously deletes a specific item from the database.</summary>
+        /// <param name="data">The item to delete.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        void IWriteable<Character>.DeleteAsync(Character data, CancellationToken cancellationToken)
+        {
+            var writeData = this.writeConverter.Convert(data);
+            this.Characters.Remove(writeData);
+            this.SaveChangesAsync(cancellationToken);
+        }
+
         /// <inheritdoc />
         async Task<IDictionaryRange<Guid, Character>> IRepository<Guid, Character>.FindAllAsync(CancellationToken cancellationToken)
         {
-            var data = new Response<ICollection<CharacterDataContract>>
+            var data = new Response<ICollection<CharacterDatabaseItem>>
                        {
-                           Content = await this.Characters.Include(c => c.Appearance).Include(c => c.Metadata).ToListAsync(cancellationToken),
+                           Content = await this.Characters.Include(c => c.AppearanceDatabaseItem).Include(c => c.MetadataDatabaseItem).ToListAsync(cancellationToken),
                            Culture = ((ILocalizable)this).Culture
                        };
 
-            return this.bulkResponseConverter.Convert(data);
-        }
-
-        /// <inheritdoc />
-        void IWriteable<Character>.Write(Character data)
-        {
-            CharacterDataContract dataContract = this.writeConverter.Convert(data);
-
-            this.Characters.AddOrUpdate(c => c.Id, dataContract);
-            this.SaveChanges();
-        }
-
-        /// <inheritdoc />
-        void IWriteable<Character>.WriteAsync(Character data)
-        {
-            ((ICharacterRepository)this).WriteAsync(data, CancellationToken.None);
-        }
-
-        /// <inheritdoc />
-        void IWriteable<Character>.WriteAsync(Character data, CancellationToken cancellationToken)
-        {
-            CharacterDataContract dataContract = this.writeConverter.Convert(data);
-
-            this.Characters.AddOrUpdate(c => c.Id, dataContract);
-            this.SaveChangesAsync(cancellationToken);
-        }
-
-        /// <inheritdoc />
-        void IWriteable<Character>.Delete(Character data)
-        {
-            CharacterDataContract dataContract = this.writeConverter.Convert(data);
-
-            this.Characters.Remove(dataContract);
-            this.SaveChanges();
-        }
-
-        /// <inheritdoc />
-        void IWriteable<Character>.DeleteAsync(Character data)
-        {
-            ((ICharacterRepository)this).DeleteAsync(data, CancellationToken.None);
-        }
-
-        /// <inheritdoc />
-        void IWriteable<Character>.DeleteAsync(Character data, CancellationToken cancellationToken)
-        {
-            CharacterDataContract dataContract = this.writeConverter.Convert(data);
-
-            this.Characters.Remove(dataContract);
-            this.SaveChangesAsync(cancellationToken);
+            return this.bulkReadConverter.Convert(data);
         }
 
         /// <inheritdoc />

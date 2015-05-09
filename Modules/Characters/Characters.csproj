@@ -52,36 +52,36 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converter\AppearanceConverter.cs" />
-    <Compile Include="Converter\CharacterConverter.cs" />
-    <Compile Include="Converter\AppearanceDataContractConverter.cs" />
-    <Compile Include="Converter\GendersConverter.cs" />
-    <Compile Include="Converter\MetadataConverter.cs" />
-    <Compile Include="Converter\OccourcenDataContractCoverter.cs" />
-    <Compile Include="Converter\CharacterDataContractConverter.cs" />
-    <Compile Include="Converter\GenderDataContractConverter.cs" />
-    <Compile Include="Converter\OccurrencesConverter.cs" />
-    <Compile Include="Converter\TagsConverter.cs" />
-    <Compile Include="DataContracts\AppearanceDataContract.cs" />
-    <Compile Include="DataContracts\CharacterDataContract.cs" />
+    <Compile Include="Converter\WriteConverter\AppearanceWriteConverter.cs" />
+    <Compile Include="Converter\WriteConverter\CharacterWriteConverter.cs" />
+    <Compile Include="Converter\ReadConverter\AppearanceReadConverter.cs" />
+    <Compile Include="Converter\ReadConverter\CharacterReadConverter.cs" />
+    <Compile Include="Converter\ReadConverter\GenderReadConverter.cs" />
+    <Compile Include="Converter\ReadConverter\MetadataReadConverter.cs" />
+    <Compile Include="Converter\ReadConverter\OccurrencesReadConverter.cs" />
+    <Compile Include="Converter\ReadConverter\TagsReadConverter.cs" />
+    <Compile Include="Converter\WriteConverter\GenderWriteConverter.cs" />
+    <Compile Include="Converter\WriteConverter\MetadataWriteConverter.cs" />
+    <Compile Include="Converter\WriteConverter\OccurrenceWriteConverter.cs" />
+    <Compile Include="Converter\WriteConverter\TagsWriteConverter.cs" />
+    <Compile Include="Migrations\201505091320487_Version2.cs" />
+    <Compile Include="Migrations\201505091320487_Version2.Designer.cs">
+      <DependentUpon>201505091320487_Version2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AppearanceDatabaseItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CharacterDatabaseItem.cs" />
     <Compile Include="CharactersRepository.cs" />
-    <Compile Include="DataContracts\MetadataDataContract.cs" />
-    <Compile Include="Converter\MetadataDataContractConverter.cs" />
-    <Compile Include="Migrations\201504191803120_Initial.cs">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    <Compile Include="Models\MetadataDatabaseItem.cs">
+      <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Migrations\201504191803120_Initial.Designer.cs">
-      <DependentUpon>201504191803120_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504252332053_Version2.cs">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
-    <Compile Include="Migrations\201504252332053_Version2.Designer.cs">
-      <DependentUpon>201504252332053_Version2.cs</DependentUpon>
+    <Compile Include="Migrations\201505071652305_Initial.cs" />
+    <Compile Include="Migrations\201505071652305_Initial.Designer.cs">
+      <DependentUpon>201505071652305_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Converter\TagConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -93,13 +93,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504191803120_Initial.resx">
-      <DependentUpon>201504191803120_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505071652305_Initial.resx">
+      <DependentUpon>201505071652305_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504252332053_Version2.resx">
-      <DependentUpon>201504252332053_Version2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505091320487_Version2.resx">
+      <DependentUpon>201505091320487_Version2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

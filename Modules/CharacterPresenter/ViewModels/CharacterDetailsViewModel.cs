@@ -40,7 +40,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
                                      Appearance = new Character.PhysicalAppearance
                                                   {
                                                       Bust = 89,
-                                                      CupSize = "C",
+                                                      CupSize = 'C',
                                                       EyeColour = "Green",
                                                       Gender = Character.PhysicalAppearance.Genders.Female,
                                                       HairColour = "Red",

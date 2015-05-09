@@ -64,7 +64,7 @@ namespace RpgTools.Core.Models
             public short Bust { get; set; }
 
             /// <summary>Gets or sets the cup size.</summary>
-            public string CupSize { get; set; }
+            public char CupSize { get; set; }
 
             /// <summary>Gets or sets the hip measurement.</summary>
             public short Hip { get; set; }

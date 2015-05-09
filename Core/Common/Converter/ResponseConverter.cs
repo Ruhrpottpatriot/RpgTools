@@ -40,7 +40,7 @@ namespace RpgTools.Core.Common.Converter
         {
             Contract.Assume(value != null);
 
-            var dataContract = value.Content;
+            TDataContract dataContract = value.Content;
 
             // Check if the dataContract is empty and return the default value fot TValue
             // ReSharper disable once RedundantNameQualifier
@@ -50,17 +50,17 @@ namespace RpgTools.Core.Common.Converter
             }
 
             // Convert the item.
-            var item = this.dataContractConverter.Convert(dataContract);
+            TValue item = this.dataContractConverter.Convert(dataContract);
 
             // Set the localizsation of the item.
-            var localizableItem = item as ILocalizable;
+            ILocalizable localizableItem = item as ILocalizable;
             if (localizableItem != null)
             {
                 localizableItem.Culture = value.Culture;
             }
 
             // Set the time of the item.
-            var timesensitiveItem = item as ITimeSensitive;
+            ITimeSensitive timesensitiveItem = item as ITimeSensitive;
             if (timesensitiveItem != null)
             {
                 timesensitiveItem.Timestamp = value.Date;

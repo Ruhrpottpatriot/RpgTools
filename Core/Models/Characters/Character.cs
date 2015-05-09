@@ -6,11 +6,13 @@
 namespace RpgTools.Core.Models
 {
     using System;
+    using System.Globalization;
     using PropertyChanged;
+    using RpgTools.Core.Common;
 
     /// <summary>Represent a Character.</summary>
     [ImplementPropertyChanged]
-    public partial class Character : IEquatable<Character>
+    public partial class Character : IEquatable<Character>, ILocalizable
     {
         // --------------------------------------------------------------------------------------------------------------------
         // Constructor
@@ -26,6 +28,9 @@ namespace RpgTools.Core.Models
             this.Appearance = new PhysicalAppearance();
         }
 
+        /// <summary>Gets or sets the locale.</summary>
+        public CultureInfo Culture { get; set; }
+
         /// <summary>Gets the id.</summary>
         public Guid Id { get; private set; }
 
@@ -38,8 +43,11 @@ namespace RpgTools.Core.Models
         /// <summary>Gets or sets the title.</summary>
         public string Title { get; set; }
 
-        /// <summary>Gets or sets the short description.</summary>
-        public string ShortDescription { get; set; }
+        /// <summary>Gets or sets the description.</summary>
+        public string Description { get; set; }
+
+        /// <summary>Gets or sets the biography.</summary>
+        public string Biography { get; set; }
 
         /// <summary>Gets or sets the motto.</summary>
         public string Motto { get; set; }

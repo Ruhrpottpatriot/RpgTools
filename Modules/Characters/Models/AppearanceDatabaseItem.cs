@@ -1,18 +1,23 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="AppearanceDatabaseItem.cs" company="Robert Logiewa">
+//   (C) All rights reserved
+// </copyright>
+// <summary>
+//   Defines the AppearanceDataContract type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace RpgTools.Characters
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("Occurrences")]
-    internal class AppearanceDataContract
+    /// <summary>Represents the appearance of a character that is stored in the database.</summary>
+    [Table("Character_Appearance")]
+    internal class AppearanceDatabaseItem
     {
-        /// <summary>Gets or sets the character id. Foreign Key. </summary>
-        [Key, ForeignKey("Character")]
-        public Guid CharacterId { get; set; }
-
-        /// <summary>Gets or sets the character data contract. Inverse Property.</summary>
-        public CharacterDataContract Character { get; set; }
+        /// <summary>Gets or sets the id.</summary>
+        public Guid Id { get; set; }
 
         /// <summary>Gets or sets the height in centimetres.</summary>
         public int Height { get; set; }
@@ -42,7 +47,7 @@ namespace RpgTools.Characters
         public short Bust { get; set; }
 
         /// <summary>Gets or sets the cup size.</summary>
-        public string CupSize { get; set; }
+        public char CupSize { get; set; }
 
         /// <summary>Gets or sets the hip measurement.</summary>
         public short Hip { get; set; }
