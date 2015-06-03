@@ -74,7 +74,6 @@
     <Compile Include="DataContracts\PlanetDetailsDataContract.cs" />
     <Compile Include="DataContracts\SectorDetailsDataContract.cs" />
     <Compile Include="DataContracts\StarSystemDetailsDataContract.cs" />
-    <Compile Include="LocationContext.cs" />
     <Compile Include="LocationRepository.cs" />
     <Compile Include="LocationRepositoryFactory.cs" />
     <Compile Include="Migrations\201503111633274_Initial.cs" />
@@ -106,7 +105,10 @@
       <DependentUpon>201503111635149_Version1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Converter\ReadConverter\" />
+    <Folder Include="Converter\WriteConverter\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

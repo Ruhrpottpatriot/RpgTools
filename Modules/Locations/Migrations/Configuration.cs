@@ -14,7 +14,7 @@ namespace RpgTools.Locations.Migrations
 
     using RpgTools.Locations.DataContracts;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<LocationContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<LocationRepository>
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="Configuration"/> class.
@@ -42,7 +42,7 @@ namespace RpgTools.Locations.Migrations
         /// called and the Seed method defined in the initializer should be used instead.
         /// </remarks>
         /// <param name="context">Context to be used for updating seed data. </param>
-        protected override void Seed(LocationContext context)
+        protected override void Seed(LocationRepository context)
         {
             // This method will be called after migrating to the latest version.
             // You can use the DbSet<T>.AddOrUpdate() helper extension method 
