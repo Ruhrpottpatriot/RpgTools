@@ -1,7 +1,6 @@
 ﻿namespace RpgTools.Locations
 {
     using System.Diagnostics.CodeAnalysis;
-    using System.Diagnostics.Contracts;
     using System.Globalization;
 
     /// <summary>Provides methods for creating repository objects.</summary>
@@ -15,9 +14,6 @@
         {
             get
             {
-                Contract.Requires(language != null);
-                Contract.Requires(language.Length == 2);
-                Contract.Ensures(Contract.Result<TRepository>() != null);
                 return this.ForCulture(new CultureInfo(language));
             }
         }
@@ -29,8 +25,6 @@
         {
             get
             {
-                Contract.Requires(culture != null);
-                Contract.Ensures(Contract.Result<TRepository>() != null);
                 return this.ForCulture(culture);
             }
         }
@@ -48,7 +42,6 @@
         /// <returns>A repository.</returns>
         public TRepository ForCurrentCulture()
         {
-            Contract.Ensures(Contract.Result<TRepository>() != null);
             return this.ForCulture(CultureInfo.CurrentCulture);
         }
 
@@ -56,7 +49,6 @@
         /// <returns>A repository.</returns>
         public TRepository ForCurrentUiCulture()
         {
-            Contract.Ensures(Contract.Result<TRepository>() != null);
             return this.ForCulture(CultureInfo.CurrentUICulture);
         }
 
@@ -65,7 +57,6 @@
         [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Consitent with the standard .NET naming.")]
         public virtual TRepository ForCurrentUICulture()
         {
-            Contract.Ensures(Contract.Result<TRepository>() != null);
             return this.ForCulture(CultureInfo.CurrentUICulture);
         }
     }

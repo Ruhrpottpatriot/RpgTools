@@ -5,8 +5,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace RpgTools.Core.Common.Converter
 {
-    using System.Diagnostics.CodeAnalysis;
-    using System.Diagnostics.Contracts;
     using RpgTools.Core.Common;
 
     /// <summary>
@@ -31,15 +29,12 @@ namespace RpgTools.Core.Common.Converter
         /// </param>
         public ResponseConverter(IConverter<TDataContract, TValue> dataContractConverter)
         {
-            Contract.Requires(dataContractConverter != null);
             this.dataContractConverter = dataContractConverter;
         }
 
         /// <inheritdoc />
         TValue IConverter<IResponse<TDataContract>, TValue>.Convert(IResponse<TDataContract> value)
         {
-            Contract.Assume(value != null);
-
             TDataContract dataContract = value.Content;
 
             // Check if the dataContract is empty and return the default value fot TValue
@@ -68,13 +63,6 @@ namespace RpgTools.Core.Common.Converter
 
             // Return the item itself.
             return item;
-        }
-
-        [ContractInvariantMethod]
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Only used by the Code Contracts for .NET extension.")]
-        private void ObjectInvariant()
-        {
-            Contract.Invariant(this.dataContractConverter != null);
         }
     }
 }

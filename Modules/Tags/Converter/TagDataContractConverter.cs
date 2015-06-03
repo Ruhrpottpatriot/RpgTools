@@ -9,7 +9,6 @@
 
 namespace RpgTools.Tags
 {
-    using System.Diagnostics.Contracts;
     using RpgTools.Core.Common;
     using RpgTools.Core.Models;
 
@@ -19,8 +18,6 @@ namespace RpgTools.Tags
         /// <inheritdoc />
         public Tag Convert(TagDataContract value)
         {
-            Contract.Assume(value != null);
-
             return new Tag { Id = value.Id, Value = value.Tag, Type = value.Type };
         }
     }

@@ -19,8 +19,6 @@ namespace RpgTools.Tags
         /// <inheritdoc /> 
         public TagDataContract Convert(Tag value)
         {
-            Contract.Assume(value != null);
-
             return new TagDataContract
             {
                 Id = value.Id,
