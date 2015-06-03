@@ -26,7 +26,7 @@ namespace Tests
         [SetUp]
         public void SetUp()
         {
-            this.locationRepository = new LocationRepositoryFactory(new DatabaseSeviceClient()).ForDefaultCulture();
+            this.locationRepository = new LocationRepositoryFactory().ForDefaultCulture();
         }
 
         [Test]

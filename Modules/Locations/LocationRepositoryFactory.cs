@@ -12,21 +12,11 @@ namespace RpgTools.Locations
     /// <summary>Provides methods for creating repository object in specified cultures.</summary>
     public sealed class LocationRepositoryFactory : RepositoryFactoryBase<ILocationRepository>
     {
-        /// <summary>Infrastructure. Holds a reference to the service client.</summary>
-        private readonly IAuthorizedServiceClient serviceClient;
-
-        /// <summary> Initialises a new instance of the <see cref="LocationRepositoryFactory"/> class.</summary>
-        /// <param name="serviceClient">The service client.</param>
-        public LocationRepositoryFactory(IAuthorizedServiceClient serviceClient)
-        {
-            this.serviceClient = serviceClient;
-        }
-
         /// <summary>Creates an instance for the default language.</summary>
         /// <returns>A repository.</returns>
         public override ILocationRepository ForDefaultCulture()
         {
-            return new LocationRepository(this.serviceClient);
+            return new LocationRepository();
         }
 
         /// <summary>Creates an instance for the given language.</summary>
@@ -34,7 +24,7 @@ namespace RpgTools.Locations
         /// <returns>A repository.</returns>
         public override ILocationRepository ForCulture(CultureInfo culture)
         {
-            ILocationRepository repository = new LocationRepository(this.serviceClient);
+            ILocationRepository repository = new LocationRepository();
             repository.Culture = culture;
             return repository;
         }

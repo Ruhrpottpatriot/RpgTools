@@ -84,7 +84,7 @@ namespace RpgTools.LocationPresenter.ViewModels
         [ImportingConstructor]
         public LocationViewModel(IEventAggregator eventAggregator, IWindowManager windowManager)
         {
-            this.locationRepository = new LocationRepositoryFactory(new DatabaseSeviceClient()).ForDefaultCulture();
+            this.locationRepository = new LocationRepositoryFactory().ForDefaultCulture();
             this.eventAggregator = eventAggregator;
             this.windowManager = windowManager;
 
