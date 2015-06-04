@@ -12,8 +12,6 @@ namespace RpgTools.Locations.Migrations
     using System;
     using System.Data.Entity.Migrations;
 
-    using RpgTools.Locations.DataContracts;
-
     internal sealed class Configuration : DbMigrationsConfiguration<LocationRepository>
     {
         /// <summary>

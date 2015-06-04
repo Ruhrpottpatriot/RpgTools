@@ -1,4 +1,4 @@
-﻿namespace RpgTools.Locations
+﻿namespace RpgTools.Core.Common
 {
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;

@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace RpgTools.Core.MarkupExtensions
+namespace RpgTools.Core.Resources.MarkupExtensions
 {
     using System;
     using System.Collections.Generic;

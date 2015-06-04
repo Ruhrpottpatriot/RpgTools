@@ -3,10 +3,8 @@
 //   (C) All rights reserved
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace RpgTools.Core.Common.Converter
+namespace RpgTools.Core.Common
 {
-    using RpgTools.Core.Common;
-
     /// <summary>
     /// Converts objects of type <see cref="IResponse{T}"/> to objects of type <see cref="TValue"/>.
     /// </summary>

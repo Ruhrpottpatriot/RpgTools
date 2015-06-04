@@ -18,7 +18,6 @@ namespace RpgTools.Tags
     using System.Threading;
     using System.Threading.Tasks;
     using RpgTools.Core.Common;
-    using RpgTools.Core.Common.Converter;
     using RpgTools.Core.Models;
     using RpgTools.Tags.Migrations;
 

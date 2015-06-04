@@ -3,13 +3,11 @@
 //   (C) All rights reserved
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace RpgTools.Locations.Converter
+namespace RpgTools.Locations
 {
     using System.Collections.Generic;
-
     using RpgTools.Core.Common;
     using RpgTools.Core.Models;
-    using RpgTools.Locations.DataContracts;
 
     /// <summary>Converts a <see cref="Location"/> into the corresponding <see cref="LocationDatabaseItem"/>.</summary>
     internal sealed class LocationDataContractConverter : IConverter<Location, LocationDatabaseItem>

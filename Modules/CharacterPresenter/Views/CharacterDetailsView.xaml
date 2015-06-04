@@ -8,7 +8,6 @@
              xmlns:vm="clr-namespace:RpgTools.CharacterPresenter.ViewModels"
              xmlns:converter="clr-namespace:RpgTools.Core.Converter;assembly=Core"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:markupExtensions="clr-namespace:RpgTools.Core.MarkupExtensions;assembly=Core"
              xmlns:models="clr-namespace:RpgTools.Core.Models;assembly=Core"
              mc:Ignorable="d"
              cal:Bind.AtDesignTime="True"

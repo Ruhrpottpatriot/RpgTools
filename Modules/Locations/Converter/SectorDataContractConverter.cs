@@ -3,11 +3,10 @@
 //   (C) All rights reserved
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace RpgTools.Locations.Converter
+namespace RpgTools.Locations
 {
     using RpgTools.Core.Common;
     using RpgTools.Core.Models;
-    using RpgTools.Locations.DataContracts;
 
     /// <summary>
     /// The sector data contract converter.

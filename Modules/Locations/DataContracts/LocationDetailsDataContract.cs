@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace RpgTools.Locations.DataContracts
+namespace RpgTools.Locations
 {
     using System;
     using System.ComponentModel.DataAnnotations;

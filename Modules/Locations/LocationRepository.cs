@@ -12,10 +12,7 @@ namespace RpgTools.Locations
     using System.Linq;
 
     using RpgTools.Core.Common;
-    using RpgTools.Core.Common.Converter;
     using RpgTools.Core.Models;
-    using RpgTools.Locations.Converter;
-    using RpgTools.Locations.DataContracts;
 
     /// <summary>The location repository.</summary>
     public sealed class LocationRepository : DbContext, ILocationRepository

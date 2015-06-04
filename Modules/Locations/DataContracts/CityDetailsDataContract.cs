@@ -3,7 +3,7 @@
 //   (C) All rights reserved
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace RpgTools.Locations.DataContracts
+namespace RpgTools.Locations
 {
     using System;
     using System.ComponentModel.DataAnnotations.Schema;

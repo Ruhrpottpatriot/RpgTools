@@ -17,7 +17,6 @@ namespace RpgTools.Characters
     using System.Linq;
     using RpgTools.Characters.Migrations;
     using RpgTools.Core.Common;
-    using RpgTools.Core.Common.Converter;
     using RpgTools.Core.Models;
 
     /// <summary>Repository for storing and retrieving characters in a database.</summary>
@@ -55,7 +54,7 @@ namespace RpgTools.Characters
         /// <summary>Gets or sets the locale.</summary>
         public CultureInfo Culture { get; set; }
 
-        /// <summary>Gets or sets the internal character list.</summary>
+        /// <summary>Gets the internal character list.</summary>
         internal DbSet<CharacterDatabaseItem> Characters { get; private set; }
 
         /// <inheritdoc />

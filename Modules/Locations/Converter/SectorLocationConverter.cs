@@ -3,11 +3,10 @@
 //   (C) All rights reserved
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace RpgTools.Locations.Converter
+namespace RpgTools.Locations
 {
     using RpgTools.Core.Common;
     using RpgTools.Core.Models;
-    using RpgTools.Locations.DataContracts;
 
     /// <summary>Converts an object of type <see cref="LocationDetailsDataContract"/> into an object of type <see cref="Sector"/>.</summary>
     internal sealed class SectorLocationConverter : IConverter<LocationDetailsDataContract, Sector>

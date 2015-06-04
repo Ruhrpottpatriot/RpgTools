@@ -11,7 +11,6 @@ namespace RpgTools.Tags
 {
     using System.Globalization;
     using RpgTools.Core.Common;
-    using RpgTools.Locations;
 
     /// <summary>Provides methods and properties to create <see cref="TagsRepository"/> objects.</summary>
     public sealed class TagsRepositoryFactory : RepositoryFactoryBase<ITagsRepository>
