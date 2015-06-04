@@ -63,7 +63,7 @@ namespace RpgTools.Locations.Migrations
             };
 
             context.Locations.AddOrUpdate(l => l.Id,
-                new LocationDataContract
+                new LocationDatabaseItem
                 {
                     Id = ids[0],
                     Name = "Stromsang",
@@ -75,7 +75,7 @@ namespace RpgTools.Locations.Migrations
                         IsCapital = false
                     }
                 },
-                new LocationDataContract
+                new LocationDatabaseItem
                 {
                     Id = ids[1],
                     Name = "Noctus",
@@ -86,7 +86,7 @@ namespace RpgTools.Locations.Migrations
                         System = ids[2]
                     }
                 },
-                new LocationDataContract
+                new LocationDatabaseItem
                 {
                     Id = ids[2],
                     Name = "Wakatsu Made",
@@ -97,7 +97,7 @@ namespace RpgTools.Locations.Migrations
                         Sector = ids[3]
                     }
                 },
-                new LocationDataContract
+                new LocationDatabaseItem
                 {
                     Id = ids[3],
                     Name = "Eastern Fringe",

@@ -9,8 +9,7 @@ namespace RpgTools.Locations
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Globalization;
-    using System.Threading;
-    using System.Threading.Tasks;
+    using System.Linq;
 
     using RpgTools.Core.Common;
     using RpgTools.Core.Common.Converter;
@@ -21,79 +20,75 @@ namespace RpgTools.Locations
     /// <summary>The location repository.</summary>
     public sealed class LocationRepository : DbContext, ILocationRepository
     {
-        /// <summary>Infrastructure. Holds a reference to the identifiers converter.</summary>
-        private readonly IConverter<IResponse<ICollection<Guid>>, ICollection<Guid>> identifiersConverter;
-
         /// <summary>Infrastructure. Holds a reference to the response converter.</summary>
-        private readonly IConverter<IResponse<LocationDataContract>, Location> responseConverter;
-
-        /// <summary>Infrastructure. Holds a reference to the write converter.</summary>
-        private readonly IConverter<Location, LocationDataContract> writeConverter;
+        private readonly IConverter<IResponse<LocationDatabaseItem>, Location> responseConverter;
 
         /// <summary>Infrastructure. Holds a reference to the bulk response converter.</summary>
-        private readonly IConverter<IResponse<ICollection<LocationDataContract>>, IDictionaryRange<Guid, Location>> dictionaryRangeResponseConverter;
+        private readonly IConverter<IResponse<ICollection<LocationDatabaseItem>>, IDictionaryRange<Guid, Location>> dictionaryRangeResponseConverter;
 
         /// <summary>Initialises a new instance of the <see cref="LocationRepository"/> class.</summary>
         public LocationRepository()
-            : this(new LocationConverter(), new ConverterAdapter<ICollection<Guid>>(), new LocationDataContractConverter())
+            : this(new LocationConverter(), new LocationDataContractConverter())
         {
         }
 
         /// <summary>Initialises a new instance of the <see cref="LocationRepository"/> class.</summary>
         /// <param name="locationConverter">The location converter.</param>
-        /// <param name="collectionConverter">The collection Converter.</param>
         /// <param name="writeConverter">The write Converter.</param>
-        private LocationRepository(IConverter<LocationDataContract, Location> locationConverter, IConverter<ICollection<Guid>, ICollection<Guid>> collectionConverter, IConverter<Location, LocationDataContract> writeConverter)
+        private LocationRepository(IConverter<LocationDatabaseItem, Location> locationConverter, IConverter<Location, LocationDatabaseItem> writeConverter)
             : base("name=RpgTools")
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<LocationRepository, Migrations.Configuration>(true));
 
-            this.Locations = this.Set<LocationDataContract>();
+            this.Locations = this.Set<LocationDatabaseItem>();
 
-            this.identifiersConverter = new ResponseConverter<ICollection<Guid>, ICollection<Guid>>(collectionConverter);
-            this.responseConverter = new ResponseConverter<LocationDataContract, Location>(locationConverter);
-            this.dictionaryRangeResponseConverter = new DictionaryRangeConverter<LocationDataContract, Guid, Location>(locationConverter, location => location.Id);
-
-            this.writeConverter = writeConverter;
+            this.responseConverter = new ResponseConverter<LocationDatabaseItem, Location>(locationConverter);
+            this.dictionaryRangeResponseConverter = new DictionaryRangeConverter<LocationDatabaseItem, Guid, Location>(locationConverter, location => location.Id);
         }
-        
+
         /// <inheritdoc />
         CultureInfo ILocalizable.Culture { get; set; }
 
         /// <summary>Gets or sets the locations.</summary>
-        internal DbSet<LocationDataContract> Locations { get; set; }
+        internal DbSet<LocationDatabaseItem> Locations { get; set; }
 
         /// <inheritdoc />
         Location IRepository<Guid, Location>.Find(Guid identifier)
         {
-            throw new NotImplementedException();
+            var data = new Response<LocationDatabaseItem>
+                       {
+                           Content = this.Locations.Single(l => l.Id == identifier),
+                           Culture = ((ILocalizable)this).Culture
+                       };
+            return this.responseConverter.Convert(data);
         }
-
+        
         /// <inheritdoc />
         IDictionaryRange<Guid, Location> IRepository<Guid, Location>.FindAll(ICollection<Guid> identifiers)
         {
-            throw new NotImplementedException();
+            var data = new Response<ICollection<LocationDatabaseItem>>
+                       {
+                           Content = this.Locations.Where(c => identifiers.Any(i => i == c.Id)).ToList(),
+                           Culture = ((ILocalizable)this).Culture
+                       };
+
+            return this.dictionaryRangeResponseConverter.Convert(data);
         }
 
         /// <inheritdoc />
         IDictionaryRange<Guid, Location> IRepository<Guid, Location>.FindAll()
         {
-            throw new NotImplementedException();
+            var data = new Response<ICollection<LocationDatabaseItem>>
+            {
+                Content = this.Locations.ToList(),
+                Culture = ((ILocalizable)this).Culture
+            };
+
+            return this.dictionaryRangeResponseConverter.Convert(data);
         }
 
         /// <inheritdoc />
-        Task<IDictionaryRange<Guid, Location>> IRepository<Guid, Location>.FindAllAsync()
-        {
-            return ((ILocationRepository)this).FindAllAsync(CancellationToken.None);
-        }
-
-        /// <inheritdoc />
-        Task<IDictionaryRange<Guid, Location>> IRepository<Guid, Location>.FindAllAsync(CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-       protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("Locations");
 
@@ -120,6 +115,20 @@ namespace RpgTools.Locations
                 {
                     m.MapInheritedProperties();
                 });
+        }
+
+        /// <summary>Writes the data to the repository.</summary>
+        /// <param name="data">The data to write.</param>
+        public void Write(Location data)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>Deletes a specific item from the database.</summary>
+        /// <param name="data">The item to delete.</param>
+        public void Delete(Location data)
+        {
+            throw new NotImplementedException();
         }
     }
 }

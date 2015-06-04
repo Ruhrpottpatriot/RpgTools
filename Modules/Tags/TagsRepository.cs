@@ -105,19 +105,7 @@ namespace RpgTools.Tags
                        };
             return this.bulkResponseConverter.Convert(data);
         }
-
-        /// <inheritdoc />
-        Task<IDictionaryRange<Guid, Tag>> IRepository<Guid, Tag>.FindAllAsync()
-        {
-            return ((ITagsRepository)this).FindAllAsync(CancellationToken.None);
-        }
-
-        /// <inheritdoc />
-        Task<IDictionaryRange<Guid, Tag>> IRepository<Guid, Tag>.FindAllAsync(CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         /// <summary>Writes the data to the repository.</summary>
         /// <param name="data">The data to write.</param>
         void IWriteable<Tag>.Write(Tag data)
@@ -126,42 +114,12 @@ namespace RpgTools.Tags
             this.Tags.AddOrUpdate(t => t.Id, dataContract);
         }
 
-        /// <summary>Writes the data to the repository asynchronously.</summary>
-        /// <param name="data">The data to write.</param>
-        void IWriteable<Tag>.WriteAsync(Tag data)
-        {
-            ((ITagsRepository)this).WriteAsync(data, CancellationToken.None);
-        }
-
-        /// <summary>Writes the data to the repository asynchronously.</summary>
-        /// <param name="data">The data to write.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        void IWriteable<Tag>.WriteAsync(Tag data, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>Deletes a specific item from the database.</summary>
         /// <param name="data">The item to delete.</param>
         void IWriteable<Tag>.Delete(Tag data)
         {
             var dataContract = this.writeConverter.Convert(data);
             this.Tags.Remove(dataContract);
-        }
-
-        /// <summary>Asynchronously deletes a specific item from the database.</summary>
-        /// <param name="data">The item to delete.</param>
-        void IWriteable<Tag>.DeleteAsync(Tag data)
-        {
-            ((ITagsRepository)this).DeleteAsync(data, CancellationToken.None);
-        }
-
-        /// <summary>Asynchronously deletes a specific item from the database.</summary>
-        /// <param name="data">The item to delete.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        void IWriteable<Tag>.DeleteAsync(Tag data, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
         }
 
         /// <inheritdoc />

@@ -16,7 +16,7 @@ namespace RpgTools.Locations.DataContracts
 
     /// <summary>The location data contract.</summary>
     [Table("Locations")]
-    internal class LocationDataContract
+    internal sealed class LocationDatabaseItem
     {
         /// <summary>
         /// Gets or sets the id.
@@ -47,6 +47,6 @@ namespace RpgTools.Locations.DataContracts
         /// <summary>
         /// Gets or sets the details.
         /// </summary>
-        public virtual LocationDetailsDataContract Details { get; set; }
+        public LocationDetailsDataContract Details { get; set; }
     }
 }

@@ -69,7 +69,7 @@
     <Compile Include="Converter\StarSystemLocationConverter.cs" />
     <Compile Include="Converter\SystemDataContractConverter.cs" />
     <Compile Include="DataContracts\CityDetailsDataContract.cs" />
-    <Compile Include="DataContracts\LocationDataContract.cs" />
+    <Compile Include="DataContracts\LocationDatabaseItem.cs" />
     <Compile Include="DataContracts\LocationDetailsDataContract.cs" />
     <Compile Include="DataContracts\PlanetDetailsDataContract.cs" />
     <Compile Include="DataContracts\SectorDetailsDataContract.cs" />

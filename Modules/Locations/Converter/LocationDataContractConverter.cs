@@ -11,8 +11,8 @@ namespace RpgTools.Locations.Converter
     using RpgTools.Core.Models;
     using RpgTools.Locations.DataContracts;
 
-    /// <summary>Converts a <see cref="Location"/> into the corresponding <see cref="LocationDataContract"/>.</summary>
-    internal sealed class LocationDataContractConverter : IConverter<Location, LocationDataContract>
+    /// <summary>Converts a <see cref="Location"/> into the corresponding <see cref="LocationDatabaseItem"/>.</summary>
+    internal sealed class LocationDataContractConverter : IConverter<Location, LocationDatabaseItem>
     {
         /// <summary>Infrastructure. Holds a reference to a collection of type converters.</summary>
         private readonly Dictionary<string, IConverter<Location, LocationDetailsDataContract>> typeConverter;
@@ -26,9 +26,9 @@ namespace RpgTools.Locations.Converter
         }
 
         /// <inheritdoc />
-        public LocationDataContract Convert(Location value)
+        public LocationDatabaseItem Convert(Location value)
         {
-            LocationDataContract locationData = new LocationDataContract();
+            LocationDatabaseItem locationData = new LocationDatabaseItem();
 
             IConverter<Location, LocationDetailsDataContract> converter;
 

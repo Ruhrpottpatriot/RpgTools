@@ -27,6 +27,6 @@ namespace RpgTools.Locations.DataContracts
         /// <summary>
         /// Gets or sets the location.
         /// </summary>
-        public LocationDataContract Location { get; set; }
+        public LocationDatabaseItem Location { get; set; }
     }
 }
