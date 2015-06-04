@@ -20,11 +20,14 @@ namespace RpgTools.Locations
     /// <summary>The location repository.</summary>
     public sealed class LocationRepository : DbContext, ILocationRepository
     {
-        /// <summary>Infrastructure. Holds a reference to the response converter.</summary>
+        /// <summary>Used to convert single database items into an object used by the program.</summary>
         private readonly IConverter<IResponse<LocationDatabaseItem>, Location> responseConverter;
 
-        /// <summary>Infrastructure. Holds a reference to the bulk response converter.</summary>
+        /// <summary>Used to convert multiple data items into objects used by the program.</summary>
         private readonly IConverter<IResponse<ICollection<LocationDatabaseItem>>, IDictionaryRange<Guid, Location>> dictionaryRangeResponseConverter;
+
+        /// <summary>Used to convert objects by the program into items stored in the database.</summary>
+        private IConverter<Location, LocationDatabaseItem> writeConverter;
 
         /// <summary>Initialises a new instance of the <see cref="LocationRepository"/> class.</summary>
         public LocationRepository()
@@ -39,15 +42,15 @@ namespace RpgTools.Locations
             : base("name=RpgTools")
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<LocationRepository, Migrations.Configuration>(true));
-
             this.Locations = this.Set<LocationDatabaseItem>();
 
             this.responseConverter = new ResponseConverter<LocationDatabaseItem, Location>(locationConverter);
             this.dictionaryRangeResponseConverter = new DictionaryRangeConverter<LocationDatabaseItem, Guid, Location>(locationConverter, location => location.Id);
+            this.writeConverter = writeConverter;
         }
 
-        /// <inheritdoc />
-        CultureInfo ILocalizable.Culture { get; set; }
+        /// <summary>Gets or sets the culture.</summary>
+        public CultureInfo Culture { get; set; }
 
         /// <summary>Gets or sets the locations.</summary>
         internal DbSet<LocationDatabaseItem> Locations { get; set; }
@@ -58,7 +61,7 @@ namespace RpgTools.Locations
             var data = new Response<LocationDatabaseItem>
                        {
                            Content = this.Locations.Single(l => l.Id == identifier),
-                           Culture = ((ILocalizable)this).Culture
+                           Culture = this.Culture
                        };
             return this.responseConverter.Convert(data);
         }
@@ -69,7 +72,7 @@ namespace RpgTools.Locations
             var data = new Response<ICollection<LocationDatabaseItem>>
                        {
                            Content = this.Locations.Where(c => identifiers.Any(i => i == c.Id)).ToList(),
-                           Culture = ((ILocalizable)this).Culture
+                           Culture = this.Culture
                        };
 
             return this.dictionaryRangeResponseConverter.Convert(data);
@@ -81,10 +84,24 @@ namespace RpgTools.Locations
             var data = new Response<ICollection<LocationDatabaseItem>>
             {
                 Content = this.Locations.ToList(),
-                Culture = ((ILocalizable)this).Culture
+                Culture = this.Culture
             };
 
             return this.dictionaryRangeResponseConverter.Convert(data);
+        }
+
+        /// <summary>Writes the data to the repository.</summary>
+        /// <param name="data">The data to write.</param>
+        public void Write(Location data)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>Deletes a specific item from the database.</summary>
+        /// <param name="data">The item to delete.</param>
+        public void Delete(Location data)
+        {
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc />
@@ -115,20 +132,6 @@ namespace RpgTools.Locations
                 {
                     m.MapInheritedProperties();
                 });
-        }
-
-        /// <summary>Writes the data to the repository.</summary>
-        /// <param name="data">The data to write.</param>
-        public void Write(Location data)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>Deletes a specific item from the database.</summary>
-        /// <param name="data">The item to delete.</param>
-        public void Delete(Location data)
-        {
-            throw new NotImplementedException();
         }
     }
 }

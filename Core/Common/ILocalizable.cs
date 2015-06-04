@@ -14,7 +14,7 @@ namespace RpgTools.Core.Common
     /// <summary>Provides the interface for locale-aware types.</summary>
     public interface ILocalizable
     {
-        /// <summary>Gets or sets the locale.</summary>
+        /// <summary>Gets or sets the culture.</summary>
         CultureInfo Culture { get; set; }
     }
 }
