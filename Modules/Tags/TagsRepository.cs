@@ -15,8 +15,7 @@ namespace RpgTools.Tags
     using System.Data.Entity.Migrations;
     using System.Globalization;
     using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
+    using EntityFramework.Extensions;
     using RpgTools.Core.Common;
     using RpgTools.Core.Models;
     using RpgTools.Tags.Migrations;
@@ -26,99 +25,106 @@ namespace RpgTools.Tags
     {
         /// <summary>Holds a reference to the response converter.
         /// </summary>
-        private readonly IConverter<IResponse<TagDataContract>, Tag> responseConverter;
+        private readonly IConverter<IResponse<TagItem>, Tag> readConverter;
 
         /// <summary>Holds a reference to the response bulk response converter.</summary>
-        private readonly IConverter<IResponse<ICollection<TagDataContract>>, IDictionaryRange<Guid, Tag>> bulkResponseConverter;
+        private readonly IConverter<IResponse<ICollection<TagItem>>, IDictionaryRange<Guid, Tag>> bulkReadConverter;
 
         /// <summary>Holds a reference to the response write converter.</summary>
-        private readonly IConverter<Tag, TagDataContract> writeConverter;
+        private readonly IConverter<IResponse<Tag>, TagItem> writeConverter;
 
         /// <summary>Initialises a new instance of the <see cref="TagsRepository"/> class.</summary>
         public TagsRepository()
             : this(new TagDataContractConverter(), new TagConverter())
         {
-            // Set the initializer. ToDo: Needs to be changed for production enviroment.
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<TagsRepository, Configuration>(true));
-
-            this.Tags = this.Set<TagDataContract>();
         }
 
         /// <summary>Initialises a new instance of the <see cref="TagsRepository"/> class.</summary>
-        /// <param name="tagDataContractConverter">The converter that converts <see cref="TagDataContract"/> into <see cref="Tag">Tags</see>.</param>
-        /// <param name="tagConverter">The converter that converts <see cref="Tag">Tags</see> into <see cref="TagDataContract"/>.</param>
-        internal TagsRepository(IConverter<TagDataContract, Tag> tagDataContractConverter, IConverter<Tag, TagDataContract> tagConverter)
+        /// <param name="tagReadConverter">The converter that converts <see cref="TagItem"/> into <see cref="Tag">Tags</see>.</param>
+        /// <param name="tagWriteConverter">The converter that converts <see cref="Tag">Tags</see> into <see cref="TagItem"/>.</param>
+        internal TagsRepository(IConverter<TagItem, Tag> tagReadConverter, IConverter<Tag, TagItem> tagWriteConverter)
             : base("name=RpgTools")
         {
-            this.responseConverter = new ResponseConverter<TagDataContract, Tag>(tagDataContractConverter);
-            this.bulkResponseConverter = new DictionaryRangeConverter<TagDataContract, Guid, Tag>(tagDataContractConverter, t => t.Id);
-            this.writeConverter = tagConverter;
+            // Set the initializer. ToDo: Needs to be changed for production enviroment.
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<TagsRepository, Configuration>(true));
+            this.Tags = this.Set<TagItem>();
+
+            this.readConverter = new DataConverter<TagItem, Tag>(tagReadConverter);
+            this.bulkReadConverter = new DictionaryRangeConverter<TagItem, Guid, Tag>(tagReadConverter, t => t.Id);
+            this.writeConverter = new DataConverter<Tag, TagItem>(tagWriteConverter);
         }
 
-        /// <summary>Gets or sets the locale.</summary>
-        CultureInfo ILocalizable.Culture { get; set; }
+        /// <inheritdoc />
+        public CultureInfo Culture { get; set; }
 
         /// <summary>Gets or sets  internally stored tags.</summary>
-        internal DbSet<TagDataContract> Tags { get; set; }
+        internal DbSet<TagItem> Tags { get; set; }
 
         /// <inheritdoc />
-        IDictionaryRange<Guid, Tag> ITagsRepository.FindByType(string type)
+        public Tag Find(Guid identifier)
         {
-            var data = new Response<ICollection<TagDataContract>>
-                       {
-                           Content = this.Tags.Where(tag => tag.TwoLetterLanguageCode == ((ILocalizable)this).Culture.TwoLetterISOLanguageName && tag.Type == type).ToList(),
-                           Culture = ((ILocalizable)this).Culture
-                       };
-            return this.bulkResponseConverter.Convert(data);
-        }
-
-        /// <inheritdoc />
-        Tag IRepository<Guid, Tag>.Find(Guid identifier)
-        {
-            var data = new Response<TagDataContract>
+            IResponse<TagItem> data = new Response<TagItem>
             {
-                Content = this.Tags.SingleOrDefault(tag => tag.TwoLetterLanguageCode == ((ILocalizable)this).Culture.TwoLetterISOLanguageName && tag.Id == identifier),
-                Culture = ((ILocalizable)this).Culture
+                Content = this.Tags.SingleOrDefault(tag => tag.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName && tag.Id == identifier),
+                Culture = this.Culture
             };
-            return this.responseConverter.Convert(data);
+            return this.readConverter.Convert(data);
         }
 
         /// <inheritdoc />
-        IDictionaryRange<Guid, Tag> IRepository<Guid, Tag>.FindAll(ICollection<Guid> identifiers)
+        public IDictionaryRange<Guid, Tag> FindByType(string type)
         {
-            var data = new Response<ICollection<TagDataContract>>
+            IResponse<ICollection<TagItem>> data = new Response<ICollection<TagItem>>
             {
-                Content = this.Tags.Where(t => t.TwoLetterLanguageCode == ((ILocalizable)this).Culture.TwoLetterISOLanguageName && identifiers.Any(i => i == t.Id)).ToList(),
-                Culture = ((ILocalizable)this).Culture
+                Content = this.Tags.Where(tag => tag.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName && tag.Type == type).ToList(),
+                Culture = this.Culture
             };
-            return this.bulkResponseConverter.Convert(data);
+            return this.bulkReadConverter.Convert(data);
         }
 
         /// <inheritdoc />
-        IDictionaryRange<Guid, Tag> IRepository<Guid, Tag>.FindAll()
+        public IDictionaryRange<Guid, Tag> FindAll(ICollection<Guid> identifiers)
         {
-            var data = new Response<ICollection<TagDataContract>>
-                       {
-                           Content = this.Tags.Where(t => t.TwoLetterLanguageCode == ((ILocalizable)this).Culture.TwoLetterISOLanguageName).ToList(),
-                           Culture = ((ILocalizable)this).Culture
-                       };
-            return this.bulkResponseConverter.Convert(data);
-        }
-        
-        /// <summary>Writes the data to the repository.</summary>
-        /// <param name="data">The data to write.</param>
-        void IWriteable<Tag>.Write(Tag data)
-        {
-            var dataContract = this.writeConverter.Convert(data);
-            this.Tags.AddOrUpdate(t => t.Id, dataContract);
+            IResponse<ICollection<TagItem>> data = new Response<ICollection<TagItem>>
+            {
+                Content = this.Tags.Where(t => t.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName && identifiers.Any(i => i == t.Id)).ToList(),
+                Culture = this.Culture
+            };
+            return this.bulkReadConverter.Convert(data);
         }
 
-        /// <summary>Deletes a specific item from the database.</summary>
-        /// <param name="data">The item to delete.</param>
-        void IWriteable<Tag>.Delete(Tag data)
+        /// <inheritdoc />
+        public IDictionaryRange<Guid, Tag> FindAll()
         {
-            var dataContract = this.writeConverter.Convert(data);
-            this.Tags.Remove(dataContract);
+            IResponse<ICollection<TagItem>> data = new Response<ICollection<TagItem>>
+            {
+                Content = this.Tags.Where(t => t.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName).ToList(),
+                Culture = this.Culture
+            };
+            return this.bulkReadConverter.Convert(data);
+        }
+
+        /// <inheritdoc />
+        public void Create(IResponse<Tag> data)
+        {
+            TagItem contract = this.writeConverter.Convert(data);
+            this.Tags.Add(contract);
+            this.SaveChanges();
+        }
+
+        /// <inheritdoc />
+        public void Update(IResponse<Tag> data)
+        {
+            TagItem updatedData = this.writeConverter.Convert(data);
+            this.Tags.AddOrUpdate(updatedData);
+            this.SaveChanges();
+        }
+
+        /// <summary>Deletes an item in the repository.</summary>
+        /// <param name="identifier">The identifier that uniquely identifies an item in the repository.</param>
+        public void Delete(Guid identifier)
+        {
+            this.Tags.Where(t => t.Id == identifier).Delete();
         }
 
         /// <inheritdoc />

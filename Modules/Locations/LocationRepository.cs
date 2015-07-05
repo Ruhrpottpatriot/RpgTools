@@ -15,7 +15,7 @@ namespace RpgTools.Locations
     using RpgTools.Core.Models;
 
     /// <summary>The location repository.</summary>
-    public sealed class LocationRepository : DbContext, ILocationRepository
+    public sealed class LocationReadableRepository : DbContext, ILocationReadableRepository
     {
         /// <summary>Used to convert single database items into an object used by the program.</summary>
         private readonly IConverter<IResponse<LocationDatabaseItem>, Location> responseConverter;
@@ -26,22 +26,22 @@ namespace RpgTools.Locations
         /// <summary>Used to convert objects by the program into items stored in the database.</summary>
         private IConverter<Location, LocationDatabaseItem> writeConverter;
 
-        /// <summary>Initialises a new instance of the <see cref="LocationRepository"/> class.</summary>
-        public LocationRepository()
+        /// <summary>Initialises a new instance of the <see cref="LocationReadableRepository"/> class.</summary>
+        public LocationReadableRepository()
             : this(new LocationConverter(), new LocationDataContractConverter())
         {
         }
 
-        /// <summary>Initialises a new instance of the <see cref="LocationRepository"/> class.</summary>
+        /// <summary>Initialises a new instance of the <see cref="LocationReadableRepository"/> class.</summary>
         /// <param name="locationConverter">The location converter.</param>
         /// <param name="writeConverter">The write Converter.</param>
-        private LocationRepository(IConverter<LocationDatabaseItem, Location> locationConverter, IConverter<Location, LocationDatabaseItem> writeConverter)
+        private LocationReadableRepository(IConverter<LocationDatabaseItem, Location> locationConverter, IConverter<Location, LocationDatabaseItem> writeConverter)
             : base("name=RpgTools")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<LocationRepository, Migrations.Configuration>(true));
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<LocationReadableRepository, Migrations.Configuration>(true));
             this.Locations = this.Set<LocationDatabaseItem>();
 
-            this.responseConverter = new ResponseConverter<LocationDatabaseItem, Location>(locationConverter);
+            this.responseConverter = new DataConverter<LocationDatabaseItem, Location>(locationConverter);
             this.dictionaryRangeResponseConverter = new DictionaryRangeConverter<LocationDatabaseItem, Guid, Location>(locationConverter, location => location.Id);
             this.writeConverter = writeConverter;
         }
@@ -53,7 +53,7 @@ namespace RpgTools.Locations
         internal DbSet<LocationDatabaseItem> Locations { get; set; }
 
         /// <inheritdoc />
-        Location IRepository<Guid, Location>.Find(Guid identifier)
+        Location IReadableRepository<Guid, Location>.Find(Guid identifier)
         {
             var data = new Response<LocationDatabaseItem>
                        {
@@ -64,7 +64,7 @@ namespace RpgTools.Locations
         }
         
         /// <inheritdoc />
-        IDictionaryRange<Guid, Location> IRepository<Guid, Location>.FindAll(ICollection<Guid> identifiers)
+        IDictionaryRange<Guid, Location> IReadableRepository<Guid, Location>.FindAll(ICollection<Guid> identifiers)
         {
             var data = new Response<ICollection<LocationDatabaseItem>>
                        {
@@ -76,7 +76,7 @@ namespace RpgTools.Locations
         }
 
         /// <inheritdoc />
-        IDictionaryRange<Guid, Location> IRepository<Guid, Location>.FindAll()
+        IDictionaryRange<Guid, Location> IReadableRepository<Guid, Location>.FindAll()
         {
             var data = new Response<ICollection<LocationDatabaseItem>>
             {

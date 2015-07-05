@@ -36,6 +36,9 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework.Extended">
+      <HintPath>..\..\packages\EntityFramework.Extended.6.1.0.133\lib\net45\EntityFramework.Extended.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
@@ -51,7 +54,7 @@
   <ItemGroup>
     <Compile Include="Converter\TagConverter.cs" />
     <Compile Include="Converter\TagDataContractConverter.cs" />
-    <Compile Include="DataContracts\TagDataContract.cs" />
+    <Compile Include="DataContracts\TagItem.cs" />
     <Compile Include="Migrations\201504182127400_Initial.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>

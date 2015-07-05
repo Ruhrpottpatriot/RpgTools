@@ -13,10 +13,10 @@ namespace RpgTools.Tags
     using RpgTools.Core.Models;
 
     /// <summary>Describes the tag object stored in the database.</summary>
-    internal sealed class TagDataContractConverter : IConverter<TagDataContract, Tag>
+    internal sealed class TagDataContractConverter : IConverter<TagItem, Tag>
     {
         /// <inheritdoc />
-        public Tag Convert(TagDataContract value)
+        public Tag Convert(TagItem value)
         {
             return new Tag { Id = value.Id, Value = value.Tag, Type = value.Type };
         }

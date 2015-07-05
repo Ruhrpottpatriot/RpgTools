@@ -46,14 +46,14 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="PropertyChanged">
-      <HintPath>..\packages\PropertyChanged.Fody.1.49.1\Lib\portable-net4+sl4+wp8+win8+wpa81+MonoAndroid16+MonoTouch40\PropertyChanged.dll</HintPath>
+      <HintPath>..\packages\PropertyChanged.Fody.1.50.1\Lib\portable-net4+sl4+wp8+win8+wpa81+MonoAndroid16+MonoTouch40\PropertyChanged.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -74,22 +74,22 @@
     <Compile Include="Common\Converter\ConverterAdapter.cs" />
     <Compile Include="Common\DictionaryRange.cs" />
     <Compile Include="Common\Converter\DictionaryRangeConverter.cs" />
-    <Compile Include="Common\Repositories\IChangeableRepository.cs" />
     <Compile Include="Common\Repositories\ICharacterRepository.cs" />
     <Compile Include="Common\IConverter.cs" />
     <Compile Include="Common\IDictionaryRange.cs" />
-    <Compile Include="Common\Repositories\IDiscoverable.cs" />
+    <Compile Include="Common\Repositories\BaseTypes\ICreateableRepository.cs" />
+    <Compile Include="Common\Repositories\BaseTypes\IDeletableRepository.cs" />
     <Compile Include="Common\ILocalizable.cs" />
     <Compile Include="Common\Repositories\ILocationRepository.cs" />
-    <Compile Include="Common\Repositories\IRepository.cs" />
+    <Compile Include="Common\Repositories\BaseTypes\IReadableRepository.cs" />
     <Compile Include="Common\Repositories\ITagsRepository.cs" />
+    <Compile Include="Common\Repositories\BaseTypes\IUpdateableRepository.cs" />
     <Compile Include="Common\RepositoryFactoryBase.cs" />
     <Compile Include="Common\IResponse.cs" />
     <Compile Include="Common\ISubsetContext.cs" />
     <Compile Include="Common\ITimeSensitive.cs" />
-    <Compile Include="Common\Repositories\IWriteable.cs" />
     <Compile Include="Common\Response.cs" />
-    <Compile Include="Common\Converter\ResponseConverter.cs" />
+    <Compile Include="Common\Converter\DataConverter.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Contracts\IRpgModuleContract.cs" />
     <Compile Include="Contracts\IRpgModuleMetadata.cs" />
@@ -99,6 +99,7 @@
     <Compile Include="Converter\TagListToStringConverter.cs" />
     <Compile Include="Extensions\EnumExtensionMethods.cs" />
     <Compile Include="Extensions\EnumListExtension.cs" />
+    <Compile Include="Models\Characters\Genders.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Resources\MarkupExtensions\EnumListExtension.cs" />
     <Compile Include="Models\Characters\Character.cs" />

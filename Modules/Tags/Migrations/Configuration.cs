@@ -52,35 +52,35 @@ namespace RpgTools.Tags.Migrations
 
             context.Tags.AddOrUpdate(
                 t => t.Id,
-                new TagDataContract
+                new TagItem
                 {
                     Id = guids[0],
                     Tag = "Protagonist",
                     TwoLetterLanguageCode = "en",
                     Type = "Character"
                 },
-                new TagDataContract
+                new TagItem
                 {
                     Id = guids[1],
                     Tag = "Antagonist",
                     TwoLetterLanguageCode = "en",
                     Type = "Character"
                 },
-                new TagDataContract
+                new TagItem
                 {
                     Id = guids[2],
                     Tag = "Female",
                     TwoLetterLanguageCode = "en",
                     Type = "Character"
                 },
-                new TagDataContract
+                new TagItem
                 {
                     Id = guids[3],
                     Tag = "Noctus",
                     TwoLetterLanguageCode = "en",
                     Type = "Character"
                 },
-                new TagDataContract
+                new TagItem
                 {
                     Id = guids[4],
                     Tag = "Prinzipat",

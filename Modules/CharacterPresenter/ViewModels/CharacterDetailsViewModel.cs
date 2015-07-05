@@ -42,7 +42,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
                                                       Bust = 89,
                                                       CupSize = 'C',
                                                       EyeColour = "Green",
-                                                      Gender = Character.PhysicalAppearance.Genders.Female,
+                                                      Gender = Genders.Female,
                                                       HairColour = "Red",
                                                       Height = 186,
                                                       HeterochromiaIridum = true,

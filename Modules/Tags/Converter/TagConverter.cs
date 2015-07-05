@@ -13,13 +13,13 @@ namespace RpgTools.Tags
     using RpgTools.Core.Common;
     using RpgTools.Core.Models;
 
-    /// <summary>Converts a <see cref="TagDataContract"/> into the appropriate <see cref="Tag"/>.</summary>
-    internal class TagConverter : IConverter<Tag, TagDataContract>
+    /// <summary>Converts a <see cref="TagItem"/> into the appropriate <see cref="Tag"/>.</summary>
+    internal class TagConverter : IConverter<Tag, TagItem>
     {
         /// <inheritdoc /> 
-        public TagDataContract Convert(Tag value)
+        public TagItem Convert(Tag value)
         {
-            return new TagDataContract
+            return new TagItem
             {
                 Id = value.Id,
                 Tag = value.Value,

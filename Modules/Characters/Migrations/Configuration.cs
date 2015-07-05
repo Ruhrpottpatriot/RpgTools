@@ -11,15 +11,16 @@ namespace RpgTools.Characters.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
+    using RpgTools.Core.Models;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<RpgTools.Characters.CharactersRepository>
+    internal sealed class Configuration : DbMigrationsConfiguration<RpgTools.Characters.CharactersReadableRepository>
     {
         public Configuration()
         {
             this.AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(CharactersRepository context)
+        protected override void Seed(CharactersReadableRepository context)
         {
             Guid[] ids =
             {
@@ -39,18 +40,17 @@ namespace RpgTools.Characters.Migrations
                 new Guid("3b3345cc-a7f9-4c9d-8669-547cd7ecf3f5")
             };
 
-            var char1 = new CharacterDatabaseItem
+            CharacterItem char1 = new CharacterItem
             {
                 Age = 22,
-                AppearanceDatabaseItem = new AppearanceDatabaseItem
+                Appearance = new AppearanceItem
                 {
                     Bust = 90,
                     CupSize = 'C',
                     EyeColour = "Green",
-                    Gender = 1,
+                    Gender = Genders.Female,
                     HairColour = "Red",
                     Height = 188,
-                    HeterochromiaIridum = false,
                     Hip = 60,
                     Id = ids[1],
                     LipColour = "red",
@@ -58,9 +58,8 @@ namespace RpgTools.Characters.Migrations
                     Waist = 90,
                     Weight = 76
                 },
-                Culture = "en-GB",
                 Id = ids[0],
-                MetadataDatabaseItem = new MetadataDatabaseItem
+                Metadata = new CharacterMetadataItem
                 {
                     Id = ids[2],
                     Occurrences = string.Empty,
@@ -75,18 +74,17 @@ namespace RpgTools.Characters.Migrations
                 Title = string.Empty
             };
 
-            var char2 = new CharacterDatabaseItem
+            var char2 = new CharacterItem
             {
                 Age = 22,
-                AppearanceDatabaseItem = new AppearanceDatabaseItem
+                Appearance = new AppearanceItem
                 {
                     Bust = 90,
                     CupSize = 'C',
                     EyeColour = "Green",
-                    Gender = 1,
+                    Gender = Genders.Female,
                     HairColour = "Red",
                     Height = 188,
-                    HeterochromiaIridum = false,
                     Hip = 60,
                     Id = ids[4],
                     LipColour = "red",
@@ -94,9 +92,8 @@ namespace RpgTools.Characters.Migrations
                     Waist = 90,
                     Weight = 76
                 },
-                Culture = "en-GB",
                 Id = ids[3],
-                MetadataDatabaseItem = new MetadataDatabaseItem
+                Metadata = new CharacterMetadataItem
                 {
                     Id = ids[5],
                     Occurrences = string.Empty,

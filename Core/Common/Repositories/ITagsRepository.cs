@@ -9,7 +9,7 @@ namespace RpgTools.Core.Common
     using RpgTools.Core.Models;
 
     /// <summary>Provides the interface for tags repositories.</summary>
-    public interface ITagsRepository : IRepository<Guid, Tag>, ILocalizable, IWriteable<Tag>
+    public interface ITagsRepository : IReadableRepository<Guid, Tag>, ILocalizable, ICreateableRepository<Tag>, IUpdateableRepository<Tag>, IDeletableRepository<Guid>
     {
         /// <summary>Retrieves all objects based on a certain type.</summary>
         /// <param name="type">The type of the object to retrieve.</param>

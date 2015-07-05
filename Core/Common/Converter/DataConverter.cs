@@ -14,18 +14,18 @@ namespace RpgTools.Core.Common
     /// <typeparam name="TValue">
     /// The type of the converted value.
     /// </typeparam>
-    public sealed class ResponseConverter<TDataContract, TValue> : IConverter<IResponse<TDataContract>, TValue>
+    public sealed class DataConverter<TDataContract, TValue> : IConverter<IResponse<TDataContract>, TValue>
     {
         /// <summary>Infrastructure. Holds a reference to a type converter.</summary>
         private readonly IConverter<TDataContract, TValue> dataContractConverter;
 
         /// <summary>
-        /// Initialises a new instance of the <see cref="ResponseConverter{TDataContract,TValue}"/> class.
+        /// Initialises a new instance of the <see cref="DataConverter{TDataContract,TValue}"/> class.
         /// </summary>
         /// <param name="dataContractConverter">
         /// The converter for <typeparamref name="TDataContract"/>.
         /// </param>
-        public ResponseConverter(IConverter<TDataContract, TValue> dataContractConverter)
+        public DataConverter(IConverter<TDataContract, TValue> dataContractConverter)
         {
             this.dataContractConverter = dataContractConverter;
         }

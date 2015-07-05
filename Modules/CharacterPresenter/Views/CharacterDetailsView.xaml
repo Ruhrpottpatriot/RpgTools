@@ -9,6 +9,7 @@
              xmlns:converter="clr-namespace:RpgTools.Core.Converter;assembly=Core"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:models="clr-namespace:RpgTools.Core.Models;assembly=Core"
+             xmlns:extensions="clr-namespace:RpgTools.Core.Extensions;assembly=Core"
              mc:Ignorable="d"
              cal:Bind.AtDesignTime="True"
              d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type vm:CharacterDetailsViewModel}}">
@@ -220,7 +221,7 @@
 
                             <Label Content="Gender" />
                             <ComboBox x:Name="ComboBox"
-                                      ItemsSource="{markupExtensions:EnumList models:Character+PhysicalAppearance+Genders }"
+                                      ItemsSource="{extensions:EnumList models:Character+PhysicalAppearance+Genders }"
                                       SelectedItem="{Binding Path=Character.Appearance.Gender}" />
 
                             <Label Content="Age" />

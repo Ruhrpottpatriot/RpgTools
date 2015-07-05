@@ -15,7 +15,7 @@ namespace RpgTools.Tags
 
     /// <summary>Describes the tag type as it is stored in the database.</summary>
     [Table("Tags")]
-    internal sealed class TagDataContract
+    internal sealed class TagItem
     {
         /// <summary>Gets or sets the tags id.</summary>
         [Key]

@@ -10,23 +10,23 @@ namespace RpgTools.Locations
     using RpgTools.Core.Common;
 
     /// <summary>Provides methods for creating repository object in specified cultures.</summary>
-    public sealed class LocationRepositoryFactory : RepositoryFactoryBase<ILocationRepository>
+    public sealed class LocationRepositoryFactory : RepositoryFactoryBase<ILocationReadableRepository>
     {
         /// <summary>Creates an instance for the default language.</summary>
         /// <returns>A repository.</returns>
-        public override ILocationRepository ForDefaultCulture()
+        public override ILocationReadableRepository ForDefaultCulture()
         {
-            return new LocationRepository();
+            return new LocationReadableRepository();
         }
 
         /// <summary>Creates an instance for the given language.</summary>
         /// <param name="culture">The culture.</param>
         /// <returns>A repository.</returns>
-        public override ILocationRepository ForCulture(CultureInfo culture)
+        public override ILocationReadableRepository ForCulture(CultureInfo culture)
         {
-            ILocationRepository repository = new LocationRepository();
-            repository.Culture = culture;
-            return repository;
+            ILocationReadableRepository readableRepository = new LocationReadableRepository();
+            readableRepository.Culture = culture;
+            return readableRepository;
         }
     }
 }

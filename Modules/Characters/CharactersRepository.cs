@@ -20,34 +20,34 @@ namespace RpgTools.Characters
     using RpgTools.Core.Models;
 
     /// <summary>Repository for storing and retrieving characters in a database.</summary>
-    public sealed class CharactersRepository : DbContext, ICharacterRepository
+    public sealed class CharactersReadableRepository : DbContext, ICharacterReadableRepository
     {
         /// <summary>Infrastructure. Holds a reference to the response converter.</summary>
-        private readonly IConverter<IResponse<CharacterDatabaseItem>, Character> readConverter;
+        private readonly IConverter<IResponse<CharacterItem>, Character> readConverter;
 
         /// <summary>Infrastructure. Holds a reference to the bulk identifiers converter.</summary>
-        private readonly IConverter<IResponse<ICollection<CharacterDatabaseItem>>, IDictionaryRange<Guid, Character>> bulkReadConverter;
+        private readonly IConverter<IResponse<ICollection<CharacterItem>>, IDictionaryRange<Guid, Character>> bulkReadConverter;
 
         /// <summary>Infrastructure. Holds a reference to the write converter.</summary>
-        private readonly IConverter<Character, CharacterDatabaseItem> writeConverter;
+        private readonly IConverter<Character, CharacterItem> writeConverter;
 
-        /// <summary>Initialises a new instance of the <see cref="CharactersRepository"/> class.</summary>
-        public CharactersRepository()
+        /// <summary>Initialises a new instance of the <see cref="CharactersReadableRepository"/> class.</summary>
+        public CharactersReadableRepository()
             : this(new CharacterReadConverter(), new CharacterWriteConverter())
         {
         }
 
-        /// <summary>Initialises a new instance of the <see cref="CharactersRepository"/> class.</summary>
+        /// <summary>Initialises a new instance of the <see cref="CharactersReadableRepository"/> class.</summary>
         /// <param name="characterReadConverter">The character data contract converter.</param>
         /// <param name="characterWriteConverter">The character Write Converter.</param>
-        private CharactersRepository(IConverter<CharacterDatabaseItem, Character> characterReadConverter, IConverter<Character, CharacterDatabaseItem> characterWriteConverter)
+        private CharactersReadableRepository(IConverter<CharacterItem, Character> characterReadConverter, IConverter<Character, CharacterItem> characterWriteConverter)
             : base("name=RpgTools")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<CharactersRepository, Configuration>(true));
-            this.Characters = this.Set<CharacterDatabaseItem>();
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<CharactersReadableRepository, Configuration>(true));
+            this.Characters = this.Set<CharacterItem>();
 
-            this.readConverter = new ResponseConverter<CharacterDatabaseItem, Character>(characterReadConverter);
-            this.bulkReadConverter = new DictionaryRangeConverter<CharacterDatabaseItem, Guid, Character>(characterReadConverter, c => c.Id);
+            this.readConverter = new DataConverter<CharacterItem, Character>(characterReadConverter);
+            this.bulkReadConverter = new DictionaryRangeConverter<CharacterItem, Guid, Character>(characterReadConverter, c => c.Id);
             this.writeConverter = characterWriteConverter;
         }
 
@@ -55,14 +55,14 @@ namespace RpgTools.Characters
         public CultureInfo Culture { get; set; }
 
         /// <summary>Gets the internal character list.</summary>
-        internal DbSet<CharacterDatabaseItem> Characters { get; private set; }
+        internal DbSet<CharacterItem> Characters { get; private set; }
 
         /// <inheritdoc />
         public Character Find(Guid identifier)
         {
-            var data = new Response<CharacterDatabaseItem>
+            var data = new Response<CharacterItem>
             {
-                Content = this.Characters.Include(c => c.AppearanceDatabaseItem).Include(c => c.MetadataDatabaseItem).Single(c => c.Id == identifier),
+                Content = this.Characters.Include(c => c.Appearance).Include(c => c.Metadata).Single(c => c.Id == identifier),
                 Culture = this.Culture
             };
             return this.readConverter.Convert(data);
@@ -71,9 +71,9 @@ namespace RpgTools.Characters
         /// <inheritdoc />
         public IDictionaryRange<Guid, Character> FindAll(ICollection<Guid> identifiers)
         {
-            var data = new Response<ICollection<CharacterDatabaseItem>>
+            var data = new Response<ICollection<CharacterItem>>
             {
-                Content = this.Characters.Include(c => c.AppearanceDatabaseItem).Include(c => c.MetadataDatabaseItem).Where(c => identifiers.Any(i => i == c.Id)).ToList(),
+                Content = this.Characters.Include(c => c.Appearance).Include(c => c.Metadata).Where(c => identifiers.Any(i => i == c.Id)).ToList(),
                 Culture = this.Culture
             };
             return this.bulkReadConverter.Convert(data);
@@ -82,9 +82,9 @@ namespace RpgTools.Characters
         /// <inheritdoc />
         public IDictionaryRange<Guid, Character> FindAll()
         {
-            var data = new Response<ICollection<CharacterDatabaseItem>>
+            var data = new Response<ICollection<CharacterItem>>
             {
-                Content = this.Characters.Include(c => c.AppearanceDatabaseItem).Include(c => c.MetadataDatabaseItem).ToList(),
+                Content = this.Characters.Include(c => c.Appearance).Include(c => c.Metadata).ToList(),
                 Culture = this.Culture
             };
             return this.bulkReadConverter.Convert(data);

@@ -13,7 +13,7 @@ namespace RpgTools.Core.Common
     using RpgTools.Core.Models;
 
     /// <summary>Provides methods and properties for a character repository.</summary>
-    public interface ICharacterRepository : IRepository<Guid, Character>, ILocalizable, IWriteable<Character>
+    public interface ICharacterReadableRepository : IReadableRepository<Guid, Character>, ILocalizable, ICreateableRepository<Character>, IUpdateableRepository<Character>, IDeletableRepository<Character>
     {
     }
 }
