@@ -19,7 +19,7 @@ namespace RpgTools.Tags
         /// <returns>A repository.</returns>
         public override ITagsRepository ForDefaultCulture()
         {
-            ITagsRepository repository = new TagsRepository(new TagDataContractConverter(), new TagConverter());
+            ITagsRepository repository = new TagsRepository(new TagReadConverter(), new TagWriteConverter());
             repository.Culture = new CultureInfo("en");
             return repository;
         }
@@ -29,7 +29,7 @@ namespace RpgTools.Tags
         /// <returns>A repository.</returns>
         public override ITagsRepository ForCulture(CultureInfo culture)
         {
-            ITagsRepository repository = new TagsRepository(new TagDataContractConverter(), new TagConverter());
+            ITagsRepository repository = new TagsRepository(new TagReadConverter(), new TagWriteConverter());
             repository.Culture = culture;
             return repository;
         }

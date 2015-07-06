@@ -52,8 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converter\TagConverter.cs" />
-    <Compile Include="Converter\TagDataContractConverter.cs" />
+    <Compile Include="Converter\TagWriteConverter.cs" />
+    <Compile Include="Converter\TagReadConverter.cs" />
     <Compile Include="DataContracts\TagItem.cs" />
     <Compile Include="Migrations\201504182127400_Initial.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
