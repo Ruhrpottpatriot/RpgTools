@@ -25,19 +25,13 @@ namespace RpgTools.Tags
     {
         /// <summary>Holds a reference to the response converter.
         /// </summary>
-        private readonly IConverter<IResponse<TagItem>, Tag> readConverter;
+        private readonly IConverter<IDataContainer<TagItem>, Tag> readConverter;
 
         /// <summary>Holds a reference to the response bulk response converter.</summary>
-        private readonly IConverter<IResponse<ICollection<TagItem>>, IDictionaryRange<Guid, Tag>> bulkReadConverter;
+        private readonly IConverter<IDataContainer<ICollection<TagItem>>, IDictionaryRange<Guid, Tag>> bulkReadConverter;
 
         /// <summary>Holds a reference to the response write converter.</summary>
-        private readonly IConverter<IResponse<Tag>, TagItem> writeConverter;
-
-        /// <summary>Initialises a new instance of the <see cref="TagsRepository"/> class.</summary>
-        public TagsRepository()
-            : this(new TagDataContractConverter(), new TagConverter())
-        {
-        }
+        private readonly IConverter<IDataContainer<Tag>, TagItem> writeConverter;
 
         /// <summary>Initialises a new instance of the <see cref="TagsRepository"/> class.</summary>
         /// <param name="tagReadConverter">The converter that converts <see cref="TagItem"/> into <see cref="Tag">Tags</see>.</param>
@@ -63,7 +57,7 @@ namespace RpgTools.Tags
         /// <inheritdoc />
         public Tag Find(Guid identifier)
         {
-            IResponse<TagItem> data = new Response<TagItem>
+            IDataContainer<TagItem> data = new DataContainer<TagItem>
             {
                 Content = this.Tags.SingleOrDefault(tag => tag.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName && tag.Id == identifier),
                 Culture = this.Culture
@@ -74,7 +68,7 @@ namespace RpgTools.Tags
         /// <inheritdoc />
         public IDictionaryRange<Guid, Tag> FindByType(string type)
         {
-            IResponse<ICollection<TagItem>> data = new Response<ICollection<TagItem>>
+            IDataContainer<ICollection<TagItem>> data = new DataContainer<ICollection<TagItem>>
             {
                 Content = this.Tags.Where(tag => tag.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName && tag.Type == type).ToList(),
                 Culture = this.Culture
@@ -85,7 +79,7 @@ namespace RpgTools.Tags
         /// <inheritdoc />
         public IDictionaryRange<Guid, Tag> FindAll(ICollection<Guid> identifiers)
         {
-            IResponse<ICollection<TagItem>> data = new Response<ICollection<TagItem>>
+            IDataContainer<ICollection<TagItem>> data = new DataContainer<ICollection<TagItem>>
             {
                 Content = this.Tags.Where(t => t.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName && identifiers.Any(i => i == t.Id)).ToList(),
                 Culture = this.Culture
@@ -96,7 +90,7 @@ namespace RpgTools.Tags
         /// <inheritdoc />
         public IDictionaryRange<Guid, Tag> FindAll()
         {
-            IResponse<ICollection<TagItem>> data = new Response<ICollection<TagItem>>
+            IDataContainer<ICollection<TagItem>> data = new DataContainer<ICollection<TagItem>>
             {
                 Content = this.Tags.Where(t => t.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName).ToList(),
                 Culture = this.Culture
@@ -105,7 +99,7 @@ namespace RpgTools.Tags
         }
 
         /// <inheritdoc />
-        public void Create(IResponse<Tag> data)
+        public void Create(IDataContainer<Tag> data)
         {
             TagItem contract = this.writeConverter.Convert(data);
             this.Tags.Add(contract);
@@ -113,7 +107,7 @@ namespace RpgTools.Tags
         }
 
         /// <inheritdoc />
-        public void Update(IResponse<Tag> data)
+        public void Update(IDataContainer<Tag> data)
         {
             TagItem updatedData = this.writeConverter.Convert(data);
             this.Tags.AddOrUpdate(updatedData);

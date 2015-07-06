@@ -18,10 +18,10 @@ namespace RpgTools.Locations
     public sealed class LocationReadableRepository : DbContext, ILocationReadableRepository
     {
         /// <summary>Used to convert single database items into an object used by the program.</summary>
-        private readonly IConverter<IResponse<LocationDatabaseItem>, Location> responseConverter;
+        private readonly IConverter<IDataContainer<LocationDatabaseItem>, Location> responseConverter;
 
         /// <summary>Used to convert multiple data items into objects used by the program.</summary>
-        private readonly IConverter<IResponse<ICollection<LocationDatabaseItem>>, IDictionaryRange<Guid, Location>> dictionaryRangeResponseConverter;
+        private readonly IConverter<IDataContainer<ICollection<LocationDatabaseItem>>, IDictionaryRange<Guid, Location>> dictionaryRangeResponseConverter;
 
         /// <summary>Used to convert objects by the program into items stored in the database.</summary>
         private IConverter<Location, LocationDatabaseItem> writeConverter;
@@ -55,7 +55,7 @@ namespace RpgTools.Locations
         /// <inheritdoc />
         Location IReadableRepository<Guid, Location>.Find(Guid identifier)
         {
-            var data = new Response<LocationDatabaseItem>
+            var data = new DataContainer<LocationDatabaseItem>
                        {
                            Content = this.Locations.Single(l => l.Id == identifier),
                            Culture = this.Culture
@@ -66,7 +66,7 @@ namespace RpgTools.Locations
         /// <inheritdoc />
         IDictionaryRange<Guid, Location> IReadableRepository<Guid, Location>.FindAll(ICollection<Guid> identifiers)
         {
-            var data = new Response<ICollection<LocationDatabaseItem>>
+            var data = new DataContainer<ICollection<LocationDatabaseItem>>
                        {
                            Content = this.Locations.Where(c => identifiers.Any(i => i == c.Id)).ToList(),
                            Culture = this.Culture
@@ -78,7 +78,7 @@ namespace RpgTools.Locations
         /// <inheritdoc />
         IDictionaryRange<Guid, Location> IReadableRepository<Guid, Location>.FindAll()
         {
-            var data = new Response<ICollection<LocationDatabaseItem>>
+            var data = new DataContainer<ICollection<LocationDatabaseItem>>
             {
                 Content = this.Locations.ToList(),
                 Culture = this.Culture

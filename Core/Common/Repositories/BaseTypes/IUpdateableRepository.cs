@@ -6,6 +6,6 @@
     {
         /// <summary>Updates an item in the repository with the given data.</summary>
         /// <param name="data">The new data to store in the repository.</param>
-        void Update(IResponse<TData> data);
+        void Update(IDataContainer<TData> data);
     }
 }

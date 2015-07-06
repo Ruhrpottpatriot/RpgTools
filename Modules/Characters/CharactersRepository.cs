@@ -23,10 +23,10 @@ namespace RpgTools.Characters
     public sealed class CharactersReadableRepository : DbContext, ICharacterReadableRepository
     {
         /// <summary>Infrastructure. Holds a reference to the response converter.</summary>
-        private readonly IConverter<IResponse<CharacterItem>, Character> readConverter;
+        private readonly IConverter<IDataContainer<CharacterItem>, Character> readConverter;
 
         /// <summary>Infrastructure. Holds a reference to the bulk identifiers converter.</summary>
-        private readonly IConverter<IResponse<ICollection<CharacterItem>>, IDictionaryRange<Guid, Character>> bulkReadConverter;
+        private readonly IConverter<IDataContainer<ICollection<CharacterItem>>, IDictionaryRange<Guid, Character>> bulkReadConverter;
 
         /// <summary>Infrastructure. Holds a reference to the write converter.</summary>
         private readonly IConverter<Character, CharacterItem> writeConverter;
@@ -60,7 +60,7 @@ namespace RpgTools.Characters
         /// <inheritdoc />
         public Character Find(Guid identifier)
         {
-            var data = new Response<CharacterItem>
+            var data = new DataContainer<CharacterItem>
             {
                 Content = this.Characters.Include(c => c.Appearance).Include(c => c.Metadata).Single(c => c.Id == identifier),
                 Culture = this.Culture
@@ -71,7 +71,7 @@ namespace RpgTools.Characters
         /// <inheritdoc />
         public IDictionaryRange<Guid, Character> FindAll(ICollection<Guid> identifiers)
         {
-            var data = new Response<ICollection<CharacterItem>>
+            var data = new DataContainer<ICollection<CharacterItem>>
             {
                 Content = this.Characters.Include(c => c.Appearance).Include(c => c.Metadata).Where(c => identifiers.Any(i => i == c.Id)).ToList(),
                 Culture = this.Culture
@@ -82,7 +82,7 @@ namespace RpgTools.Characters
         /// <inheritdoc />
         public IDictionaryRange<Guid, Character> FindAll()
         {
-            var data = new Response<ICollection<CharacterItem>>
+            var data = new DataContainer<ICollection<CharacterItem>>
             {
                 Content = this.Characters.Include(c => c.Appearance).Include(c => c.Metadata).ToList(),
                 Culture = this.Culture

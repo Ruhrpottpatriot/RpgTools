@@ -13,7 +13,7 @@ namespace RpgTools.Core.Common
 
     /// <summary>Provides the interface for service responses.</summary>
     /// <typeparam name="T">The type of the response content.</typeparam>
-    public interface IResponse<T> : ILocalizable
+    public interface IDataContainer<T> : ILocalizable
     {
         /// <summary>Gets or sets the response content.</summary>
         T Content { get; set; }

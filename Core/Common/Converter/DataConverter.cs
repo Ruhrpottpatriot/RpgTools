@@ -6,7 +6,7 @@
 namespace RpgTools.Core.Common
 {
     /// <summary>
-    /// Converts objects of type <see cref="IResponse{T}"/> to objects of type <see cref="TValue"/>.
+    /// Converts objects of type <see cref="IDataContainer{T}"/> to objects of type <see cref="TValue"/>.
     /// </summary>
     /// <typeparam name="TDataContract">
     /// The type of data contracts in the response content.
@@ -14,7 +14,7 @@ namespace RpgTools.Core.Common
     /// <typeparam name="TValue">
     /// The type of the converted value.
     /// </typeparam>
-    public sealed class DataConverter<TDataContract, TValue> : IConverter<IResponse<TDataContract>, TValue>
+    public sealed class DataConverter<TDataContract, TValue> : IConverter<IDataContainer<TDataContract>, TValue>
     {
         /// <summary>Infrastructure. Holds a reference to a type converter.</summary>
         private readonly IConverter<TDataContract, TValue> dataContractConverter;
@@ -31,7 +31,7 @@ namespace RpgTools.Core.Common
         }
 
         /// <inheritdoc />
-        TValue IConverter<IResponse<TDataContract>, TValue>.Convert(IResponse<TDataContract> value)
+        TValue IConverter<IDataContainer<TDataContract>, TValue>.Convert(IDataContainer<TDataContract> value)
         {
             TDataContract dataContract = value.Content;
 

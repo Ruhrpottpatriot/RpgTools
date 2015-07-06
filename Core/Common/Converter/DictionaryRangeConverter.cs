@@ -13,11 +13,11 @@ namespace RpgTools.Core.Common
     using System.Collections.Generic;
     using System.Linq;
 
-    /// <summary>Converts objects of type <see cref="IResponse{T}"/> to objects of type <see cref="T:IDictionaryRange&lt;TKey, TValue&gt;"/>.</summary>
+    /// <summary>Converts objects of type <see cref="IDataContainer{T}"/> to objects of type <see cref="T:IDictionaryRange&lt;TKey, TValue&gt;"/>.</summary>
     /// <typeparam name="TDataContract">The type of data contracts in the response content.</typeparam>
     /// <typeparam name="TKey">The type of the key values.</typeparam>
     /// <typeparam name="TValue">The type of the converted values.</typeparam>
-    public sealed class DictionaryRangeConverter<TDataContract, TKey, TValue> : IConverter<IResponse<ICollection<TDataContract>>, IDictionaryRange<TKey, TValue>>
+    public sealed class DictionaryRangeConverter<TDataContract, TKey, TValue> : IConverter<IDataContainer<ICollection<TDataContract>>, IDictionaryRange<TKey, TValue>>
     {
         /// <summary>Infrastructure. Holds a reference to a type converter.</summary>
         private readonly IConverter<TDataContract, TValue> dataContractConverter;
@@ -35,7 +35,7 @@ namespace RpgTools.Core.Common
         }
 
         /// <inheritdoc />
-        public IDictionaryRange<TKey, TValue> Convert(IResponse<ICollection<TDataContract>> value)
+        public IDictionaryRange<TKey, TValue> Convert(IDataContainer<ICollection<TDataContract>> value)
         {
             if (value == null)
             {

@@ -85,10 +85,10 @@
     <Compile Include="Common\Repositories\ITagsRepository.cs" />
     <Compile Include="Common\Repositories\BaseTypes\IUpdateableRepository.cs" />
     <Compile Include="Common\RepositoryFactoryBase.cs" />
-    <Compile Include="Common\IResponse.cs" />
+    <Compile Include="Common\IDataContainer.cs" />
     <Compile Include="Common\ISubsetContext.cs" />
     <Compile Include="Common\ITimeSensitive.cs" />
-    <Compile Include="Common\Response.cs" />
+    <Compile Include="Common\DataContainer.cs" />
     <Compile Include="Common\Converter\DataConverter.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Contracts\IRpgModuleContract.cs" />

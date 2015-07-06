@@ -12,9 +12,9 @@ namespace RpgTools.Core.Common
     using System;
     using System.Globalization;
 
-    /// <summary>Provides the default implementation of the <see cref="IResponse{T}"/> interface.</summary>
+    /// <summary>Provides the default implementation of the <see cref="IDataContainer{T}"/> interface.</summary>
     /// <typeparam name="T">The type of the response content.</typeparam>
-    public class Response<T> : IResponse<T>
+    public class DataContainer<T> : IDataContainer<T>
     {
         /// <summary>Gets or sets the locale.</summary>
         public CultureInfo Culture { get; set; }

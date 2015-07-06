@@ -6,6 +6,6 @@ namespace RpgTools.Core.Common
     {
         /// <summary>Creates a new item in the repository.</summary>
         /// <param name="data">The data to write to the repository.</param>
-        void Create(IResponse<TData> data);
+        void Create(IDataContainer<TData> data);
     }
 }
