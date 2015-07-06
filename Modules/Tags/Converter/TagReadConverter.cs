@@ -1,9 +1,9 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TagDataContractConverter.cs" company="Robert Logiewa">
+// <copyright file="TagReadConverter.cs" company="Robert Logiewa">
 //   (C) All rights reserved
 // </copyright>
 // <summary>
-//   Defines the TagDataContractConverter type.
+//   Converts a <see cref="TagItem"/> into the appropriate <see cref="Tag"/>.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -12,7 +12,7 @@ namespace RpgTools.Tags
     using RpgTools.Core.Common;
     using RpgTools.Core.Models;
 
-    /// <summary>Describes the tag object stored in the database.</summary>
+    /// <summary>Converts a <see cref="TagItem"/> into the appropriate <see cref="Tag"/>.</summary>
     internal sealed class TagReadConverter : IConverter<TagItem, Tag>
     {
         /// <inheritdoc />

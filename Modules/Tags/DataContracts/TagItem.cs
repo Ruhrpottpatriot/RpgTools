@@ -1,9 +1,9 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TagDataContract.cs" company="Robert Logiewa">
+// <copyright file="TagItem.cs" company="Robert Logiewa">
 //   (C) All rights reserved
 // </copyright>
 // <summary>
-//   Defines the TagDataContract type.
+//   Describes the tag type as it is stored in the database.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TagConverter.cs" company="Robert Logiewa">
+// <copyright file="TagWriteConverter.cs" company="Robert Logiewa">
 //   (C) All rights reserved
 // </copyright>
 // <summary>

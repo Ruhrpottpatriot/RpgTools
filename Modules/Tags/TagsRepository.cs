@@ -123,6 +123,12 @@ namespace RpgTools.Tags
             modelBuilder.HasDefaultSchema("Tags");
         }
 
+        /// <summary>Creates the appropriate data container for converting data.</summary>
+        /// <typeparam name="TContent">The type of content to store in the container.</typeparam>
+        /// <param name="content">The data to store in the container.</param>
+        /// <param name="cuture">The language of the data.</param>
+        /// <param name="date">The date the data was requested.</param>
+        /// <returns>An <see cref="IDataContainer{T}"/> containing the data to be converted and optional language and data.</returns>
         private IDataContainer<TContent> CreateContainer<TContent>(TContent content, CultureInfo cuture = null, DateTimeOffset? date = null)
         {
             return new DataContainer<TContent>
