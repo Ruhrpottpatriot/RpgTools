@@ -1,9 +1,9 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LocationDataContract.cs" company="Robert Logiewa">
+// <copyright file="LocationDatabaseItem.cs" company="Robert Logiewa">
 //   (C) All rights reserved
 // </copyright>
 // <summary>
-//   
+//   Describes a location as it is stored in the database.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -14,7 +14,7 @@ namespace RpgTools.Locations
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    /// <summary>The location data contract.</summary>
+    /// <summary>Describes a location as it is stored in the database.</summary>
     [Table("Locations")]
     internal sealed class LocationDatabaseItem
     {

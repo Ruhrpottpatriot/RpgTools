@@ -18,14 +18,13 @@ namespace RpgTools.Locations
         {
             City data = (City)value;
 
-            var contract = new CityDetailsDataContract
-                               {
-                                   Id = data.Id, 
-                                   IsCapital = data.IsCapital, 
-                                   Planet = data.PlanetId, 
-                                   Population = data.Population
-                               };
-
+            CityDetailsDataContract contract = new CityDetailsDataContract
+            {
+                Id = data.Id, 
+                IsCapital = data.IsCapital, 
+                Planet = data.PlanetId, 
+                Population = data.Population
+            };
 
             return contract;
         }

@@ -127,6 +127,12 @@ namespace RpgTools.Locations
                 });
         }
 
+        /// <summary>Creates the appropriate data container for converting data.</summary>
+        /// <typeparam name="TData">The type of content to store in the container.</typeparam>
+        /// <param name="data">The data to store in the container.</param>
+        /// <param name="culture">The language of the data.</param>
+        /// <param name="date">The date the data was requested.</param>
+        /// <returns>An <see cref="IDataContainer{T}"/> containing the data to be converted and optional language and data.</returns>
         private IDataContainer<TData> CreateContainer<TData>(TData data, CultureInfo culture = null, DateTimeOffset? date = null)
         {
             return new DataContainer<TData>

@@ -3,7 +3,7 @@
 //   (C) All rights reserved
 // </copyright>
 // <summary>
-//   Defines the Configuration type.
+//   Configures the database migrations for the location repository.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -12,6 +12,7 @@ namespace RpgTools.Locations.Migrations
     using System;
     using System.Data.Entity.Migrations;
 
+    /// <summary>Configures the database migrations for the location repository.</summary>
     internal sealed class Configuration : DbMigrationsConfiguration<LocationRepository>
     {
         /// <summary>
@@ -60,7 +61,8 @@ namespace RpgTools.Locations.Migrations
                 new Guid("6c268c49-15b7-4138-8551-0b3f28243928"), 
             };
 
-            context.Locations.AddOrUpdate(l => l.Id,
+            context.Locations.AddOrUpdate(
+                l => l.Id,
                 new LocationDatabaseItem
                 {
                     Id = ids[0],
