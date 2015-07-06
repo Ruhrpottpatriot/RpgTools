@@ -57,44 +57,40 @@ namespace RpgTools.Tags
         /// <inheritdoc />
         public Tag Find(Guid identifier)
         {
-            IDataContainer<TagItem> data = new DataContainer<TagItem>
-            {
-                Content = this.Tags.SingleOrDefault(tag => tag.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName && tag.Id == identifier),
-                Culture = this.Culture
-            };
+            IDataContainer<TagItem> data = this.CreateContainer(
+                this.Tags.SingleOrDefault(tag => tag.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName && tag.Id == identifier),
+                this.Culture);
+                
             return this.readConverter.Convert(data);
         }
 
         /// <inheritdoc />
         public IDictionaryRange<Guid, Tag> FindByType(string type)
         {
-            IDataContainer<ICollection<TagItem>> data = new DataContainer<ICollection<TagItem>>
-            {
-                Content = this.Tags.Where(tag => tag.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName && tag.Type == type).ToList(),
-                Culture = this.Culture
-            };
+            IDataContainer<ICollection<TagItem>> data = this.CreateContainer<ICollection<TagItem>>(
+                this.Tags.Where(tag => tag.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName && tag.Type == type).ToList(),
+                this.Culture);
+
             return this.bulkReadConverter.Convert(data);
         }
 
         /// <inheritdoc />
         public IDictionaryRange<Guid, Tag> FindAll(ICollection<Guid> identifiers)
         {
-            IDataContainer<ICollection<TagItem>> data = new DataContainer<ICollection<TagItem>>
-            {
-                Content = this.Tags.Where(t => t.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName && identifiers.Any(i => i == t.Id)).ToList(),
-                Culture = this.Culture
-            };
+            IDataContainer<ICollection<TagItem>> data = this.CreateContainer<ICollection<TagItem>>(
+                this.Tags.Where(t => t.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName && identifiers.Any(i => i == t.Id)).ToList(),
+                this.Culture);
+
             return this.bulkReadConverter.Convert(data);
         }
 
         /// <inheritdoc />
         public IDictionaryRange<Guid, Tag> FindAll()
         {
-            IDataContainer<ICollection<TagItem>> data = new DataContainer<ICollection<TagItem>>
-            {
-                Content = this.Tags.Where(t => t.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName).ToList(),
-                Culture = this.Culture
-            };
+            IDataContainer<ICollection<TagItem>> data = this.CreateContainer<ICollection<TagItem>>(
+                this.Tags.Where(t => t.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName).ToList(),
+                this.Culture);
+
             return this.bulkReadConverter.Convert(data);
         }
 
@@ -125,6 +121,16 @@ namespace RpgTools.Tags
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("Tags");
+        }
+
+        private IDataContainer<TContent> CreateContainer<TContent>(TContent content, CultureInfo cuture = null, DateTimeOffset? date = null)
+        {
+            return new DataContainer<TContent>
+            {
+                Content = content,
+                Culture = cuture,
+                Date = date
+            };
         }
     }
 }
