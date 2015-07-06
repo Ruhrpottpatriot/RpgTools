@@ -16,7 +16,7 @@ namespace RpgTools.Locations
         /// <returns>A repository.</returns>
         public override ILocationReadableRepository ForDefaultCulture()
         {
-            return new LocationReadableRepository();
+            return new LocationRepository(new LocationConverter(), new LocationDataContractConverter());
         }
 
         /// <summary>Creates an instance for the given language.</summary>
@@ -24,7 +24,7 @@ namespace RpgTools.Locations
         /// <returns>A repository.</returns>
         public override ILocationReadableRepository ForCulture(CultureInfo culture)
         {
-            ILocationReadableRepository readableRepository = new LocationReadableRepository();
+            ILocationReadableRepository readableRepository = new LocationRepository(new LocationConverter(), new LocationDataContractConverter());
             readableRepository.Culture = culture;
             return readableRepository;
         }

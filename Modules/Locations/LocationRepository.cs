@@ -8,14 +8,15 @@ namespace RpgTools.Locations
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
+    using System.Data.Entity.Migrations;
     using System.Globalization;
     using System.Linq;
-
+    using EntityFramework.Extensions;
     using RpgTools.Core.Common;
     using RpgTools.Core.Models;
 
     /// <summary>The location repository.</summary>
-    public sealed class LocationReadableRepository : DbContext, ILocationReadableRepository
+    public sealed class LocationRepository : DbContext, ILocationReadableRepository
     {
         /// <summary>Used to convert single database items into an object used by the program.</summary>
         private readonly IConverter<IDataContainer<LocationDatabaseItem>, Location> responseConverter;
@@ -24,26 +25,20 @@ namespace RpgTools.Locations
         private readonly IConverter<IDataContainer<ICollection<LocationDatabaseItem>>, IDictionaryRange<Guid, Location>> dictionaryRangeResponseConverter;
 
         /// <summary>Used to convert objects by the program into items stored in the database.</summary>
-        private IConverter<Location, LocationDatabaseItem> writeConverter;
+        private readonly IConverter<IDataContainer<Location>, LocationDatabaseItem> writeConverter;
 
-        /// <summary>Initialises a new instance of the <see cref="LocationReadableRepository"/> class.</summary>
-        public LocationReadableRepository()
-            : this(new LocationConverter(), new LocationDataContractConverter())
-        {
-        }
-
-        /// <summary>Initialises a new instance of the <see cref="LocationReadableRepository"/> class.</summary>
+        /// <summary>Initialises a new instance of the <see cref="LocationRepository"/> class.</summary>
         /// <param name="locationConverter">The location converter.</param>
         /// <param name="writeConverter">The write Converter.</param>
-        private LocationReadableRepository(IConverter<LocationDatabaseItem, Location> locationConverter, IConverter<Location, LocationDatabaseItem> writeConverter)
+        internal LocationRepository(IConverter<LocationDatabaseItem, Location> locationConverter, IConverter<Location, LocationDatabaseItem> writeConverter)
             : base("name=RpgTools")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<LocationReadableRepository, Migrations.Configuration>(true));
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<LocationRepository, Migrations.Configuration>(true));
             this.Locations = this.Set<LocationDatabaseItem>();
 
             this.responseConverter = new DataConverter<LocationDatabaseItem, Location>(locationConverter);
             this.dictionaryRangeResponseConverter = new DictionaryRangeConverter<LocationDatabaseItem, Guid, Location>(locationConverter, location => location.Id);
-            this.writeConverter = writeConverter;
+            this.writeConverter = new DataConverter<Location, LocationDatabaseItem>(writeConverter);
         }
 
         /// <summary>Gets or sets the culture.</summary>
@@ -53,52 +48,53 @@ namespace RpgTools.Locations
         internal DbSet<LocationDatabaseItem> Locations { get; set; }
 
         /// <inheritdoc />
-        Location IReadableRepository<Guid, Location>.Find(Guid identifier)
+        public Location Find(Guid identifier)
         {
-            var data = new DataContainer<LocationDatabaseItem>
-                       {
-                           Content = this.Locations.Single(l => l.Id == identifier),
-                           Culture = this.Culture
-                       };
+            IDataContainer<LocationDatabaseItem> data = this.CreateContainer(this.Locations.Single(l => l.Id == identifier), this.Culture);
             return this.responseConverter.Convert(data);
         }
-        
+
         /// <inheritdoc />
-        IDictionaryRange<Guid, Location> IReadableRepository<Guid, Location>.FindAll(ICollection<Guid> identifiers)
+        public IDictionaryRange<Guid, Location> FindAll(ICollection<Guid> identifiers)
         {
-            var data = new DataContainer<ICollection<LocationDatabaseItem>>
-                       {
-                           Content = this.Locations.Where(c => identifiers.Any(i => i == c.Id)).ToList(),
-                           Culture = this.Culture
-                       };
+            IDataContainer<ICollection<LocationDatabaseItem>> data = this.CreateContainer<ICollection<LocationDatabaseItem>>(
+                this.Locations.Where(c => identifiers.Any(i => i == c.Id)).ToList(), 
+                this.Culture);
 
             return this.dictionaryRangeResponseConverter.Convert(data);
         }
 
         /// <inheritdoc />
-        IDictionaryRange<Guid, Location> IReadableRepository<Guid, Location>.FindAll()
+        public IDictionaryRange<Guid, Location> FindAll()
         {
-            var data = new DataContainer<ICollection<LocationDatabaseItem>>
-            {
-                Content = this.Locations.ToList(),
-                Culture = this.Culture
-            };
+            IDataContainer<ICollection<LocationDatabaseItem>> data = this.CreateContainer<ICollection<LocationDatabaseItem>>(this.Locations.ToList(), this.Culture);
 
             return this.dictionaryRangeResponseConverter.Convert(data);
-        }
-
-        /// <summary>Writes the data to the repository.</summary>
-        /// <param name="data">The data to write.</param>
-        public void Write(Location data)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>Deletes a specific item from the database.</summary>
-        /// <param name="data">The item to delete.</param>
-        public void Delete(Location data)
+        /// <param name="identifier">The item to delete.</param>
+        public void Delete(Guid identifier)
         {
-            throw new NotImplementedException();
+            this.Locations.Where(l => l.Id == identifier).Delete();
+        }
+
+        /// <summary>Creates a new item in the repository.</summary>
+        /// <param name="data">The data to write to the repository.</param>
+        public void Create(IDataContainer<Location> data)
+        {
+            LocationDatabaseItem convertedData = this.writeConverter.Convert(data);
+            this.Locations.Add(convertedData);
+            this.SaveChanges();
+        }
+
+        /// <summary>Updates an item in the repository with the given data.</summary>
+        /// <param name="data">The new data to store in the repository.</param>
+        public void Update(IDataContainer<Location> data)
+        {
+            LocationDatabaseItem convertedData = this.writeConverter.Convert(data);
+            this.Locations.AddOrUpdate(convertedData);
+            this.SaveChanges();
         }
 
         /// <inheritdoc />
@@ -129,6 +125,16 @@ namespace RpgTools.Locations
                 {
                     m.MapInheritedProperties();
                 });
+        }
+
+        private IDataContainer<TData> CreateContainer<TData>(TData data, CultureInfo culture = null, DateTimeOffset? date = null)
+        {
+            return new DataContainer<TData>
+            {
+                Content = data,
+                Culture = culture,
+                Date = date
+            };
         }
     }
 }
