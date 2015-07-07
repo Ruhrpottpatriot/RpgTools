@@ -1,8 +1,12 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LocationDataContractConverter.cs" company="Robert Logiewa">
+// <copyright file="LocationWriteConverter.cs" company="Robert Logiewa">
 //   (C) All rights reserved
 // </copyright>
+// <summary>
+//   Converts a <see cref="Location"/> into the corresponding <see cref="LocationDatabaseItem"/>.
+// </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace RpgTools.Locations
 {
     using System.Collections.Generic;
@@ -10,15 +14,15 @@ namespace RpgTools.Locations
     using RpgTools.Core.Models;
 
     /// <summary>Converts a <see cref="Location"/> into the corresponding <see cref="LocationDatabaseItem"/>.</summary>
-    internal sealed class LocationDataContractConverter : IConverter<Location, LocationDatabaseItem>
+    internal sealed class LocationWriteConverter : IConverter<Location, LocationDatabaseItem>
     {
         /// <summary>Infrastructure. Holds a reference to a collection of type converters.</summary>
         private readonly Dictionary<string, IConverter<Location, LocationDetailsDataContract>> typeConverter;
 
         /// <summary>
-        /// Initialises a new instance of the <see cref="LocationDataContractConverter"/> class.
+        /// Initialises a new instance of the <see cref="LocationWriteConverter"/> class.
         /// </summary>
-        public LocationDataContractConverter()
+        public LocationWriteConverter()
         {
             this.typeConverter = GetKnownTypeConverter();
         }
@@ -52,12 +56,12 @@ namespace RpgTools.Locations
         private static Dictionary<string, IConverter<Location, LocationDetailsDataContract>> GetKnownTypeConverter()
         {
             return new Dictionary<string, IConverter<Location, LocationDetailsDataContract>>
-                       {
-                           { "City", new CityDataContractConverter() }, 
-                           { "Planet", new PlanetDataContractConverter() },
-                           { "StarSystem", new SystemDataContractConverter() },
-                           { "Sector", new SectorDataContractConverter() }
-                       };
+            {
+                { "City", new CityWriteConverter() }, 
+                { "Planet", new PlanetWriteConverter() },
+                { "StarSystem", new StarSystemWriteConverter() },
+                { "Sector", new SectorWriteConverter() }
+            };
         }
     }
 }

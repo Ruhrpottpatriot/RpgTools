@@ -1,17 +1,19 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="CityDataContractConverter.cs" company="Robert Logiewa">
+// <copyright file="CityWriteConverter.cs" company="Robert Logiewa">
 //   (C) All rights reserved
 // </copyright>
+// <summary>
+//   Converts a <see cref="Location"/> into the corresponding <see cref="LocationDetailsDataContract"/> for database storage.
+// </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace RpgTools.Locations
 {
     using RpgTools.Core.Common;
     using RpgTools.Core.Models;
 
-    /// <summary>
-    /// The city data contract converter.
-    /// </summary>
-    internal sealed class CityDataContractConverter : IConverter<Location, LocationDetailsDataContract>
+    /// <summary>Converts a <see cref="Location"/> into the corresponding <see cref="LocationDetailsDataContract"/> for database storage.</summary>
+    internal sealed class CityWriteConverter : IConverter<Location, LocationDetailsDataContract>
     {
         /// <inheritdoc />
         public LocationDetailsDataContract Convert(Location value)

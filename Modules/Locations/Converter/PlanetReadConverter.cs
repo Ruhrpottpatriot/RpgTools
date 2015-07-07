@@ -1,15 +1,19 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PlanetLocationConverter.cs" company="Robert Logiewa">
+// <copyright file="PlanetReadConverter.cs" company="Robert Logiewa">
 //   (C) All rights reserved
 // </copyright>
+// <summary>
+//   Converts an object of type <see cref="LocationDetailsDataContract"/> into an object of type <see cref="Planet"/>.
+// </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace RpgTools.Locations
 {
     using RpgTools.Core.Common;
     using RpgTools.Core.Models;
 
     /// <summary>Converts an object of type <see cref="LocationDetailsDataContract"/> into an object of type <see cref="Planet"/>.</summary>
-    internal sealed class PlanetLocationConverter : IConverter<LocationDetailsDataContract, Planet>
+    internal sealed class PlanetReadConverter : IConverter<LocationDetailsDataContract, Planet>
     {
         /// <inheritdoc />
         public Planet Convert(LocationDetailsDataContract value)

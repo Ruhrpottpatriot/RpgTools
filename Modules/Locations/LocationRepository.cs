@@ -19,25 +19,25 @@ namespace RpgTools.Locations
     public sealed class LocationRepository : DbContext, ILocationReadableRepository
     {
         /// <summary>Used to convert single database items into an object used by the program.</summary>
-        private readonly IConverter<IDataContainer<LocationDatabaseItem>, Location> responseConverter;
+        private readonly IConverter<IDataContainer<LocationDatabaseItem>, Location> readConverter;
 
         /// <summary>Used to convert multiple data items into objects used by the program.</summary>
-        private readonly IConverter<IDataContainer<ICollection<LocationDatabaseItem>>, IDictionaryRange<Guid, Location>> dictionaryRangeResponseConverter;
+        private readonly IConverter<IDataContainer<ICollection<LocationDatabaseItem>>, IDictionaryRange<Guid, Location>> bulkReadConverter;
 
         /// <summary>Used to convert objects by the program into items stored in the database.</summary>
         private readonly IConverter<IDataContainer<Location>, LocationDatabaseItem> writeConverter;
 
         /// <summary>Initialises a new instance of the <see cref="LocationRepository"/> class.</summary>
-        /// <param name="locationConverter">The location converter.</param>
+        /// <param name="readConverter">The location converter.</param>
         /// <param name="writeConverter">The write Converter.</param>
-        internal LocationRepository(IConverter<LocationDatabaseItem, Location> locationConverter, IConverter<Location, LocationDatabaseItem> writeConverter)
+        internal LocationRepository(IConverter<LocationDatabaseItem, Location> readConverter, IConverter<Location, LocationDatabaseItem> writeConverter)
             : base("name=RpgTools")
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<LocationRepository, Migrations.Configuration>(true));
             this.Locations = this.Set<LocationDatabaseItem>();
 
-            this.responseConverter = new DataConverter<LocationDatabaseItem, Location>(locationConverter);
-            this.dictionaryRangeResponseConverter = new DictionaryRangeConverter<LocationDatabaseItem, Guid, Location>(locationConverter, location => location.Id);
+            this.readConverter = new DataConverter<LocationDatabaseItem, Location>(readConverter);
+            this.bulkReadConverter = new DictionaryRangeConverter<LocationDatabaseItem, Guid, Location>(readConverter, location => location.Id);
             this.writeConverter = new DataConverter<Location, LocationDatabaseItem>(writeConverter);
         }
 
@@ -51,7 +51,7 @@ namespace RpgTools.Locations
         public Location Find(Guid identifier)
         {
             IDataContainer<LocationDatabaseItem> data = this.CreateContainer(this.Locations.Single(l => l.Id == identifier), this.Culture);
-            return this.responseConverter.Convert(data);
+            return this.readConverter.Convert(data);
         }
 
         /// <inheritdoc />
@@ -61,7 +61,7 @@ namespace RpgTools.Locations
                 this.Locations.Where(c => identifiers.Any(i => i == c.Id)).ToList(), 
                 this.Culture);
 
-            return this.dictionaryRangeResponseConverter.Convert(data);
+            return this.bulkReadConverter.Convert(data);
         }
 
         /// <inheritdoc />
@@ -69,7 +69,7 @@ namespace RpgTools.Locations
         {
             IDataContainer<ICollection<LocationDatabaseItem>> data = this.CreateContainer<ICollection<LocationDatabaseItem>>(this.Locations.ToList(), this.Culture);
 
-            return this.dictionaryRangeResponseConverter.Convert(data);
+            return this.bulkReadConverter.Convert(data);
         }
 
         /// <summary>Deletes a specific item from the database.</summary>

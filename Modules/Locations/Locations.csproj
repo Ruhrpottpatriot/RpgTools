@@ -57,20 +57,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converter\CityDataContractConverter.cs">
+    <Compile Include="Converter\CityWriteConverter.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Converter\CityLocationConverter.cs">
+    <Compile Include="Converter\CityReadConverter.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Converter\LocationConverter.cs" />
-    <Compile Include="Converter\LocationDataContractConverter.cs" />
-    <Compile Include="Converter\PlanetDataContractConverter.cs" />
-    <Compile Include="Converter\PlanetLocationConverter.cs" />
-    <Compile Include="Converter\SectorDataContractConverter.cs" />
-    <Compile Include="Converter\SectorLocationConverter.cs" />
-    <Compile Include="Converter\StarSystemLocationConverter.cs" />
-    <Compile Include="Converter\SystemDataContractConverter.cs" />
+    <Compile Include="Converter\LocationReadConverter.cs" />
+    <Compile Include="Converter\LocationWriteConverter.cs" />
+    <Compile Include="Converter\PlanetWriteConverter.cs" />
+    <Compile Include="Converter\PlanetReadConverter.cs" />
+    <Compile Include="Converter\SectorWriteConverter.cs" />
+    <Compile Include="Converter\SectorReadConverter.cs" />
+    <Compile Include="Converter\StarSystemReadConverter.cs" />
+    <Compile Include="Converter\StarSystemWriteConverter.cs" />
     <Compile Include="DataContracts\CityDetailsDataContract.cs" />
     <Compile Include="DataContracts\LocationDatabaseItem.cs" />
     <Compile Include="DataContracts\LocationDetailsDataContract.cs" />
@@ -114,10 +114,7 @@
       <DependentUpon>201503111635149_Version1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Converter\ReadConverter\" />
-    <Folder Include="Converter\WriteConverter\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
