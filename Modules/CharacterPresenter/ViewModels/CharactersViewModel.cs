@@ -277,7 +277,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
 
             if (answer.HasValue && answer.Value)
             {
-                this.characterRepository.Create(viewModel.Character);
+                this.characterRepository.Create(new DataContainer<Character> { Content = viewModel.Character });
             }
 
             this.FilterCharacters();
@@ -287,7 +287,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
         {
             Character character = viewModel.Character;
 
-            this.characterRepository.Update(character);
+            this.characterRepository.Update(new DataContainer<Character> { Content = character });
 
             this.CloseTab(viewModel);
             this.OpenTab(new KeyValuePair<Guid, Character>(character.Id, character));
@@ -308,7 +308,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
             if (answer != null && answer == true)
             {
                 this.Characters.Remove(character.Id);
-                this.characterRepository.Delete(character);
+                this.characterRepository.Delete(character.Id);
             }
         }
     }
