@@ -115,6 +115,7 @@ namespace RpgTools.Tags
         public void Delete(Guid identifier)
         {
             this.Tags.Where(t => t.Id == identifier).Delete();
+            this.SaveChanges();
         }
 
         /// <inheritdoc />
@@ -124,17 +125,17 @@ namespace RpgTools.Tags
         }
 
         /// <summary>Creates the appropriate data container for converting data.</summary>
-        /// <typeparam name="TContent">The type of content to store in the container.</typeparam>
-        /// <param name="content">The data to store in the container.</param>
-        /// <param name="cuture">The language of the data.</param>
+        /// <typeparam name="TData">The type of content to store in the container.</typeparam>
+        /// <param name="data">The data to store in the container.</param>
+        /// <param name="culture">The language of the data.</param>
         /// <param name="date">The date the data was requested.</param>
         /// <returns>An <see cref="IDataContainer{T}"/> containing the data to be converted and optional language and data.</returns>
-        private IDataContainer<TContent> CreateContainer<TContent>(TContent content, CultureInfo cuture = null, DateTimeOffset? date = null)
+        private IDataContainer<TData> CreateContainer<TData>(TData data, CultureInfo culture = null, DateTimeOffset? date = null)
         {
-            return new DataContainer<TContent>
+            return new DataContainer<TData>
             {
-                Content = content,
-                Culture = cuture,
+                Content = data,
+                Culture = culture,
                 Date = date
             };
         }
