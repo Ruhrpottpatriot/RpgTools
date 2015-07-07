@@ -275,7 +275,7 @@ namespace RpgTools.LocationPresenter.ViewModels
             Location location = viewModel.Location;
 
             // Save the location to the repository
-            this.locationReadableRepository.Update(location);
+            this.locationReadableRepository.Update(new DataContainer<Location> { Content = location });
 
             // Reload the screen.
             this.CloseTab(viewModel);
@@ -297,10 +297,10 @@ namespace RpgTools.LocationPresenter.ViewModels
         public void DeleteLocation(object viewModel)
         {
             // Get the location to save
-            Location location = ((LocationDetailsViewModel)viewModel).Location;
+            Guid locationId = ((LocationDetailsViewModel)viewModel).Location.Id;
 
-            this.locationReadableRepository.Delete(location);
-            this.Locations.Remove(location.Id);
+            this.locationReadableRepository.Delete(locationId);
+            this.Locations.Remove(locationId);
         }
 
         /// <summary>Creates a new location from scratch.</summary>
@@ -317,7 +317,7 @@ namespace RpgTools.LocationPresenter.ViewModels
 
             if (answer.HasValue && answer.Value)
             {
-                this.locationReadableRepository.Create(newLocation.Location);
+                this.locationReadableRepository.Create(new DataContainer<Location> { Content = newLocation.Location });
             }
 
             this.FilterLocations();
