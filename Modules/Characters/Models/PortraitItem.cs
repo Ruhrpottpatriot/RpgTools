@@ -1,11 +1,19 @@
-﻿namespace RpgTools.Characters
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="PortraitItem.cs" company="Robert Logiewa">
+//   (C) All rights reserved
+// </copyright>
+// <summary>
+//   Represents a portrait as it is stored in the database.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace RpgTools.Characters
 {
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
-
-    /// <summary>Represents the data of a portrait.</summary>
+    
+    /// <summary>Represents a portrait as it is stored in the database.</summary>
     [Table("Portraits")]
     internal sealed class PortraitItem
     {

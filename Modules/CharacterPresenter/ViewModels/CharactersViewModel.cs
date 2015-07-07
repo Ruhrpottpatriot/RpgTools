@@ -35,7 +35,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
         // -------------------------------------------------------------------------------------------------------------------
 
         /// <summary>Holds a reference to the character repository.</summary>
-        private readonly ICharacterReadableRepository characterReadableRepository;
+        private readonly ICharacterRepository characterRepository;
 
         /// <summary>Holds a reference to the tags repository.</summary>
         private readonly ITagsRepository tagsRepository;
@@ -90,7 +90,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
             this.tagsRepository = tagsRepository;
 
             // ToDo: Implement this proper.
-            this.characterReadableRepository = new CharactersReadableRepository();
+            this.characterRepository = new CharacterRepositoryFactory().ForDefaultCulture();
 
             // Set the initial visibilities of controls.
             this.SelectorVisible = true;
@@ -170,7 +170,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
 
         public void LoadCharacters()
         {
-            this.Characters = this.characterReadableRepository.FindAll();
+            this.Characters = this.characterRepository.FindAll();
         }
 
         /// <summary>Filters the characters based on the check list item selection.</summary>
@@ -183,14 +183,14 @@ namespace RpgTools.CharacterPresenter.ViewModels
 
             if (this.CheckListItems.Any(i => (i.Name == Constants.AllOptions && (i.IsChecked != null && (bool)i.IsChecked))))
             {
-                this.Characters = this.characterReadableRepository.FindAll();
+                this.Characters = this.characterRepository.FindAll();
                 return;
             }
 
             var checkedItems = this.CheckListItems.Where(i => (i.IsChecked != null && (bool)i.IsChecked));
 
 
-            this.Characters = new DictionaryRange<Guid, Character>(this.characterReadableRepository.FindAll().Where(c => c.Value.Metadata.Tags.Any(t => checkedItems.Any(i => i.Name == t))).ToDictionary(x => x.Key, x => x.Value));
+            this.Characters = new DictionaryRange<Guid, Character>(this.characterRepository.FindAll().Where(c => c.Value.Metadata.Tags.Any(t => checkedItems.Any(i => i.Name == t))).ToDictionary(x => x.Key, x => x.Value));
         }
 
         /// <summary>Updates the check list.</summary>
@@ -277,7 +277,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
 
             if (answer.HasValue && answer.Value)
             {
-                this.characterReadableRepository.Create(viewModel.Character);
+                this.characterRepository.Create(viewModel.Character);
             }
 
             this.FilterCharacters();
@@ -287,7 +287,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
         {
             Character character = viewModel.Character;
 
-            this.characterReadableRepository.Update(character);
+            this.characterRepository.Update(character);
 
             this.CloseTab(viewModel);
             this.OpenTab(new KeyValuePair<Guid, Character>(character.Id, character));
@@ -308,7 +308,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
             if (answer != null && answer == true)
             {
                 this.Characters.Remove(character.Id);
-                this.characterReadableRepository.Delete(character);
+                this.characterRepository.Delete(character);
             }
         }
     }
