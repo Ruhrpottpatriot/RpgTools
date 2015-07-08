@@ -21,7 +21,7 @@ namespace RpgTools.Core.Models
             /// <summary>Initialises a new instance of the <see cref="CharacterMetadata"/> class.</summary>
             public CharacterMetadata()
             {
-                this.Tags = new List<string>();
+                this.Tags = new List<Tag>();
                 this.Occourrences = new List<Guid>();
             }
 
@@ -33,7 +33,7 @@ namespace RpgTools.Core.Models
             public bool IsAlive { get; set; }
 
             /// <summary>Gets or sets the character tags.</summary>
-            public IEnumerable<string> Tags { get; set; }
+            public IEnumerable<Tag> Tags { get; set; }
 
             /// <summary>Gets or sets the date for that the character is valid.</summary>
             public string ValidDate { get; set; }
