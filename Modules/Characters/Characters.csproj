@@ -55,10 +55,21 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converter\AppearanceReadConverter.cs" />
+    <Compile Include="Converter\AppearanceWriteConverter.cs" />
     <Compile Include="Converter\CharacterReadConverter.cs" />
     <Compile Include="CharacterRepositoryFactory.cs" />
     <Compile Include="CharacterRepository.cs" />
     <Compile Include="Converter\CharacterWriteConverter.cs" />
+    <Compile Include="Converter\HeterochromiaIridumReadConverter.cs" />
+    <Compile Include="Converter\HeterochromiaIridumWriteConverter.cs" />
+    <Compile Include="Converter\MetadataReadConverter.cs" />
+    <Compile Include="Converter\MetadataWriteConverter.cs" />
+    <Compile Include="Converter\OccourrencesReadConverter.cs" />
+    <Compile Include="Converter\OccurrencesWriteConverter.cs" />
+    <Compile Include="Converter\PortraitReadConverter.cs" />
+    <Compile Include="Converter\TagsReadConverter.cs" />
+    <Compile Include="Converter\TagsWriteConverter.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppearanceItem.cs" />
     <Compile Include="Models\CharacterItem.cs" />
