@@ -12,6 +12,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Globalization;
     using System.IO;
     using System.Windows;
     using System.Windows.Controls;
@@ -35,33 +36,44 @@ namespace RpgTools.CharacterPresenter.ViewModels
             if (Execute.InDesignMode)
             {
                 this.Character = new Character(Guid.NewGuid())
-                                 {
-                                     Age = 22,
-                                     Appearance = new Character.PhysicalAppearance
-                                                  {
-                                                      Bust = 89,
-                                                      CupSize = 'C',
-                                                      EyeColour = "Green",
-                                                      Gender = Genders.Female,
-                                                      HairColour = "Red",
-                                                      Height = 186,
-                                                      HeterochromiaIridum = true,
-                                                      Hip = 76,
-                                                      LipColour = "red",
-                                                      SkinColour = "Fair",
-                                                      Waist = 87,
-                                                      Weight = 77
-                                                  },
-                                     Metadata = new Character.CharacterMetadata
-                                                {
-                                                    Occourrences = null,
-                                                    IsAlive = true,
-                                                    Tags = new[] { "Protagonist", "Noctus" },
-                                                    ValidDate = string.Empty,
-                                                    VoiceActor = string.Empty
-                                                },
-                                     Name = "Sarah Fenix"
-                                 };
+                {
+                    Age = 22,
+                    Appearance = new Character.PhysicalAppearance
+                    {
+                        Bust = 89,
+                        CupSize = 'C',
+                        EyeColour = "Green",
+                        Gender = Genders.Female,
+                        HairColour = "Red",
+                        Height = 186,
+                        HeterochromiaIridum = true,
+                        Hip = 76,
+                        LipColour = "red",
+                        SkinColour = "Fair",
+                        Waist = 87,
+                        Weight = 77
+                    },
+                    Metadata = new Character.CharacterMetadata
+                    {
+                        Occurrences = null,
+                        IsAlive = true,
+                        Tags = new[]
+                        {
+                            new Tag
+                            {
+                                    Value = "Protagonist",
+                                    Culture = CultureInfo.InvariantCulture
+                            },
+                            new Tag
+                            {
+                                Value = "Noctus",
+                                Culture = CultureInfo.InvariantCulture
+                            }
+                        },
+                        VoiceActor = string.Empty
+                    },
+                    Name = "Sarah Fenix"
+                };
             }
         }
 

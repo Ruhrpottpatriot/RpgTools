@@ -190,7 +190,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
             var checkedItems = this.CheckListItems.Where(i => (i.IsChecked != null && (bool)i.IsChecked));
 
 
-            this.Characters = new DictionaryRange<Guid, Character>(this.characterRepository.FindAll().Where(c => c.Value.Metadata.Tags.Any(t => checkedItems.Any(i => i.Name == t))).ToDictionary(x => x.Key, x => x.Value));
+            this.Characters = new DictionaryRange<Guid, Character>(this.characterRepository.FindAll().Where(c => c.Value.Metadata.Tags.Any(t => checkedItems.Any(i => i.Name == t.Value))).ToDictionary(x => x.Key, x => x.Value));
         }
 
         /// <summary>Updates the check list.</summary>

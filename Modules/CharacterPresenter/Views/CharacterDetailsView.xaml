@@ -221,7 +221,7 @@
 
                             <Label Content="Gender" />
                             <ComboBox x:Name="ComboBox"
-                                      ItemsSource="{extensions:EnumList models:Character+PhysicalAppearance+Genders }"
+                                      ItemsSource="{extensions:EnumList models:Genders }"
                                       SelectedItem="{Binding Path=Character.Appearance.Gender}" />
 
                             <Label Content="Age" />
