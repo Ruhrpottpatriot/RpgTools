@@ -23,7 +23,7 @@ namespace RpgTools.Characters
     using RpgTools.Core.Models;
 
     /// <summary>Repository for storing and retrieving characters in a database.</summary>
-    public sealed class CharacterRepository : DbContext, ICharacterRepository
+    internal sealed class CharacterRepository : DbContext, ICharacterRepository
     {
         /// <summary>Infrastructure. Holds a reference to the response converter.</summary>
         private readonly IConverter<IDataContainer<CharacterItem>, Character> readConverter;

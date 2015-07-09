@@ -3,7 +3,7 @@
 //   (C) All rights reserved
 // </copyright>
 // <summary>
-//   Extracts wheter a character has Heterochromia Iridum from a <see cref="string" /> representation of special features.
+//   Extracts whether a character has Heterochromia Iridum from a <see cref="string" /> representation of special features.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -14,7 +14,7 @@ namespace RpgTools.Characters
 
     using RpgTools.Core.Common;
 
-    /// <summary>Extracts wheter a character has Heterochromia Iridum from a <see cref="string"/> representation of special features.</summary>
+    /// <summary>Extracts whether a character has Heterochromia Iridum from a <see cref="string"/> representation of special features.</summary>
     internal sealed class HeterochromiaIridumReadConverter : IConverter<string, bool>
     {
         /// <inheritdoc/>

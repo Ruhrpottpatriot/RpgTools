@@ -18,10 +18,13 @@ namespace RpgTools.Characters
         /// <summary>The appearance converter.</summary>
         private readonly IConverter<AppearanceItem, Character.PhysicalAppearance> appearanceConverter;
 
+        /// <summary>The metadata converter.</summary>
         private readonly IConverter<CharacterMetadataItem, Character.CharacterMetadata> metadataConverter;
 
+        /// <summary>The portrait converter.</summary>
         private readonly IConverter<PortraitItem, byte[]> portraitConverter;
 
+        /// <summary>Initialises a new instance of the <see cref="CharacterReadConverter"/> class.</summary>
         public CharacterReadConverter()
             : this(new AppearanceReadConverter(), new MetadataReadConverter(), new PortraitReadConverter())
         {
