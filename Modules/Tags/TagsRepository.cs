@@ -13,6 +13,7 @@ namespace RpgTools.Tags
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
     using EntityFramework.Extensions;
@@ -32,6 +33,13 @@ namespace RpgTools.Tags
 
         /// <summary>Holds a reference to the response write converter.</summary>
         private readonly IConverter<IDataContainer<Tag>, TagItem> writeConverter;
+
+        /// <summary>Initialises a new instance of the <see cref="TagsRepository"/> class.</summary>
+        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Only used for Entity Framework.")]
+        public TagsRepository()
+            : this(new TagReadConverter(), new TagWriteConverter())
+        {
+        }
 
         /// <summary>Initialises a new instance of the <see cref="TagsRepository"/> class.</summary>
         /// <param name="tagReadConverter">The converter that converts <see cref="TagItem"/> into <see cref="Tag">Tags</see>.</param>
