@@ -14,6 +14,7 @@ namespace RpgTools.Characters
     using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>Represents a characters data as it is stored in the database.</summary>
+    [Table("Characters")]
     internal class CharacterItem
     {
         /// <summary>Gets or sets the unique database identifier.</summary>
@@ -42,24 +43,21 @@ namespace RpgTools.Characters
         public int Age { get; set; }
 
         /// <summary>Gets or sets the portrait id.</summary>
-        public Guid PortraitId { get; set; }
+        public Guid PortraitsId { get; set; }
 
         /// <summary>Gets or sets the portrait.</summary>
-        [ForeignKey("PortraitId")]
         public PortraitItem Portrait { get; set; }
 
         /// <summary>Gets or sets the metadata id.</summary>
         public Guid MetadataId { get; set; }
 
         /// <summary>Gets or sets the metadata.</summary>
-        [ForeignKey("MetadataId")]
         public CharacterMetadataItem Metadata { get; set; }
 
         /// <summary>Gets or sets the appearance id.</summary>
         public Guid AppearanceId { get; set; }
 
         /// <summary>Gets or sets the appearance.</summary>
-        [ForeignKey("AppearanceId")]
         public AppearanceItem Appearance { get; set; }
 
         /// <summary>Gets or sets the origin id.</summary>

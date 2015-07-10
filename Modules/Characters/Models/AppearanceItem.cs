@@ -11,9 +11,12 @@ namespace RpgTools.Characters
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     using RpgTools.Core.Models;
 
     /// <summary>Represents a characters physical appearance as it is stored in the database.</summary>
+    [Table("Appearances")]
     internal sealed class AppearanceItem
     {
         /// <summary>Gets or sets the unique database identifier.</summary>

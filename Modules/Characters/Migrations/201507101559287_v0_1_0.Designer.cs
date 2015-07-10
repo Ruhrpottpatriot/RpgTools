@@ -7,13 +7,13 @@ namespace RpgTools.Characters.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Initial : IMigrationMetadata
+    public sealed partial class v0_1_0 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(v0_1_0));
         
         string IMigrationMetadata.Id
         {
-            get { return "201507091743178_Initial"; }
+            get { return "201507101559287_v0_1_0"; }
         }
         
         string IMigrationMetadata.Source

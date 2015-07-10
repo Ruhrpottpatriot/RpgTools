@@ -13,6 +13,7 @@ namespace RpgTools.Characters
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
 
@@ -33,6 +34,13 @@ namespace RpgTools.Characters
 
         /// <summary>Infrastructure. Holds a reference to the write converter.</summary>
         private readonly IConverter<IDataContainer<Character>, CharacterItem> writeConverter;
+
+        /// <summary>Initialises a new instance of the <see cref="CharacterRepository"/> class.</summary>
+        [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Only used for Entity Framework. This class should not be used in live code.")]
+        public CharacterRepository()
+            : this(new CharacterReadConverter(), new CharacterWriteConverter())
+        {
+        }
 
         /// <summary>Initialises a new instance of the <see cref="CharacterRepository"/> class.</summary>
         /// <param name="characterReadConverter">The character data contract converter.</param>

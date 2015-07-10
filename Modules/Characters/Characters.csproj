@@ -70,11 +70,11 @@
     <Compile Include="Converter\PortraitReadConverter.cs" />
     <Compile Include="Converter\TagsReadConverter.cs" />
     <Compile Include="Converter\TagsWriteConverter.cs" />
-    <Compile Include="Migrations\201507091743178_Initial.cs">
+    <Compile Include="Migrations\201507101559287_v0_1_0.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Migrations\201507091743178_Initial.Designer.cs">
-      <DependentUpon>201507091743178_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201507101559287_v0_1_0.Designer.cs">
+      <DependentUpon>201507101559287_v0_1_0.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppearanceItem.cs" />
@@ -95,8 +95,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201507091743178_Initial.resx">
-      <DependentUpon>201507091743178_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201507101559287_v0_1_0.resx">
+      <DependentUpon>201507101559287_v0_1_0.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
