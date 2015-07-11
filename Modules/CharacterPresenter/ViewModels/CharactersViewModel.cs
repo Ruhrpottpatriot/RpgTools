@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="CharactersViewModel.cs" company="Robert Logiewa">
-//   (C) All rights reseved
+//   (C) All rights reserved
 // </copyright>
 // <summary>
 //   View model to display general character data and operations.
@@ -13,11 +13,11 @@ namespace RpgTools.CharacterPresenter.ViewModels
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel.Composition;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Windows;
     using Caliburn.Micro;
     using PropertyChanged;
-    using RpgTools.Characters;
     using RpgTools.Core;
     using RpgTools.Core.Common;
     using RpgTools.Core.Contracts;
@@ -28,6 +28,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
     [ImplementPropertyChanged]
     [RpgModuleMetadata(Name = "Characters")]
     [Export(typeof(IRpgModuleContract))]
+    [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Methods are loosly bound by Caliburn.Micro")]
     public class CharactersViewModel : Conductor<CharacterDetailsViewModel>.Collection.OneActive, IRpgModuleContract
     {
         // --------------------------------------------------------------------------------------------------------------------
@@ -42,9 +43,6 @@ namespace RpgTools.CharacterPresenter.ViewModels
 
         /// <summary>Holds a reference to the window manager.</summary>
         private readonly IWindowManager windowManager;
-
-        /// <summary>Holds a reference to the event aggregator.</summary>
-        private readonly IEventAggregator eventAggregator;
 
         // --------------------------------------------------------------------------------------------------------------------
         // Constructor
@@ -79,18 +77,15 @@ namespace RpgTools.CharacterPresenter.ViewModels
         }
 
         /// <summary>Initialises a new instance of the <see cref="CharactersViewModel"/> class.</summary>
-        /// <param name="eventAggregator">The event aggregator instance.</param>
         /// <param name="windowManager">The window manager instance.</param>
-        /// <param name="tagsRepository">The tags Repository.</param>
+        /// <param name="tagsRepository">The tags repository.</param>
+        /// <param name="characterRepository">The character repository.</param>
         [ImportingConstructor]
-        public CharactersViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, ITagsRepository tagsRepository)
+        public CharactersViewModel(IWindowManager windowManager, ITagsRepository tagsRepository, ICharacterRepository characterRepository)
         {
-            this.eventAggregator = eventAggregator;
             this.windowManager = windowManager;
             this.tagsRepository = tagsRepository;
-
-            // ToDo: Implement this proper.
-            this.characterRepository = new CharacterRepositoryFactory().ForDefaultCulture();
+            this.characterRepository = characterRepository;
 
             // Set the initial visibilities of controls.
             this.SelectorVisible = true;
@@ -168,6 +163,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
             }
         }
 
+        /// <summary>Loads all characters from the repository.</summary>
         public void LoadCharacters()
         {
             this.Characters = this.characterRepository.FindAll();
@@ -188,7 +184,6 @@ namespace RpgTools.CharacterPresenter.ViewModels
             }
 
             var checkedItems = this.CheckListItems.Where(i => (i.IsChecked != null && (bool)i.IsChecked));
-
 
             this.Characters = new DictionaryRange<Guid, Character>(this.characterRepository.FindAll().Where(c => c.Value.Metadata.Tags.Any(t => checkedItems.Any(i => i.Name == t.Value))).ToDictionary(x => x.Key, x => x.Value));
         }
@@ -261,6 +256,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
             }
         }
 
+        /// <summary>Opens the character creation window.</summary>
         public void CreateCharacter()
         {
             CharacterDetailsViewModel viewModel = new CharacterDetailsViewModel(this.windowManager)
@@ -283,6 +279,8 @@ namespace RpgTools.CharacterPresenter.ViewModels
             this.FilterCharacters();
         }
 
+        /// <summary>Saves a character to the repository.</summary>
+        /// <param name="viewModel">The view model of the character to save.</param>
         public void Save(CharacterDetailsViewModel viewModel)
         {
             Character character = viewModel.Character;
@@ -293,6 +291,8 @@ namespace RpgTools.CharacterPresenter.ViewModels
             this.OpenTab(new KeyValuePair<Guid, Character>(character.Id, character));
         }
 
+        /// <summary>Deletes a character from the repository.</summary>
+        /// <param name="viewModel">The view model of the character to delete.</param>
         public void Delete(CharacterDetailsViewModel viewModel)
         {
             Character character = viewModel.Character;
