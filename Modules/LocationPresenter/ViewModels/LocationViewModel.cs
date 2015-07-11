@@ -128,10 +128,10 @@ namespace RpgTools.LocationPresenter.ViewModels
                 // Make the tab control viosible to the user.
                 this.TabControlVisible = true;
 
-                this.ActivateItem(new LocationDetailsViewModel(this.eventAggregator, this.windowManager)
-                                  {
-                                      Location = location.Value
-                                  });
+                this.ActivateItem(new LocationDetailsViewModel
+                {
+                    Location = location.Value
+                });
 
                 this.LocationSelectorVisible = false;
                 this.SaveButtonVisible = true;
@@ -321,11 +321,6 @@ namespace RpgTools.LocationPresenter.ViewModels
             }
 
             this.FilterLocations();
-        }
-
-        public void Close()
-        {
-            throw new NotImplementedException();
         }
     }
 }

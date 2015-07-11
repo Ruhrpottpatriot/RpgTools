@@ -10,19 +10,16 @@
 namespace RpgTools.LocationPresenter.ViewModels
 {
     using System;
-    using System.ComponentModel.Composition;
     using System.Data.Entity.Spatial;
     using Caliburn.Micro;
     using PropertyChanged;
     using RpgTools.Core.Models;
 
+    /// <summary>View model for displaying location details.</summary>
     [ImplementPropertyChanged]
     public class LocationDetailsViewModel : Screen
     {
-        private readonly IEventAggregator eventAggregator;
-
-        private readonly IWindowManager windowManager;
-        
+        /// <summary>Initialises a new instance of the <see cref="LocationDetailsViewModel"/> class.</summary>
         public LocationDetailsViewModel()
         {
             if (Execute.InDesignMode)
@@ -40,20 +37,10 @@ namespace RpgTools.LocationPresenter.ViewModels
             }
         }
 
-        [ImportingConstructor]
-        public LocationDetailsViewModel(IEventAggregator eventAggregator, IWindowManager windowManager)
-        {
-            this.eventAggregator = eventAggregator;
-            this.windowManager = windowManager;
-        }
-       
+        /// <summary>Gets or sets the location.</summary>
         public Location Location { get; set; }
 
-        public void Close()
-        {
-            
-        }
-
+        /// <summary>Gets or sets the windows name.</summary>
         public override string DisplayName
         {
             get
@@ -72,6 +59,7 @@ namespace RpgTools.LocationPresenter.ViewModels
             }
         }
 
+        /// <summary>Gets the type of the location.</summary>
         public string Type
         {
             get
