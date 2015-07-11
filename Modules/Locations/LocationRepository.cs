@@ -17,7 +17,7 @@ namespace RpgTools.Locations
     using RpgTools.Core.Models;
 
     /// <summary>The location repository.</summary>
-    public sealed class LocationRepository : DbContext, ILocationReadableRepository
+    public sealed class LocationRepository : DbContext, ILocationRepository
     {
         /// <summary>Used to convert single database items into an object used by the program.</summary>
         private readonly IConverter<IDataContainer<LocationDatabaseItem>, Location> readConverter;

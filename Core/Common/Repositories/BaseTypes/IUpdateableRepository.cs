@@ -1,4 +1,13 @@
-﻿namespace RpgTools.Core.Common
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="IUpdateableRepository.cs" company="Robert Logiewa">
+//   (C) All rights reserved
+// </copyright>
+// <summary>
+//   Provides the interface to update data in the repository.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace RpgTools.Core.Common
 {
     /// <summary>Provides the interface to update data in the repository.</summary>
     /// <typeparam name="TData">They type of data to update.</typeparam>

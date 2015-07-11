@@ -1,19 +1,17 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ResponseConverter.cs" company="Robert Logiewa">
+// <copyright file="DataConverter.cs" company="Robert Logiewa">
 //   (C) All rights reserved
 // </copyright>
+// <summary>
+//   Converts objects of type <see cref="IDataContainer{T}" /> to objects of type <see cref="TValue" />.
+// </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace RpgTools.Core.Common
 {
-    /// <summary>
-    /// Converts objects of type <see cref="IDataContainer{T}"/> to objects of type <see cref="TValue"/>.
-    /// </summary>
-    /// <typeparam name="TDataContract">
-    /// The type of data contracts in the response content.
-    /// </typeparam>
-    /// <typeparam name="TValue">
-    /// The type of the converted value.
-    /// </typeparam>
+    /// <summary>Converts objects of type <see cref="IDataContainer{T}"/> to objects of type <see cref="TValue"/>.</summary>
+    /// <typeparam name="TDataContract">The type of data contracts in the response content.</typeparam>
+    /// <typeparam name="TValue">The type of the converted value.</typeparam>
     public sealed class DataConverter<TDataContract, TValue> : IConverter<IDataContainer<TDataContract>, TValue>
     {
         /// <summary>Infrastructure. Holds a reference to a type converter.</summary>

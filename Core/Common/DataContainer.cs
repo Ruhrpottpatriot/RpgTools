@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Response.cs" company="Robert Logiewa">
+// <copyright file="DataContainer.cs" company="Robert Logiewa">
 //   (C) All rights reserved
 // </copyright>
 // <summary>

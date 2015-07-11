@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ResultScreen.cs" company="Robert Logiewa">
-//   (c)2013-2014 All Rights Reserved.
+//   (C) All rights reserved
 // </copyright>
 // <summary>
 //   Base class for screens that return a result.

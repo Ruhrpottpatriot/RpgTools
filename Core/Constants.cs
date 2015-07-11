@@ -42,6 +42,5 @@ namespace RpgTools.Core
 
         /// <summary>Gets the settings save path inside the users my documents folder.</summary>
         public static string SettingsSavePathMyDocuments { get; private set; }
-
     }
 }

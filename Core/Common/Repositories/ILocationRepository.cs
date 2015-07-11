@@ -13,7 +13,7 @@ namespace RpgTools.Core.Common
     using RpgTools.Core.Models;
 
     /// <summary>Provides the interface for a location repository.</summary>
-    public interface ILocationReadableRepository : IReadableRepository<Guid, Location>, ILocalizable, ICreateableRepository<Location>, IUpdateableRepository<Location>, IDeletableRepository<Guid>
+    public interface ILocationRepository : IReadableRepository<Guid, Location>, ILocalizable, ICreateableRepository<Location>, IUpdateableRepository<Location>, IDeletableRepository<Guid>
     {
     }
 }

@@ -1,4 +1,13 @@
-﻿namespace RpgTools.Core.Common
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="IDeletableRepository.cs" company="Robert Logiewa">
+//   (C) All rights reserved
+// </copyright>
+// <summary>
+//   Provides the interface to delete data in a repository.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace RpgTools.Core.Common
 {
     /// <summary>Provides the interface to delete data in a repository.</summary>
     /// <typeparam name="TIdentifier">The identifier of the data to delete.</typeparam>

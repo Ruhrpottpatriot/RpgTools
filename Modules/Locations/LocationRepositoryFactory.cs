@@ -11,11 +11,11 @@ namespace RpgTools.Locations
     using RpgTools.Core.Common;
 
     /// <summary>Provides methods for creating repository object in specified cultures.</summary>
-    public sealed class LocationRepositoryFactory : RepositoryFactoryBase<ILocationReadableRepository>, IDbContextFactory<LocationRepository>
+    public sealed class LocationRepositoryFactory : RepositoryFactoryBase<ILocationRepository>, IDbContextFactory<LocationRepository>
     {
         /// <summary>Creates an instance for the default language.</summary>
         /// <returns>A repository.</returns>
-        public override ILocationReadableRepository ForDefaultCulture()
+        public override ILocationRepository ForDefaultCulture()
         {
             return new LocationRepository(new LocationReadConverter(), new LocationWriteConverter());
         }
@@ -23,11 +23,11 @@ namespace RpgTools.Locations
         /// <summary>Creates an instance for the given language.</summary>
         /// <param name="culture">The culture.</param>
         /// <returns>A repository.</returns>
-        public override ILocationReadableRepository ForCulture(CultureInfo culture)
+        public override ILocationRepository ForCulture(CultureInfo culture)
         {
-            ILocationReadableRepository readableRepository = new LocationRepository(new LocationReadConverter(), new LocationWriteConverter());
-            readableRepository.Culture = culture;
-            return readableRepository;
+            ILocationRepository repository = new LocationRepository(new LocationReadConverter(), new LocationWriteConverter());
+            repository.Culture = culture;
+            return repository;
         }
         
         /// <summary>Creates a new instance of a derived <see cref="T:System.Data.Entity.DbContext"/> type.</summary>

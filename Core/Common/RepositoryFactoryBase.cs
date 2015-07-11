@@ -1,4 +1,13 @@
-﻿namespace RpgTools.Core.Common
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="RepositoryFactoryBase.cs" company="Robert Logiewa">
+//   (C) All rights reserved
+// </copyright>
+// <summary>
+//   Provides methods for creating repository objects.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace RpgTools.Core.Common
 {
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;

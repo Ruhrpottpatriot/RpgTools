@@ -30,7 +30,7 @@ namespace RpgTools.LocationPresenter.ViewModels
     public class LocationViewModel : Conductor<LocationDetailsViewModel>.Collection.OneActive, IRpgModuleContract
     {
         /// <summary>Infrastructure. Holds a reference to the  location repository.</summary>
-        private readonly ILocationReadableRepository locationReadableRepository;
+        private readonly ILocationRepository locationRepository;
 
         /// <summary>Infrastructure. Holds a reference to the  window manager.</summary>
         private readonly IWindowManager windowManager;
@@ -84,7 +84,7 @@ namespace RpgTools.LocationPresenter.ViewModels
         [ImportingConstructor]
         public LocationViewModel(IEventAggregator eventAggregator, IWindowManager windowManager)
         {
-            this.locationReadableRepository = new LocationRepositoryFactory().ForDefaultCulture();
+            this.locationRepository = new LocationRepositoryFactory().ForDefaultCulture();
             this.eventAggregator = eventAggregator;
             this.windowManager = windowManager;
 
@@ -176,7 +176,7 @@ namespace RpgTools.LocationPresenter.ViewModels
         /// <summary>Loads the location ids from the location repository.</summary>
         public void LoadLocations()
         {
-            this.Locations = this.locationReadableRepository.FindAll();
+            this.Locations = this.locationRepository.FindAll();
         }
 
         /// <summary>Loads the locations types and updates the filter list.</summary>
@@ -200,14 +200,14 @@ namespace RpgTools.LocationPresenter.ViewModels
             // If the all item is checked, we can safely return all locations without filtering.
             if (this.CheckListItems.Any(i => (i.Name == Constants.AllOptions && (i.IsChecked != null && (bool)i.IsChecked))))
             {
-                this.Locations = this.locationReadableRepository.FindAll();
+                this.Locations = this.locationRepository.FindAll();
                 return;
             }
 
             // Get the checked items.
             var checkedBoxes = this.CheckListItems.Where(i => (i.IsChecked != null && (bool)i.IsChecked));
 
-            this.Locations = new DictionaryRange<Guid, Location>(this.locationReadableRepository.FindAll().Where(l => checkedBoxes.Any(b => b.Name == l.Value.GetType().Name)).ToDictionary(x => x.Key, x => x.Value));
+            this.Locations = new DictionaryRange<Guid, Location>(this.locationRepository.FindAll().Where(l => checkedBoxes.Any(b => b.Name == l.Value.GetType().Name)).ToDictionary(x => x.Key, x => x.Value));
         }
 
         /// <summary>Toggles check list item.</summary>
@@ -275,7 +275,7 @@ namespace RpgTools.LocationPresenter.ViewModels
             Location location = viewModel.Location;
 
             // Save the location to the repository
-            this.locationReadableRepository.Update(new DataContainer<Location> { Content = location });
+            this.locationRepository.Update(new DataContainer<Location> { Content = location });
 
             // Reload the screen.
             this.CloseTab(viewModel);
@@ -299,7 +299,7 @@ namespace RpgTools.LocationPresenter.ViewModels
             // Get the location to save
             Guid locationId = ((LocationDetailsViewModel)viewModel).Location.Id;
 
-            this.locationReadableRepository.Delete(locationId);
+            this.locationRepository.Delete(locationId);
             this.Locations.Remove(locationId);
         }
 
@@ -317,7 +317,7 @@ namespace RpgTools.LocationPresenter.ViewModels
 
             if (answer.HasValue && answer.Value)
             {
-                this.locationReadableRepository.Create(new DataContainer<Location> { Content = newLocation.Location });
+                this.locationRepository.Create(new DataContainer<Location> { Content = newLocation.Location });
             }
 
             this.FilterLocations();
