@@ -1,10 +1,14 @@
 <StyleCopSettings Version="105">
   <GlobalSettings>
     <CollectionProperty Name="RecognizedWords">
+      <Value>Apps</Value>
+      <Value>Caliburn</Value>
       <Value>enum</Value>
       <Value>iridum</Value>
+      <Value>Mah</Value>
       <Value>markup</Value>
       <Value>rpg</Value>
+      <Value>xaml</Value>
     </CollectionProperty>
     <StringProperty Name="Culture">en-GB</StringProperty>
   </GlobalSettings>

@@ -1,4 +1,13 @@
-﻿namespace RpgTools.Main
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ToolsWindowManager.cs" company="Robert Logiewa">
+//   (C) All rights reserved
+// </copyright>
+// <summary>
+//   Custom window manager for the Caliburn.Micro and MahApps.Metro combination.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace RpgTools.Main
 {
     using System.Windows;
 
@@ -6,8 +15,7 @@
 
     using MahApps.Metro.Controls;
 
-    /// <summary>Custom window manager for the Caliburn.Micro and MahApps.Metro conbination.
-    /// </summary>
+    /// <summary>Custom window manager for the Caliburn.Micro and MahApps.Metro combination.</summary>
     public sealed class ToolsWindowManager : WindowManager
     {
         /// <summary>Makes sure the view is a window is is wrapped by one.</summary>
