@@ -23,7 +23,6 @@ namespace RpgTools.Main
     using Caliburn.Micro;
 
     using RpgTools.Characters;
-    using RpgTools.Core.Common;
     using RpgTools.Core.Contracts;
     using RpgTools.Tags;
 
@@ -49,13 +48,13 @@ namespace RpgTools.Main
         {
             // Get the modules from the module directory
             // ToDo: Implement dynamic loading from modules directory.
-            var assemblies = this.GetAssemblies().Select(fi => Assembly.LoadFrom(fi.FullName));
+            IEnumerable<Assembly> assemblies = this.GetAssemblies().Select(fi => Assembly.LoadFrom(fi.FullName));
 
             // Add the assembliues to the assembly source.
             AssemblySource.Instance.AddRange(assemblies);
 
             // Add the assembly source to the catalog.
-            var catalog = new AggregateCatalog(AssemblySource.Instance.Select(i => new AssemblyCatalog(i)).OfType<ComposablePartCatalog>());
+            AggregateCatalog catalog = new AggregateCatalog(AssemblySource.Instance.Select(i => new AssemblyCatalog(i)).OfType<ComposablePartCatalog>());
 
             // Create a new composition container.
             // ReSharper disable once RedundantEnumerableCastCall
