@@ -17,7 +17,7 @@
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <CodeAnalysisRuleSet>..\..\BasicRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\BasicRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -28,7 +28,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>..\..\BasicRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\BasicRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -154,7 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <AdditionalFiles Include="..\..\stylecop.json" />
+    <AdditionalFiles Include="..\stylecop.json" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\ShellView.xaml">
