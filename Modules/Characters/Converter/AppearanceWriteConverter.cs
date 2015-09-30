@@ -20,13 +20,13 @@ namespace RpgTools.Characters
         /// <summary>The heterochromia iridum converter.</summary>
         private readonly IConverter<bool, string> heterochromiaIridumConverter;
 
-        /// <summary>Initialises a new instance of the <see cref="AppearanceWriteConverter"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="AppearanceWriteConverter"/> class.</summary>
         public AppearanceWriteConverter()
             : this(new HeterochromiaIridumWriteConverter())
         {
         }
 
-        /// <summary>Initialises a new instance of the <see cref="AppearanceWriteConverter"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="AppearanceWriteConverter"/> class.</summary>
         /// <param name="heterochromiaIridumConverter">The heterochromia iridum converter.</param>
         internal AppearanceWriteConverter(IConverter<bool, string> heterochromiaIridumConverter)
         {

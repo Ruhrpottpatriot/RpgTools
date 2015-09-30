@@ -21,13 +21,13 @@ namespace RpgTools.Characters
         /// <summary>The metadata converter.</summary>
         private readonly IConverter<Character.CharacterMetadata, CharacterMetadataItem> metadataConverter;
 
-        /// <summary>Initialises a new instance of the <see cref="CharacterWriteConverter"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="CharacterWriteConverter"/> class.</summary>
         public CharacterWriteConverter()
             : this(new AppearanceWriteConverter(), new MetadataWriteConverter())
         {
         }
 
-        /// <summary>Initialises a new instance of the <see cref="CharacterWriteConverter"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="CharacterWriteConverter"/> class.</summary>
         /// <param name="appearanceConverter">The appearance converter.</param>
         /// <param name="metadataConverter">The metadata converter.</param>
         internal CharacterWriteConverter(IConverter<Character.PhysicalAppearance, AppearanceItem> appearanceConverter, IConverter<Character.CharacterMetadata, CharacterMetadataItem> metadataConverter)

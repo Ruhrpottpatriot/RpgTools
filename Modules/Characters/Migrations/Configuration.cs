@@ -17,7 +17,7 @@ namespace RpgTools.Characters.Migrations
     internal sealed class Configuration : DbMigrationsConfiguration<CharacterRepository>
     {
         /// <summary>
-        /// Initialises a new instance of the <see cref="Configuration"/> class.
+        /// Initializes a new instance of the <see cref="Configuration"/> class.
         /// </summary>
         public Configuration()
         {

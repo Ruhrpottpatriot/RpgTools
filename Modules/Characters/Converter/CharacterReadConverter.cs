@@ -24,13 +24,13 @@ namespace RpgTools.Characters
         /// <summary>The portrait converter.</summary>
         private readonly IConverter<PortraitItem, byte[]> portraitConverter;
 
-        /// <summary>Initialises a new instance of the <see cref="CharacterReadConverter"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="CharacterReadConverter"/> class.</summary>
         public CharacterReadConverter()
             : this(new AppearanceReadConverter(), new MetadataReadConverter(), new PortraitReadConverter())
         {
         }
 
-        /// <summary>Initialises a new instance of the <see cref="CharacterReadConverter"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="CharacterReadConverter"/> class.</summary>
         /// <param name="appearanceConverter">The appearance converter.</param>
         /// <param name="metadataConverter">The metadata converter.</param>
         /// <param name="portraitConverter">The portrait converter.</param>

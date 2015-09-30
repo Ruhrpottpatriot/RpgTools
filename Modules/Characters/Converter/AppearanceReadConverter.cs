@@ -18,13 +18,13 @@ namespace RpgTools.Characters
         /// <summary>The heterochromia iridum read converter.</summary>
         private readonly IConverter<string, bool> heterochromiaIridumConverter;
 
-        /// <summary>Initialises a new instance of the <see cref="AppearanceReadConverter"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="AppearanceReadConverter"/> class.</summary>
         public AppearanceReadConverter()
             : this(new HeterochromiaIridumReadConverter())
         {
         }
 
-        /// <summary>Initialises a new instance of the <see cref="AppearanceReadConverter"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="AppearanceReadConverter"/> class.</summary>
         /// <param name="specialFeaturesConverter">The converter which extracts a boolean value from the special features list indicating, whether a character has Heterochromia Iridum.</param>
         internal AppearanceReadConverter(IConverter<string, bool> specialFeaturesConverter)
         {

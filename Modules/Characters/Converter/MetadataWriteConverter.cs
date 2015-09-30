@@ -24,13 +24,13 @@ namespace RpgTools.Characters
         /// <summary>The occurrences converter.</summary>
         private readonly IConverter<IEnumerable<Guid>, string> occurrencesConverter;
 
-        /// <summary>Initialises a new instance of the <see cref="MetadataWriteConverter"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="MetadataWriteConverter"/> class.</summary>
         public MetadataWriteConverter()
             : this(new TagsWriteConverter(), new OccurrencesWriteConverter())
         {
         }
 
-        /// <summary>Initialises a new instance of the <see cref="MetadataWriteConverter"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="MetadataWriteConverter"/> class.</summary>
         /// <param name="tagsConverter">The tags converter.</param>
         /// <param name="occurrencesConverter">The occurrences converter.</param>
         internal MetadataWriteConverter(IConverter<IEnumerable<Tag>, string> tagsConverter, IConverter<IEnumerable<Guid>, string> occurrencesConverter)

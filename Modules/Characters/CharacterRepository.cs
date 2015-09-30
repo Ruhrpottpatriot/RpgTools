@@ -35,14 +35,14 @@ namespace RpgTools.Characters
         /// <summary>Infrastructure. Holds a reference to the write converter.</summary>
         private readonly IConverter<IDataContainer<Character>, CharacterItem> writeConverter;
 
-        /// <summary>Initialises a new instance of the <see cref="CharacterRepository"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="CharacterRepository"/> class.</summary>
         [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Only used for Entity Framework. This class should not be used in live code.")]
         public CharacterRepository()
             : this(new CharacterReadConverter(), new CharacterWriteConverter())
         {
         }
 
-        /// <summary>Initialises a new instance of the <see cref="CharacterRepository"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="CharacterRepository"/> class.</summary>
         /// <param name="characterReadConverter">The character data contract converter.</param>
         /// <param name="characterWriteConverter">The character Write Converter.</param>
         internal CharacterRepository(IConverter<CharacterItem, Character> characterReadConverter, IConverter<Character, CharacterItem> characterWriteConverter)
