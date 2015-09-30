@@ -19,7 +19,7 @@ namespace RpgTools.LocationPresenter.ViewModels
     [ImplementPropertyChanged]
     public class LocationDetailsViewModel : Screen
     {
-        /// <summary>Initialises a new instance of the <see cref="LocationDetailsViewModel"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="LocationDetailsViewModel"/> class.</summary>
         public LocationDetailsViewModel()
         {
             if (Execute.InDesignMode)

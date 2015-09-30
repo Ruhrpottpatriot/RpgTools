@@ -13,6 +13,7 @@ namespace RpgTools.LocationPresenter.ViewModels
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel.Composition;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Windows;
     using Caliburn.Micro;
@@ -38,7 +39,8 @@ namespace RpgTools.LocationPresenter.ViewModels
         /// <summary>Infrastructure. Holds a reference to the event aggregator.</summary>
         private readonly IEventAggregator eventAggregator;
 
-        /// <summary>Initialises a new instance of the <see cref="LocationViewModel"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="LocationViewModel"/> class.</summary>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "Reviewed")]
         public LocationViewModel()
         {
             if (Execute.InDesignMode)
@@ -78,7 +80,7 @@ namespace RpgTools.LocationPresenter.ViewModels
             }
         }
 
-        /// <summary>Initialises a new instance of the <see cref="LocationViewModel"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="LocationViewModel"/> class.</summary>
         /// <param name="eventAggregator">The event aggregator.</param>
         /// <param name="windowManager">The window manager.</param>
         [ImportingConstructor]
@@ -245,7 +247,7 @@ namespace RpgTools.LocationPresenter.ViewModels
             }
             else
             {
-                // Since we didn't change the all item 
+                // Since we didn't change the all item
                 // we have to check if all others are checked
                 // to determine the correct state of the all item.
                 var allItem = this.CheckListItems.Single(i => i.Name == Constants.AllOptions);
@@ -310,7 +312,7 @@ namespace RpgTools.LocationPresenter.ViewModels
 
             Dictionary<string, object> settingsDictionary = new Dictionary<string, object>
             {
-                { "ResizeMode", ResizeMode.NoResize } 
+                { "ResizeMode", ResizeMode.NoResize }
             };
 
             bool? answer = this.windowManager.ShowDialog(newLocation, null, settingsDictionary);

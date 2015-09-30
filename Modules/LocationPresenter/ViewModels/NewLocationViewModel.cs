@@ -11,6 +11,7 @@ namespace RpgTools.LocationPresenter.ViewModels
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Caliburn.Micro;
     using PropertyChanged;
@@ -23,7 +24,8 @@ namespace RpgTools.LocationPresenter.ViewModels
         /// <summary>Stores the location as a collection of strings.</summary>
         private List<string> tags;
 
-        /// <summary>Initialises a new instance of the <see cref="NewLocationViewModel"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="NewLocationViewModel"/> class.</summary>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "Reviewed")]
         public NewLocationViewModel()
         {
             if (Execute.InDesignMode)
