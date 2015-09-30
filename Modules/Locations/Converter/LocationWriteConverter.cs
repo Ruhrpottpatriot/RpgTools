@@ -20,7 +20,7 @@ namespace RpgTools.Locations
         private readonly Dictionary<string, IConverter<Location, LocationDetailsDataContract>> typeConverter;
 
         /// <summary>
-        /// Initialises a new instance of the <see cref="LocationWriteConverter"/> class.
+        /// Initializes a new instance of the <see cref="LocationWriteConverter"/> class.
         /// </summary>
         public LocationWriteConverter()
         {

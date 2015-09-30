@@ -28,7 +28,7 @@ namespace RpgTools.Locations
         /// <summary>Used to convert objects by the program into items stored in the database.</summary>
         private readonly IConverter<IDataContainer<Location>, LocationDatabaseItem> writeConverter;
 
-        /// <summary>Initialises a new instance of the <see cref="LocationRepository"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="LocationRepository"/> class.</summary>
         /// <param name="readConverter">The location converter.</param>
         /// <param name="writeConverter">The write Converter.</param>
         internal LocationRepository(IConverter<LocationDatabaseItem, Location> readConverter, IConverter<Location, LocationDatabaseItem> writeConverter)

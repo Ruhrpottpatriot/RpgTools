@@ -19,7 +19,7 @@ namespace RpgTools.Locations
         /// <summary>Infrastructure. Holds a reference to a collection of type converters.</summary>
         private readonly IDictionary<string, IConverter<LocationDetailsDataContract, Location>> typeConverters;
 
-        /// <summary>Initialises a new instance of the <see cref="LocationReadConverter"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="LocationReadConverter"/> class.</summary>
         public LocationReadConverter()
         {
             this.typeConverters = GetKnowTypeConverters();

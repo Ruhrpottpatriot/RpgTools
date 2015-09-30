@@ -16,7 +16,7 @@ namespace RpgTools.Locations.Migrations
     internal sealed class Configuration : DbMigrationsConfiguration<LocationRepository>
     {
         /// <summary>
-        /// Initialises a new instance of the <see cref="Configuration"/> class.
+        /// Initializes a new instance of the <see cref="Configuration"/> class.
         /// </summary>
         public Configuration()
         {
@@ -30,11 +30,11 @@ namespace RpgTools.Locations.Migrations
         /// <remarks>
         /// Note that the database may already contain seed data when this method runs. This means that
         /// implementations of this method must check whether or not seed data is present and/or up-to-date
-        /// and then only make changes if necessary and in a non-destructive way. The 
+        /// and then only make changes if necessary and in a non-destructive way. The
         /// <see cref="M:System.Data.Entity.Migrations.DbSetMigrationsExtensions.AddOrUpdate``1(System.Data.Entity.IDbSet{``0},``0[])"/>
         /// can be used to help with this, but for seeding large amounts of data it may be necessary to do less
         /// granular checks if performance is an issue.
-        /// If the <see cref="T:System.Data.Entity.MigrateDatabaseToLatestVersion`2"/> database 
+        /// If the <see cref="T:System.Data.Entity.MigrateDatabaseToLatestVersion`2"/> database
         /// initializer is being used, then this method will be called each time that the initializer runs.
         /// If one of the <see cref="T:System.Data.Entity.DropCreateDatabaseAlways`1"/>, <see cref="T:System.Data.Entity.DropCreateDatabaseIfModelChanges`1"/>,
         /// or <see cref="T:System.Data.Entity.CreateDatabaseIfNotExists`1"/> initializers is being used, then this method will not be
@@ -44,7 +44,7 @@ namespace RpgTools.Locations.Migrations
         protected override void Seed(LocationRepository context)
         {
             // This method will be called after migrating to the latest version.
-            // You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            // You can use the DbSet<T>.AddOrUpdate() helper extension method
             // to avoid creating duplicate seed data. E.g.
             //
             //    context.People.AddOrUpdate(
@@ -58,7 +58,7 @@ namespace RpgTools.Locations.Migrations
                 new Guid("df922009-3611-4faf-85b4-3e78f55113f6"),
                 new Guid("ffc46d7c-8012-491a-990e-1ab4efc4055a"),
                 new Guid("5070d35b-94db-49b0-9c7a-895682a49a27"),
-                new Guid("6c268c49-15b7-4138-8551-0b3f28243928"), 
+                new Guid("6c268c49-15b7-4138-8551-0b3f28243928")
             };
 
             context.Locations.AddOrUpdate(
