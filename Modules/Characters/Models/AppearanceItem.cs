@@ -16,7 +16,7 @@ namespace RpgTools.Characters
     using RpgTools.Core.Models;
 
     /// <summary>Represents a characters physical appearance as it is stored in the database.</summary>
-    [Table("Appearances")]
+    [Table("Appearances", Schema = "Characters")]
     internal sealed class AppearanceItem
     {
         /// <summary>Gets or sets the unique database identifier.</summary>

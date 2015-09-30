@@ -14,7 +14,7 @@ namespace RpgTools.Characters
     using System.ComponentModel.DataAnnotations.Schema;
     
     /// <summary>Represents a portrait as it is stored in the database.</summary>
-    [Table("Portraits")]
+    [Table("Portraits", Schema = "Characters")]
     internal sealed class PortraitItem
     {
         /// <summary>Gets or sets the unique database identifier.</summary>

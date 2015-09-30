@@ -8,7 +8,7 @@ namespace RpgTools.Characters.Migrations
         public override void Up()
         {
             CreateTable(
-                "Characters.Characters",
+                "Characters.Character",
                 c => new
                     {
                         Id = c.Guid(nullable: false),
@@ -19,18 +19,17 @@ namespace RpgTools.Characters.Migrations
                         Biography = c.String(),
                         Motto = c.String(),
                         Age = c.Int(nullable: false),
-                        PortraitsId = c.Guid(nullable: false),
-                        MetadataId = c.Guid(nullable: false),
-                        AppearanceId = c.Guid(nullable: false),
                         OriginId = c.Guid(nullable: false),
+                        Appearance_Id = c.Guid(),
+                        Metadata_Id = c.Guid(),
                         Portrait_Id = c.Guid(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("Characters.Appearances", t => t.AppearanceId, cascadeDelete: true)
-                .ForeignKey("Characters.Metadata", t => t.MetadataId, cascadeDelete: true)
+                .ForeignKey("Characters.Appearances", t => t.Appearance_Id)
+                .ForeignKey("Characters.Metadata", t => t.Metadata_Id)
                 .ForeignKey("Characters.Portraits", t => t.Portrait_Id)
-                .Index(t => t.MetadataId)
-                .Index(t => t.AppearanceId)
+                .Index(t => t.Appearance_Id)
+                .Index(t => t.Metadata_Id)
                 .Index(t => t.Portrait_Id);
             
             CreateTable(
@@ -76,16 +75,16 @@ namespace RpgTools.Characters.Migrations
         
         public override void Down()
         {
-            DropForeignKey("Characters.Characters", "Portrait_Id", "Characters.Portraits");
-            DropForeignKey("Characters.Characters", "MetadataId", "Characters.Metadata");
-            DropForeignKey("Characters.Characters", "AppearanceId", "Characters.Appearances");
-            DropIndex("Characters.Characters", new[] { "Portrait_Id" });
-            DropIndex("Characters.Characters", new[] { "AppearanceId" });
-            DropIndex("Characters.Characters", new[] { "MetadataId" });
+            DropForeignKey("Characters.Character", "Portrait_Id", "Characters.Portraits");
+            DropForeignKey("Characters.Character", "Metadata_Id", "Characters.Metadata");
+            DropForeignKey("Characters.Character", "Appearance_Id", "Characters.Appearances");
+            DropIndex("Characters.Character", new[] { "Portrait_Id" });
+            DropIndex("Characters.Character", new[] { "Metadata_Id" });
+            DropIndex("Characters.Character", new[] { "Appearance_Id" });
             DropTable("Characters.Portraits");
             DropTable("Characters.Metadata");
             DropTable("Characters.Appearances");
-            DropTable("Characters.Characters");
+            DropTable("Characters.Character");
         }
     }
 }

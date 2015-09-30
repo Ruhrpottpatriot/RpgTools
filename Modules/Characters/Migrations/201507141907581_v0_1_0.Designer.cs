@@ -13,7 +13,7 @@ namespace RpgTools.Characters.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201507101559287_v0_1_0"; }
+            get { return "201507141907581_v0_1_0"; }
         }
         
         string IMigrationMetadata.Source

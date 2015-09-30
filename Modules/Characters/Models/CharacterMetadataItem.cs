@@ -14,7 +14,7 @@ namespace RpgTools.Characters
     using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>Represents a characters metadata as it is stored inside the database.</summary>
-    [Table("Metadata")]
+    [Table("Metadata", Schema = "Characters")]
     internal class CharacterMetadataItem
     {
         /// <summary>Gets or sets the unique database identifier.</summary>
