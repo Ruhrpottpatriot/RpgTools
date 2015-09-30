@@ -1,11 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TagsRepository.cs" company="Robert Logiewa">
-//   (C) All rights reserved
+﻿// <copyright file="TagsRepository.cs" company="Robert Logiewa">
+//     (C) All rights reserved
 // </copyright>
-// <summary>
-//   Defines the TagsRepository type.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
 
 namespace RpgTools.Tags
 {
@@ -34,14 +29,14 @@ namespace RpgTools.Tags
         /// <summary>Holds a reference to the response write converter.</summary>
         private readonly IConverter<IDataContainer<Tag>, TagItem> writeConverter;
 
-        /// <summary>Initialises a new instance of the <see cref="TagsRepository"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="TagsRepository"/> class.</summary>
         [SuppressMessage("ReSharper", "UnusedMember.Global", Justification = "Only used for Entity Framework.")]
         public TagsRepository()
             : this(new TagReadConverter(), new TagWriteConverter())
         {
         }
 
-        /// <summary>Initialises a new instance of the <see cref="TagsRepository"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="TagsRepository"/> class.</summary>
         /// <param name="tagReadConverter">The converter that converts <see cref="TagItem"/> into <see cref="Tag">Tags</see>.</param>
         /// <param name="tagWriteConverter">The converter that converts <see cref="Tag">Tags</see> into <see cref="TagItem"/>.</param>
         internal TagsRepository(IConverter<TagItem, Tag> tagReadConverter, IConverter<Tag, TagItem> tagWriteConverter)
@@ -68,7 +63,7 @@ namespace RpgTools.Tags
             IDataContainer<TagItem> data = this.CreateContainer(
                 this.Tags.SingleOrDefault(tag => tag.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName && tag.Id == identifier),
                 this.Culture);
-                
+
             return this.readConverter.Convert(data);
         }
 

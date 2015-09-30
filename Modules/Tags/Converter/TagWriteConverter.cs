@@ -15,7 +15,7 @@ namespace RpgTools.Tags
     /// <summary>Converts a <see cref="TagItem"/> into the appropriate <see cref="Tag"/>.</summary>
     internal class TagWriteConverter : IConverter<Tag, TagItem>
     {
-        /// <inheritdoc /> 
+        /// <inheritdoc />
         public TagItem Convert(Tag value)
         {
             return new TagItem
