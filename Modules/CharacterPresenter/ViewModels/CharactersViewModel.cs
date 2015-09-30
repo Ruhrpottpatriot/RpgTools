@@ -48,7 +48,8 @@ namespace RpgTools.CharacterPresenter.ViewModels
         // Constructor
         // --------------------------------------------------------------------------------------------------------------------
 
-        /// <summary>Initialises a new instance of the <see cref="CharactersViewModel"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="CharactersViewModel"/> class.</summary>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "Reviewed")]
         public CharactersViewModel()
         {
             if (Execute.InDesignMode)
@@ -76,11 +77,11 @@ namespace RpgTools.CharacterPresenter.ViewModels
             }
         }
 
-        /// <summary>Initialises a new instance of the <see cref="CharactersViewModel"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="CharactersViewModel"/> class.</summary>
         /// <param name="windowManager">The window manager instance.</param>
         /// <param name="tagsRepository">The tags repository.</param>
         /// <param name="characterRepository">The character repository.</param>
-        [ImportingConstructor]
+        [ImportingConstructor, SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "Reviewed")]
         public CharactersViewModel(IWindowManager windowManager, ITagsRepository tagsRepository, ICharacterRepository characterRepository)
         {
             this.windowManager = windowManager;
@@ -220,7 +221,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
             }
             else
             {
-                // Since we didn't change the all item 
+                // Since we didn't change the all item
                 // we have to check if all others are checked
                 // to determine the correct state of the all item.
                 var allItem = this.CheckListItems.Single(i => i.Name == Constants.AllOptions);
@@ -266,7 +267,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
 
             Dictionary<string, object> settingsDictionary = new Dictionary<string, object>
             {
-                { "ResizeMode", ResizeMode.NoResize } 
+                { "ResizeMode", ResizeMode.NoResize }
             };
 
             bool? answer = this.windowManager.ShowDialog(viewModel, null, settingsDictionary);

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="NewCharacterViewModel.cs" company="Robert Logiewa">
+//     (C) All rights reserved
+// </copyright>
 
 namespace RpgTools.CharacterPresenter.ViewModels
 {
@@ -14,7 +12,6 @@ namespace RpgTools.CharacterPresenter.ViewModels
         {
             if (Execute.InDesignMode)
             {
-                
             }
         }
     }

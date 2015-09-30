@@ -30,7 +30,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
         /// <summary>Stores an instance of the window manager.</summary>
         private readonly IWindowManager windowManager;
 
-        /// <summary>Initialises a new instance of the <see cref="CharacterDetailsViewModel"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="CharacterDetailsViewModel"/> class.</summary>
         public CharacterDetailsViewModel()
         {
             if (Execute.InDesignMode)
@@ -77,7 +77,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
             }
         }
 
-        /// <summary>Initialises a new instance of the <see cref="CharacterDetailsViewModel"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="CharacterDetailsViewModel"/> class.</summary>
         /// <param name="windowManager">The window manager.</param>
         public CharacterDetailsViewModel(IWindowManager windowManager)
         {

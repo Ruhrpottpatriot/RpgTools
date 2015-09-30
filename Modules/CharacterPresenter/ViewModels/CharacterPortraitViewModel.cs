@@ -9,6 +9,7 @@
 
 namespace RpgTools.CharacterPresenter.ViewModels
 {
+    using System.Diagnostics.CodeAnalysis;
     using Caliburn.Micro;
     using PropertyChanged;
 
@@ -16,6 +17,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
     [ImplementPropertyChanged]
     public class CharacterPortraitViewModel : Screen
     {
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "Reviewed")]
         public CharacterPortraitViewModel()
         {
             if (Execute.InDesignMode)
@@ -24,8 +26,9 @@ namespace RpgTools.CharacterPresenter.ViewModels
             }
         }
 
-        /// <summary>Initialises a new instance of the <see cref="CharacterPortraitViewModel"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="CharacterPortraitViewModel"/> class.</summary>
         /// <param name="portrait">The portrait to show.</param>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "Reviewed")]
         public CharacterPortraitViewModel(byte[] portrait)
         {
             this.Portrait = portrait;
