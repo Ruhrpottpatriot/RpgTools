@@ -23,7 +23,7 @@ namespace RpgTools.Main.ViewModels
     [Export(typeof(IShell))]
     public class ShellViewModel : IShell
     {
-        /// <summary>Initialises a new instance of the <see cref="ShellViewModel"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="ShellViewModel"/> class.</summary>
         public ShellViewModel()
         {
             if (Execute.InDesignMode)

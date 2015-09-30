@@ -36,7 +36,7 @@ namespace RpgTools.Main
         /// <summary>The composition container.</summary>
         private CompositionContainer compositionContainer;
 
-        /// <summary>Initialises a new instance of the <see cref="MefBootstrapper"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="MefBootstrapper"/> class.</summary>
         public MefBootstrapper()
         {
             // this.CheckModuleDirectory();
@@ -91,7 +91,7 @@ namespace RpgTools.Main
             // Check if the contract is null or an empty string, if so return the contract name from the service itself.
             string contractName = string.IsNullOrEmpty(key) ? AttributedModelServices.GetContractName(service) : key;
 
-            // Get a collection of exported values with the goven contract name. 
+            // Get a collection of exported values with the goven contract name.
             IList<object> exports = this.compositionContainer.GetExportedValues<object>(contractName).ToList();
 
             if (exports.Any())
@@ -103,7 +103,7 @@ namespace RpgTools.Main
         }
 
         /// <summary>Override this to provide an IoC specific implementation</summary>
-        /// <param name="serviceType">The service to locate.</param> 
+        /// <param name="serviceType">The service to locate.</param>
         /// <returns>The located services.</returns>
         protected override IEnumerable<object> GetAllInstances(Type serviceType)
         {
