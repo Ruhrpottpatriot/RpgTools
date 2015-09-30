@@ -25,7 +25,8 @@ namespace RpgTools.Characters
             char[] separators = { ';' };
             string[] ids = value.Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
-            return ids.Select(id => new Tag { Id = new Guid(id) });
+            // ToDo: Implement tag repository query.
+            return new List<Tag>();
         }
     }
 }
