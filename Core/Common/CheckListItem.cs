@@ -15,7 +15,7 @@ namespace RpgTools.Core.Common
     [ImplementPropertyChanged]
     public class CheckListItem
     {
-        /// <summary>Initialises a new instance of the <see cref="CheckListItem"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="CheckListItem"/> class.</summary>
         /// <param name="name">The display name of the item.</param>
         /// <param name="isChecked">Value whether the item is checked.</param>
         public CheckListItem(string name, bool isChecked)
@@ -23,7 +23,7 @@ namespace RpgTools.Core.Common
             this.Name = name;
             this.IsChecked = isChecked;
         }
-        
+
         /// <summary>Gets or sets the display name.</summary>
         public string Name { get; set; }
 

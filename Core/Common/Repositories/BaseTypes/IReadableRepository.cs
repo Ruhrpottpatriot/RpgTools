@@ -2,9 +2,6 @@
 // <copyright file="IReadableRepository.cs" company="Robert Logiewa">
 //   (C) All rights reserved
 // </copyright>
-// <summary>
-//   
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace RpgTools.Core.Common

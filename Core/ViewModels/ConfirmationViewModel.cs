@@ -19,7 +19,7 @@ namespace RpgTools.Core.ViewModels
         /// <summary>Stores the message.</summary>
         private string message;
 
-        /// <summary>Initialises a new instance of the <see cref="ConfirmationViewModel"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="ConfirmationViewModel"/> class.</summary>
         public ConfirmationViewModel()
         {
             if (Execute.InDesignMode)
@@ -28,7 +28,7 @@ namespace RpgTools.Core.ViewModels
             }
         }
 
-        /// <summary>Initialises a new instance of the <see cref="ConfirmationViewModel"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="ConfirmationViewModel"/> class.</summary>
         /// <param name="title">The window title.</param>
         /// <param name="message">The window message.</param>
         public ConfirmationViewModel(string title, string message)

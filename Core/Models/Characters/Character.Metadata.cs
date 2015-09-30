@@ -17,8 +17,8 @@ namespace RpgTools.Core.Models
             // --------------------------------------------------------------------------------------------------------------------
             // Constructor
             // --------------------------------------------------------------------------------------------------------------------
-            
-            /// <summary>Initialises a new instance of the <see cref="CharacterMetadata"/> class.</summary>
+
+            /// <summary>Initializes a new instance of the <see cref="CharacterMetadata"/> class.</summary>
             public CharacterMetadata()
             {
                 this.Tags = new List<Tag>();

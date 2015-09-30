@@ -24,8 +24,8 @@ namespace RpgTools.Core.Common
 
         /// <summary>Infrastructure. Holds a reference to a key selector expression.</summary>
         private readonly Func<TValue, TKey> keySelector;
-        
-        /// <summary>Initialises a new instance of the <see cref="DictionaryRangeConverter{TDataContract,TKey,TValue}"/> class.</summary>
+
+        /// <summary>Initializes a new instance of the <see cref="DictionaryRangeConverter{TDataContract,TKey,TValue}"/> class.</summary>
         /// <param name="dataContractConverter">The converter for <typeparamref name="TValue"/>.</param>
         /// <param name="keySelector">The key selector expression.</param>
         public DictionaryRangeConverter(IConverter<TDataContract, TValue> dataContractConverter, Func<TValue, TKey> keySelector)

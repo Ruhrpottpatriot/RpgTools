@@ -24,12 +24,12 @@ namespace RpgTools.Core.Extensions
         /// <summary>The as string.</summary>
         private bool asString;
 
-        /// <summary>Initialises a new instance of the <see cref="EnumListExtension"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="EnumListExtension"/> class.</summary>
         public EnumListExtension()
         {
         }
 
-        /// <summary>Initialises a new instance of the <see cref="EnumListExtension"/> class. </summary>
+        /// <summary>Initializes a new instance of the <see cref="EnumListExtension"/> class. </summary>
         /// <param name="enumType">The type of enum whose members are to be returned.</param>
         public EnumListExtension(Type enumType)
         {

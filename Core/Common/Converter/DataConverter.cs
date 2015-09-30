@@ -18,7 +18,7 @@ namespace RpgTools.Core.Common
         private readonly IConverter<TDataContract, TValue> dataContractConverter;
 
         /// <summary>
-        /// Initialises a new instance of the <see cref="DataConverter{TDataContract,TValue}"/> class.
+        /// Initializes a new instance of the <see cref="DataConverter{TDataContract,TValue}"/> class.
         /// </summary>
         /// <param name="dataContractConverter">
         /// The converter for <typeparamref name="TDataContract"/>.

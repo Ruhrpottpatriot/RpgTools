@@ -28,7 +28,7 @@ namespace RpgTools.Core.Converter
                 var returnValue = ((DbGeography)value).AsText();
 
                 var regexVal = Regex.Match(returnValue, @"(?<=\().+?(?=\))").Value.Replace(" ", ", ");
-                
+
                 return regexVal;
             }
 

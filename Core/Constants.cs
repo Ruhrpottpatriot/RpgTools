@@ -22,7 +22,7 @@ namespace RpgTools.Core
         /// <summary>String indicating that all options should be used.</summary>
         public const string AllOptions = "All";
 
-        /// <summary>Initialises static members of the <see cref="Constants"/> class.</summary>
+        /// <summary>Initializes static members of the <see cref="Constants"/> class.</summary>
         static Constants()
         {
             MyDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);

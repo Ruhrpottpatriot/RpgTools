@@ -18,7 +18,7 @@ namespace RpgTools.Core.Models
         // Constructor
         // --------------------------------------------------------------------------------------------------------------------
 
-        /// <summary>Initialises a new instance of the <see cref="Character"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="Character"/> class.</summary>
         /// <param name="id">The characters id.</param>
         public Character(Guid id)
         {
