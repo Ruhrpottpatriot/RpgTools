@@ -6,6 +6,7 @@
 namespace RpgTools.Core.Models
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using PropertyChanged;
     using RpgTools.Core.Common;
@@ -20,6 +21,7 @@ namespace RpgTools.Core.Models
 
         /// <summary>Initializes a new instance of the <see cref="Character"/> class.</summary>
         /// <param name="id">The characters id.</param>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "Reviewed")]
         public Character(Guid id)
         {
             this.Id = id;

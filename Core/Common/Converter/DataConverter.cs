@@ -2,9 +2,6 @@
 // <copyright file="DataConverter.cs" company="Robert Logiewa">
 //   (C) All rights reserved
 // </copyright>
-// <summary>
-//   Converts objects of type <see cref="IDataContainer{T}" /> to objects of type <see cref="TValue" />.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace RpgTools.Core.Common

@@ -9,6 +9,8 @@
 
 namespace RpgTools.Core.Common
 {
+    using System.Diagnostics.CodeAnalysis;
+
     using PropertyChanged;
 
     /// <summary>The check list item.</summary>
@@ -18,6 +20,7 @@ namespace RpgTools.Core.Common
         /// <summary>Initializes a new instance of the <see cref="CheckListItem"/> class.</summary>
         /// <param name="name">The display name of the item.</param>
         /// <param name="isChecked">Value whether the item is checked.</param>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "Reviewed")]
         public CheckListItem(string name, bool isChecked)
         {
             this.Name = name;
