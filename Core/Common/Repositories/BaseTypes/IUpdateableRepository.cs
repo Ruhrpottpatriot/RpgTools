@@ -6,6 +6,7 @@
 
 namespace RpgTools.Core.Common
 {
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>Provides the interface to update data in the repository.</summary>
@@ -16,5 +17,11 @@ namespace RpgTools.Core.Common
         /// <param name="data">The new data to store in the repository.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         Task UpdateAsync(IDataContainer<TData> data);
+
+        /// <summary>Updates an item in the repository with the given data.</summary>
+        /// <param name="data">The new data to store in the repository.</param>
+        /// <param name="cancellationToken">A token, that signals the cancellation of the operation.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task UpdateAsync(IDataContainer<TData> data, CancellationToken cancellationToken);
     }
 }

@@ -6,6 +6,7 @@
 
 namespace RpgTools.Core.Common
 {
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>Provides the interface to create data in the repository.</summary>
@@ -16,5 +17,11 @@ namespace RpgTools.Core.Common
         /// <param name="data">The data to write to the repository.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         Task CreateAsync(IDataContainer<TData> data);
+
+        /// <summary>Creates a new item in the repository.</summary>
+        /// <param name="data">The data to write to the repository.</param>
+        /// <param name="cancellationToken">The token, that siganlises the cancellation of the operation.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task CreateAsync(IDataContainer<TData> data, CancellationToken cancellationToken);
     }
 }
