@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ILocalizable.cs" company="Robert Logiewa">
-//   (C) All rights reserved
+// (C) All rights reserved.
 // </copyright>
-// <summary>
-//   Provides the interface for locale-aware types.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace RpgTools.Core.Common
