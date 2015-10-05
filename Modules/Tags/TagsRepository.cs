@@ -11,6 +11,9 @@ namespace RpgTools.Tags
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     using EntityFramework.Extensions;
     using RpgTools.Core.Common;
     using RpgTools.Core.Models;
@@ -58,67 +61,113 @@ namespace RpgTools.Tags
         internal DbSet<TagItem> Tags { get; set; }
 
         /// <inheritdoc />
-        public Tag Find(Guid identifier)
+        public Task<IDictionaryRange<Guid, Tag>> FindByTypeAsync(string type)
         {
-            IDataContainer<TagItem> data = this.CreateContainer(
-                this.Tags.SingleOrDefault(tag => tag.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName && tag.Id == identifier),
-                this.Culture);
-
-            return this.readConverter.Convert(data);
+            return this.FindByTypeAsync(type, CancellationToken.None);
         }
 
         /// <inheritdoc />
-        public IDictionaryRange<Guid, Tag> FindByType(string type)
+        public async Task<IDictionaryRange<Guid, Tag>> FindByTypeAsync(string type, CancellationToken cancellationToken)
         {
-            IDataContainer<ICollection<TagItem>> data = this.CreateContainer<ICollection<TagItem>>(
+            var data = Task.Run(
+                () => this.CreateContainer<ICollection<TagItem>>(
                 this.Tags.Where(tag => tag.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName && tag.Type == type).ToList(),
-                this.Culture);
+                this.Culture), cancellationToken);
 
-            return this.bulkReadConverter.Convert(data);
+            return this.bulkReadConverter.Convert(await data);
         }
 
         /// <inheritdoc />
-        public IDictionaryRange<Guid, Tag> FindAll(ICollection<Guid> identifiers)
+        public Task<Tag> FindAsync(Guid identifier)
         {
-            IDataContainer<ICollection<TagItem>> data = this.CreateContainer<ICollection<TagItem>>(
-                this.Tags.Where(t => t.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName && identifiers.Any(i => i == t.Id)).ToList(),
-                this.Culture);
-
-            return this.bulkReadConverter.Convert(data);
+           return this.FindAsync(identifier, CancellationToken.None);
         }
 
         /// <inheritdoc />
-        public IDictionaryRange<Guid, Tag> FindAll()
+        public async Task<Tag> FindAsync(Guid identifier, CancellationToken cancellationToken)
         {
-            IDataContainer<ICollection<TagItem>> data = this.CreateContainer<ICollection<TagItem>>(
+            var data = Task.Run(
+                () => this.CreateContainer(
+                this.Tags.SingleOrDefault(tag => tag.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName && tag.Id == identifier),
+                this.Culture), cancellationToken);
+
+            return this.readConverter.Convert(await data);
+        }
+
+        /// <inheritdoc />
+        public Task<IDictionaryRange<Guid, Tag>> FindAllAsync()
+        {
+            return this.FindAllAsync(CancellationToken.None);
+        }
+
+        /// <inheritdoc />
+        public async Task<IDictionaryRange<Guid, Tag>> FindAllAsync(CancellationToken cancellationToken)
+        {
+            var data = Task.Run(
+                () => this.CreateContainer<ICollection<TagItem>>(
                 this.Tags.Where(t => t.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName).ToList(),
-                this.Culture);
+                this.Culture), cancellationToken);
 
-            return this.bulkReadConverter.Convert(data);
+            return this.bulkReadConverter.Convert(await data);
         }
 
         /// <inheritdoc />
-        public void Create(IDataContainer<Tag> data)
+        public Task<IDictionaryRange<Guid, Tag>> FindAllAsync(ICollection<Guid> identifiers)
+        {
+            return this.FindAllAsync(identifiers, CancellationToken.None);
+        }
+
+        /// <inheritdoc />
+        public async Task<IDictionaryRange<Guid, Tag>> FindAllAsync(ICollection<Guid> identifiers, CancellationToken cancellationToken)
+        {
+            var data = Task.Run(
+                () => this.CreateContainer<ICollection<TagItem>>(
+                this.Tags.Where(t => t.TwoLetterLanguageCode == this.Culture.TwoLetterISOLanguageName && identifiers.Any(i => i == t.Id)).ToList(),
+                this.Culture), cancellationToken);
+
+            return this.bulkReadConverter.Convert(await data);
+        }
+
+        /// <inheritdoc />
+        public Task CreateAsync(IDataContainer<Tag> data)
+        {
+            return this.CreateAsync(data, CancellationToken.None);
+        }
+
+        /// <inheritdoc />
+        public async Task CreateAsync(IDataContainer<Tag> data, CancellationToken cancellationToken)
         {
             TagItem contract = this.writeConverter.Convert(data);
             this.Tags.Add(contract);
-            this.SaveChanges();
+            await this.SaveChangesAsync(cancellationToken);
         }
 
         /// <inheritdoc />
-        public void Update(IDataContainer<Tag> data)
+        public Task UpdateAsync(IDataContainer<Tag> data)
+        {
+            return this.UpdateAsync(data, CancellationToken.None);
+        }
+
+        /// <inheritdoc />
+        public async Task UpdateAsync(IDataContainer<Tag> data, CancellationToken cancellationToken)
         {
             TagItem updatedData = this.writeConverter.Convert(data);
             this.Tags.AddOrUpdate(updatedData);
-            this.SaveChanges();
+            await this.SaveChangesAsync(cancellationToken);
         }
 
         /// <summary>Deletes an item in the repository.</summary>
         /// <param name="identifier">The identifier that uniquely identifies an item in the repository.</param>
-        public void Delete(Guid identifier)
+        public Task DeleteAsync(Guid identifier)
+        {
+            return this.DeleteAsync(identifier, CancellationToken.None);
+        }
+
+        /// <inheritdoc />
+        public async Task DeleteAsync(Guid identifier, CancellationToken cancellationToken)
         {
             this.Tags.Where(t => t.Id == identifier).Delete();
-            this.SaveChanges();
+            await this.SaveChangesAsync(cancellationToken);
         }
 
         /// <inheritdoc />
