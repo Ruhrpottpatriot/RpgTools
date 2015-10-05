@@ -165,13 +165,13 @@ namespace RpgTools.CharacterPresenter.ViewModels
         }
 
         /// <summary>Loads all characters from the repository.</summary>
-        public void LoadCharacters()
+        public async void LoadCharacters()
         {
-            this.Characters = this.characterRepository.FindAll();
+            this.Characters = await this.characterRepository.FindAllAsync();
         }
 
         /// <summary>Filters the characters based on the check list item selection.</summary>
-        public void FilterCharacters()
+        public async void FilterCharacters()
         {
             if (this.Characters == null)
             {
@@ -180,13 +180,13 @@ namespace RpgTools.CharacterPresenter.ViewModels
 
             if (this.CheckListItems.Any(i => (i.Name == Constants.AllOptions && (i.IsChecked != null && (bool)i.IsChecked))))
             {
-                this.Characters = this.characterRepository.FindAll();
+                this.Characters = await this.characterRepository.FindAllAsync();
                 return;
             }
 
             var checkedItems = this.CheckListItems.Where(i => (i.IsChecked != null && (bool)i.IsChecked));
 
-            this.Characters = new DictionaryRange<Guid, Character>(this.characterRepository.FindAll().Where(c => c.Value.Metadata.Tags.Any(t => checkedItems.Any(i => i.Name == t.Value))).ToDictionary(x => x.Key, x => x.Value));
+            this.Characters = new DictionaryRange<Guid, Character>((await this.characterRepository.FindAllAsync()).Where(c => c.Value.Metadata.Tags.Any(t => checkedItems.Any(i => i.Name == t.Value))).ToDictionary(x => x.Key, x => x.Value));
         }
 
         /// <summary>Updates the check list.</summary>
@@ -244,9 +244,9 @@ namespace RpgTools.CharacterPresenter.ViewModels
         }
 
         /// <summary>Generates the check list based on character tags.</summary>
-        public void GenerateCheckListItems()
+        public async void GenerateCheckListItems()
         {
-            foreach (Tag tag in this.tagsRepository.FindByType("Character").Values)
+            foreach (Tag tag in (await this.tagsRepository.FindByTypeAsync("Character")).Values)
             {
                 var item = new CheckListItem(tag.Value, true);
 
@@ -258,7 +258,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
         }
 
         /// <summary>Opens the character creation window.</summary>
-        public void CreateCharacter()
+        public async void CreateCharacter()
         {
             CharacterDetailsViewModel viewModel = new CharacterDetailsViewModel(this.windowManager)
             {
@@ -274,7 +274,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
 
             if (answer.HasValue && answer.Value)
             {
-                this.characterRepository.Create(new DataContainer<Character> { Content = viewModel.Character });
+                await this.characterRepository.CreateAsync(new DataContainer<Character> { Content = viewModel.Character });
             }
 
             this.FilterCharacters();
@@ -282,11 +282,11 @@ namespace RpgTools.CharacterPresenter.ViewModels
 
         /// <summary>Saves a character to the repository.</summary>
         /// <param name="viewModel">The view model of the character to save.</param>
-        public void Save(CharacterDetailsViewModel viewModel)
+        public async void Save(CharacterDetailsViewModel viewModel)
         {
             Character character = viewModel.Character;
 
-            this.characterRepository.Update(new DataContainer<Character> { Content = character });
+            await this.characterRepository.UpdateAsync(new DataContainer<Character> { Content = character });
 
             this.CloseTab(viewModel);
             this.OpenTab(new KeyValuePair<Guid, Character>(character.Id, character));
@@ -294,7 +294,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
 
         /// <summary>Deletes a character from the repository.</summary>
         /// <param name="viewModel">The view model of the character to delete.</param>
-        public void Delete(CharacterDetailsViewModel viewModel)
+        public async void Delete(CharacterDetailsViewModel viewModel)
         {
             Character character = viewModel.Character;
             ConfirmationViewModel confirmationViewModel = new ConfirmationViewModel("Delete Character", string.Format("Do you want to delete {0} ({1})", character.Name, character.Id));
@@ -309,7 +309,7 @@ namespace RpgTools.CharacterPresenter.ViewModels
             if (answer != null && answer == true)
             {
                 this.Characters.Remove(character.Id);
-                this.characterRepository.Delete(character.Id);
+                await this.characterRepository.DeleteAsync(character.Id);
             }
         }
     }

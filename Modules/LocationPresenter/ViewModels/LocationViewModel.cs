@@ -176,9 +176,9 @@ namespace RpgTools.LocationPresenter.ViewModels
         }
 
         /// <summary>Loads the location ids from the location repository.</summary>
-        public void LoadLocations()
+        public async void LoadLocations()
         {
-            this.Locations = this.locationRepository.FindAll();
+            this.Locations = await this.locationRepository.FindAllAsync();
         }
 
         /// <summary>Loads the locations types and updates the filter list.</summary>
@@ -190,7 +190,7 @@ namespace RpgTools.LocationPresenter.ViewModels
         }
 
         /// <summary>Filters the locations based on the checked check boxes.</summary>
-        public void FilterLocations()
+        public async void FilterLocations()
         {
             // Check if the locations have been loaded.
             // if not just return.
@@ -202,14 +202,14 @@ namespace RpgTools.LocationPresenter.ViewModels
             // If the all item is checked, we can safely return all locations without filtering.
             if (this.CheckListItems.Any(i => (i.Name == Constants.AllOptions && (i.IsChecked != null && (bool)i.IsChecked))))
             {
-                this.Locations = this.locationRepository.FindAll();
+                this.Locations = await this.locationRepository.FindAllAsync();
                 return;
             }
 
             // Get the checked items.
             var checkedBoxes = this.CheckListItems.Where(i => (i.IsChecked != null && (bool)i.IsChecked));
 
-            this.Locations = new DictionaryRange<Guid, Location>(this.locationRepository.FindAll().Where(l => checkedBoxes.Any(b => b.Name == l.Value.GetType().Name)).ToDictionary(x => x.Key, x => x.Value));
+            this.Locations = new DictionaryRange<Guid, Location>((await this.locationRepository.FindAllAsync()).Where(l => checkedBoxes.Any(b => b.Name == l.Value.GetType().Name)).ToDictionary(x => x.Key, x => x.Value));
         }
 
         /// <summary>Toggles check list item.</summary>
@@ -271,13 +271,13 @@ namespace RpgTools.LocationPresenter.ViewModels
 
         /// <summary>Saves a location to the repository.</summary>
         /// <param name="viewModel">The view model with the location to be saved.</param>
-        public void SaveLocation(LocationDetailsViewModel viewModel)
+        public async void SaveLocation(LocationDetailsViewModel viewModel)
         {
             // Get the location to save
             Location location = viewModel.Location;
 
             // Save the location to the repository
-            this.locationRepository.Update(new DataContainer<Location> { Content = location });
+            await this.locationRepository.UpdateAsync(new DataContainer<Location> { Content = location });
 
             // Reload the screen.
             this.CloseTab(viewModel);
@@ -296,17 +296,17 @@ namespace RpgTools.LocationPresenter.ViewModels
 
         /// <summary>Deletes a location from the repository.</summary>
         /// <param name="viewModel">The location to be deleted.</param>
-        public void DeleteLocation(object viewModel)
+        public async void DeleteLocation(object viewModel)
         {
             // Get the location to save
             Guid locationId = ((LocationDetailsViewModel)viewModel).Location.Id;
 
-            this.locationRepository.Delete(locationId);
+            await this.locationRepository.DeleteAsync(locationId);
             this.Locations.Remove(locationId);
         }
 
         /// <summary>Creates a new location from scratch.</summary>
-        public void CreateLocation()
+        public async void CreateLocation()
         {
             NewLocationViewModel newLocation = new NewLocationViewModel { DisplayName = "Create Location" };
 
@@ -319,7 +319,7 @@ namespace RpgTools.LocationPresenter.ViewModels
 
             if (answer.HasValue && answer.Value)
             {
-                this.locationRepository.Create(new DataContainer<Location> { Content = newLocation.Location });
+                await this.locationRepository.CreateAsync(new DataContainer<Location> { Content = newLocation.Location });
             }
 
             this.FilterLocations();
