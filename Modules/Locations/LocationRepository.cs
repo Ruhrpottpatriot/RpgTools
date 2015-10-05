@@ -8,10 +8,12 @@ namespace RpgTools.Locations
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Migrations;
     using System.Globalization;
     using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     using EntityFramework.Extensions;
     using RpgTools.Core.Common;
     using RpgTools.Core.Models;
@@ -47,55 +49,94 @@ namespace RpgTools.Locations
 
         /// <summary>Gets or sets the locations.</summary>
         internal DbSet<LocationDatabaseItem> Locations { get; set; }
-
+        
         /// <inheritdoc />
-        public Location Find(Guid identifier)
+        public Task<Location> FindAsync(Guid identifier)
         {
-            IDataContainer<LocationDatabaseItem> data = this.CreateContainer(this.Locations.Single(l => l.Id == identifier), this.Culture);
-            return this.readConverter.Convert(data);
+            return this.FindAsync(identifier, CancellationToken.None);
         }
 
         /// <inheritdoc />
-        public IDictionaryRange<Guid, Location> FindAll(ICollection<Guid> identifiers)
+        public async Task<Location> FindAsync(Guid identifier, CancellationToken cancellationToken)
         {
-            IDataContainer<ICollection<LocationDatabaseItem>> data = this.CreateContainer<ICollection<LocationDatabaseItem>>(
-                this.Locations.Where(c => identifiers.Any(i => i == c.Id)).ToList(), 
-                this.Culture);
-
-            return this.bulkReadConverter.Convert(data);
+            Task<IDataContainer<LocationDatabaseItem>> data = Task.Run(() => this.CreateContainer(this.Locations.Single(l => l.Id == identifier), this.Culture), cancellationToken);
+            return this.readConverter.Convert(await data);
         }
 
         /// <inheritdoc />
-        public IDictionaryRange<Guid, Location> FindAll()
+        public Task<IDictionaryRange<Guid, Location>> FindAllAsync()
         {
-            IDataContainer<ICollection<LocationDatabaseItem>> data = this.CreateContainer<ICollection<LocationDatabaseItem>>(this.Locations.ToList(), this.Culture);
-
-            return this.bulkReadConverter.Convert(data);
+            return this.FindAllAsync(CancellationToken.None);
         }
 
-        /// <summary>Deletes a specific item from the database.</summary>
-        /// <param name="identifier">The item to delete.</param>
-        public void Delete(Guid identifier)
+        /// <inheritdoc />
+        public async Task<IDictionaryRange<Guid, Location>> FindAllAsync(CancellationToken cancellationToken)
         {
-            this.Locations.Where(l => l.Id == identifier).Delete();
+            var data = Task.Run(() => this.CreateContainer<ICollection<LocationDatabaseItem>>(this.Locations.ToList(), this.Culture), cancellationToken);
+
+            return this.bulkReadConverter.Convert(await data);
+        }
+
+        /// <inheritdoc />
+        public Task<IDictionaryRange<Guid, Location>> FindAllAsync(ICollection<Guid> identifiers)
+        {
+            return this.FindAllAsync(identifiers, CancellationToken.None);
+        }
+
+        /// <inheritdoc />
+        public async Task<IDictionaryRange<Guid, Location>> FindAllAsync(ICollection<Guid> identifiers, CancellationToken cancellationToken)
+        {
+            var data = Task.Run(
+                () => this.CreateContainer<ICollection<LocationDatabaseItem>>(
+                this.Locations.Where(c => identifiers.Any(i => i == c.Id)).ToList(),
+                this.Culture), cancellationToken);
+
+            return this.bulkReadConverter.Convert(await data);
         }
 
         /// <summary>Creates a new item in the repository.</summary>
         /// <param name="data">The data to write to the repository.</param>
-        public void Create(IDataContainer<Location> data)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <inheritdoc />
+        public Task CreateAsync(IDataContainer<Location> data)
+        {
+            return this.CreateAsync(data, CancellationToken.None);
+        }
+
+        /// <inheritdoc />
+        public async Task CreateAsync(IDataContainer<Location> data, CancellationToken cancellationToken)
         {
             LocationDatabaseItem convertedData = this.writeConverter.Convert(data);
             this.Locations.Add(convertedData);
-            this.SaveChanges();
+            await this.SaveChangesAsync(cancellationToken);
         }
 
-        /// <summary>Updates an item in the repository with the given data.</summary>
-        /// <param name="data">The new data to store in the repository.</param>
-        public void Update(IDataContainer<Location> data)
+        /// <inheritdoc />
+        public Task UpdateAsync(IDataContainer<Location> data)
+        {
+            return this.UpdateAsync(data, CancellationToken.None);
+        }
+
+        /// <inheritdoc />
+        public async Task UpdateAsync(IDataContainer<Location> data, CancellationToken cancellationToken)
         {
             LocationDatabaseItem convertedData = this.writeConverter.Convert(data);
             this.Locations.AddOrUpdate(convertedData);
-            this.SaveChanges();
+            await this.SaveChangesAsync(cancellationToken);
+        }
+
+        /// <inheritdoc />
+        public Task DeleteAsync(Guid identifier)
+        {
+            return this.DeleteAsync(identifier, CancellationToken.None);
+        }
+
+        /// <inheritdoc />
+        public async Task DeleteAsync(Guid identifier, CancellationToken cancellationToken)
+        {
+            this.Locations.Where(l => l.Id == identifier).Delete();
+
+            await this.SaveChangesAsync(cancellationToken);
         }
 
         /// <inheritdoc />
